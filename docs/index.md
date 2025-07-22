@@ -1,7 +1,3 @@
-<!-- 
-SPDX-FileCopyrightText: SAP SE or an SAP affiliate company
-SPDX-License-Identifier: Apache-2.0
--->
 ---
 # https://vitepress.dev/reference/default-theme-home-page
 layout: home
