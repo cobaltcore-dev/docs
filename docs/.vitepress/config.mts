@@ -6,6 +6,7 @@ import { withMermaid } from "vitepress-plugin-mermaid";
 export default withMermaid(defineConfig({
   title: "CobaltCore",
   description: "Opinionated OpenStack distribution that builds upon IronCore’s foundation to support non-cloud-native workloads",
+  base: "/docs/",
   head: [['link', { rel: 'icon', href: 'https://raw.githubusercontent.com/cobaltcore-dev/.github/refs/heads/main/assets/Logo_Cobalt_Core_background_white.svg' }]],
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
