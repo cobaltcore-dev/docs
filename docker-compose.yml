@@ -1,0 +1,9 @@
+# SPDX-FileCopyrightText: SAP SE or an SAP affiliate company
+# SPDX-License-Identifier: Apache-2.0
+services:
+  vitepress:
+    build: .
+    ports:
+      - "5173:5173" # Map container port 5173 to host port 5173
+    volumes:
+      - ./docs:/app/docs # Mount your local project directory into the container
