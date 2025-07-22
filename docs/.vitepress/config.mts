@@ -1,9 +1,10 @@
 import { defineConfig } from 'vitepress'
 import { withMermaid } from "vitepress-plugin-mermaid";
+import { generateSidebar } from 'vitepress-sidebar';
 
 
 // https://vitepress.dev/reference/site-config
-export default withMermaid(defineConfig({
+export default defineConfig(withMermaid({
   title: "CobaltCore",
   description: "Opinionated OpenStack distribution that builds upon IronCore’s foundation to support non-cloud-native workloads",
   base: "/docs/",
@@ -12,11 +13,21 @@ export default withMermaid(defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Architecture', link: '/architecture' }
+      {
+        text: 'Projects',
+        items: [
+          { text: 'ApeiroRA', link: 'https://apeirora.eu/' },
+          { text: 'Gardener', link: 'https://gardener.cloud/' },
+          { text: 'GardenLinux', link: 'https://github.com/gardenlinux/gardenlinux' },
+          { text: 'IronCore', link: 'https://ironcore.dev/' },
+          { text: 'IronCore Metal Operator', link: 'https://ironcore.dev/metal-operator/' },
+          { text: 'OpenStack', link: 'https://www.openstack.org/' },
+        ]
+      },
     ],
 
     editLink: {
-      pattern: 'https://github.com/cobaltcore-dev/.github/blob/main/docs/:path',
+      pattern: 'https://github.com/cobaltcore-dev/docs/edit/main/docs/:path',
       text: 'Edit this page on GitHub'
     },
 
@@ -30,18 +41,17 @@ export default withMermaid(defineConfig({
       provider: 'local'
     },
 
-    sidebar: [
-      {
-        text: 'Contents',
-        items: [
-          { text: 'Architecture', link: '/architecture' },
-          { text: 'API Reference', link: '/api' }
-        ]
-      }
-    ],
+    sidebar: generateSidebar({
+      documentRootPath: '/docs/',
+      capitalizeFirst: true,
+      useTitleFromFileHeading: false,
+      useTitleFromFrontmatter: true,
+      useFolderLinkFromIndexFile: true,
+      useFolderTitleFromIndexFile: true,
+    }),
 
     socialLinks: [
       { icon: 'github', link: 'https://github.com/cobaltcore-dev' }
-    ]
-  }
+    ],
+  },
 }))

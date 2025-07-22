@@ -11,6 +11,9 @@ hero:
 
   tagline: Leverage the power of OpenStack and IronCore bring your workloads to the cloud
   actions:
+    - theme: brand
+      text: Usage
+      link: /usage
     - theme: alt
       text: Architecture
       link: /architecture
@@ -27,3 +30,5 @@ features:
     details: Integrated monitoring and management tools powered by Greenhouse to keep your OpenStack environment healthy
 ---
 
+
+![Bundesministerium für Wirtschaft und Energie (BMWE)-EU funding logo](https://apeirora.eu/assets/img/BMWK-EU.png "apeirora_logo")
