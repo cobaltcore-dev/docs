@@ -1,5 +1,5 @@
 ---
-title: Cortex initial placement and scheduling
+title: Cortex
 ---
 
 # Cortex
