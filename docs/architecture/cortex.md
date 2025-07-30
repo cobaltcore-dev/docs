@@ -4,6 +4,8 @@ title: Cortex
 
 # Cortex
 
+<a href="https://github.com/cobaltcore-dev/cortex"><img align="left" width="170" height="170" src="https://raw.githubusercontent.com/cobaltcore-dev/cortex/main/docs/assets/Cortex_Logo_black_space_square_bg_rd%402x.png"></a>
+
 Cortex is a modular and extensible service for initial placement and scheduling in cloud-native environments covering workloads such as compute, storage, network, and other scheduling domains.  
 It improves resource utilization and operational performance by making smart placement decisions based on the current state of the environment and defined constraints and objectives.
 
