@@ -12,5 +12,4 @@ CobaltCore is built on top of OpenStack and IronCore, leveraging their capabilit
 - [**OpenStack**](./openstack): The various OpenStack services that provide compute, storage, and networking capabilities to the CobaltCore environment.
 - **Greenhouse**: The monitoring and management tool that provides insights into the health and performance of the CobaltCore environment.
 - [**HA Service**](./cluster#ha-service): The high availability service that ensures critical workloads remain operational even in the event of failures.
-- **Cortex**: Smart placement service for VMs and storage in an OpenStack cloud environment.
-
+- [**Cortex**](./cortex): Smart initial placement and scheduling service for compute, storage, and network in cloud-native cloud environments.
