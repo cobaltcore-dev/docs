@@ -1,0 +1,48 @@
+# SPDX-FileCopyrightText: Copyright 2024 SAP SE or an SAP affiliate company and cobaltcore-dev contributors
+#
+# SPDX-License-Identifier: Apache-2.0
+
+name: Update API Docs
+on:
+  schedule:
+    - cron: "0 0 * * 0"  # Runs every Sunday at midnight
+  workflow_dispatch:
+
+jobs:
+  update-api:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout this repository
+      uses: actions/checkout@v5
+    - name: Checkout openstack-hypervisor-operator repository
+      uses: actions/checkout@v5
+      with:
+        repository: cobaltcore-dev/openstack-hypervisor-operator
+        path: openstack-hypervisor-operator
+    - name: Checkout kvm-node-agent repository
+      uses: actions/checkout@v5
+      with:
+        repository: cobaltcore-dev/kvm-node-agent
+        path: kvm-node-agent
+    - name: Install crdoc
+      uses: jaxxstorm/action-install-gh-release@v1.10.0
+      with: # Grab the latest version
+        repo: fybrik/crdoc
+        tag: v0.6.4
+    - name: Run crdoc to update api
+      run: | 
+        crdoc generate --template frontmatter.tmpl --resources openstack-hypervisor-operator/config/crd/bases/kvm.cloud.sap_evictions.yaml --toc hack/template/eviction.yaml --output docs/api/kvm.cloud.sap/v1/eviction.md
+        crdoc generate --template frontmatter.tmpl --resources openstack-hypervisor-operator/config/crd/bases/kvm.cloud.sap_hypervisors.yaml --toc hack/template/hypervisor.yaml --output docs/api/kvm.cloud.sap/v1/hypervisor.md
+        crdoc generate --template frontmatter.tmpl --resources kvm-node-agent/config/crd/bases/kvm.cloud.sap_migrations.yaml --toc hack/template/migration.yaml --output docs/api/kvm.cloud.sap/v1alpha1/migration.md
+    - name: Commit changes
+      run: |
+        if ! command -v git &> /dev/null; then
+          sudo apt-get update && sudo apt-get install git -y
+        fi
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git add docs/api/*.md
+        git commit -m "Update API docs" || echo "No changes to commit"
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,9 @@
+metadata:
+  title: "Migration"
+  weight: 1
+  description: "Migration CRD"
+groups:
+- group: kvm.cloud.sap
+  version: v1alpha1
+  kinds:
+    - name: Migration

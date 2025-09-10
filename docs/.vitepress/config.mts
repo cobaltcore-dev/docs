@@ -43,7 +43,7 @@ export default defineConfig(withMermaid({
 
     sidebar: generateSidebar({
       documentRootPath: '/docs/',
-      capitalizeFirst: true,
+      capitalizeFirst: false,
       useTitleFromFileHeading: false,
       useTitleFromFrontmatter: true,
       useFolderLinkFromIndexFile: true,

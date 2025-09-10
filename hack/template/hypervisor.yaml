@@ -1,0 +1,9 @@
+metadata:
+  title: "Hypervisor"
+  weight: 1
+  description: "Hypervisor CRD"
+groups:
+- group: kvm.cloud.sap
+  version: v1
+  kinds:
+    - name: Hypervisor

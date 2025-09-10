@@ -1,0 +1,9 @@
+metadata:
+  title: "Eviction"
+  weight: 1
+  description: "Eviction CRD"
+groups:
+- group: kvm.cloud.sap
+  version: v1
+  kinds:
+    - name: Eviction
