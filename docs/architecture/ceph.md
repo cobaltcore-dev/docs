@@ -13,6 +13,6 @@ Storage Cluster accommodates large numbers of nodes, which communicate with
 each other to replicate and redistribute data dynamically.
 
 ## Architecture
-The architecture of the Ceph cluster is explained on [the Architecture
+The architecture of the Ceph cluster is explained in [the Architecture
 chapter of the upstream Ceph
 documentation](https://docs.ceph.com/en/latest/architecture/)
