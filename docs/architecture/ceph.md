@@ -14,134 +14,127 @@ each other to replicate and redistribute data dynamically.
 
 ## Architecture
 
-### The Ceph Storage Cluster
+## Ceph Block Device Summary (RBD)
 
-At its core, Ceph provides an infinitely scalable storage cluster based on
-RADOS (Reliable Autonomic Distributed Object Store), a distributed storage
-service that uses the intelligence in each node to secure data and provide it
-to clients. A Ceph Storage Cluster consists of four daemon types: Ceph
-Monitors, which maintain the master copy of the cluster map; Ceph OSD Daemons,
-which check their own state and that of other OSDs; Ceph Managers, serving as
-endpoints for monitoring and orchestration; and Ceph Metadata Servers (MDS),
-which manage file metadata when CephFS provides file services.
+### Overview of RBD
 
-Storage cluster clients and Ceph OSD Daemons use the CRUSH (Controlled
-Scalable Decentralized Placement of Replicated Data) algorithm to compute data
-location information, avoiding bottlenecks from central lookup tables. This
-algorithmic approach enables Ceph's high-level features, including a native
-interface to the storage cluster via librados and numerous service interfaces
-built atop it.
+A block is a sequence of bytes, often 512 bytes in size. Block-based storage
+interfaces represent a mature and common method for storing data on various
+media types including hard disk drives (HDDs), solid-state drives (SSDs),
+compact discs (CDs), floppy disks, and magnetic tape. The widespread adoption
+of block device interfaces makes them an ideal fit for mass data storage
+applications, including their integration with Ceph storage systems.
 
-### Data Storage and Organization
+### Core Features
 
-The Ceph Storage Cluster receives data from clients through various
-interfaces—Ceph Block Device, Ceph Object Storage, CephFS, or custom
-implementations using librados—and stores it as RADOS objects. Each object
-resides on an Object Storage Device (OSD), with Ceph OSD Daemons controlling
-read, write, and replication operations. The default BlueStore backend stores
-objects in a monolithic, database-like fashion within a flat namespace, meaning
-objects lack hierarchical directory structures. Each object has an identifier,
-binary data, and name/value pair metadata, with clients determining object data
-semantics.
+Ceph block devices are designed with three fundamental characteristics:
+thin-provisioning, resizability, and data striping across multiple Object
+Storage Daemons (OSDs). These devices leverage the full capabilities of RADOS
+(Reliable Autonomic Distributed Object Store), including snapshotting,
+replication, and strong consistency guarantees. Ceph block storage clients
+establish communication with Ceph clusters through two primary methods: kernel
+modules or the librbd library.
 
-### Eliminating Centralization
+An important distinction exists between these two communication methods
+regarding caching behavior. Kernel modules have the capability to utilize Linux
+page caching for performance optimization. For applications that rely on the
+librbd library, Ceph provides its own RBD (RADOS Block Device) caching
+mechanism to enhance performance.
 
-Traditional architectures rely on centralized components—gateways, brokers, or
-APIs—that act as single points of entry, creating failure points and
-performance limits. Ceph eliminates these centralized components, enabling
-clients to interact directly with Ceph OSDs. OSDs create object replicas on
-other nodes to ensure data safety and high availability, while monitor clusters
-ensure high availability. The CRUSH algorithm replaces centralized lookup
-tables, providing better data management by distributing work across all OSD
-daemons and communicating clients, using intelligent data replication to ensure
-resiliency suitable for hyper-scale storage.
+### Performance and Scalability
 
-### Cluster Map and High Availability
+Ceph's block devices are engineered to deliver high performance combined with
+vast scalability capabilities. This performance extends to various deployment
+scenarios, including direct integration with kernel modules and virtualization
+environments. The architecture supports Key-Value Machines (KVMs) such as QEMU,
+enabling efficient virtualized storage operations.
 
-For proper functioning, Ceph clients and OSDs require current cluster topology
-information stored in the Cluster Map, actually a collection of five maps: the
-Monitor Map (containing cluster fsid, monitor positions, names, addresses, and
-ports), the OSD Map (containing cluster fsid, pool lists, replica sizes, PG
-numbers, and OSD statuses), the PG Map (containing PG versions, timestamps, and
-placement group details), the CRUSH Map (containing storage devices, failure
-domain hierarchy, and traversal rules), and the MDS Map (containing MDS map
-epoch, metadata storage pool, and metadata server information). Each map
-maintains operational state change history, with Ceph Monitors maintaining
-master copies including cluster members, states, changes, and overall health.
+Cloud-based computing platforms have embraced Ceph block devices as a storage
+backend solution. Major cloud computing systems including OpenStack, OpenNebula,
+and CloudStack integrate with Ceph block devices through their reliance on
+libvirt and QEMU technologies. This integration allows these cloud platforms to
+leverage Ceph's distributed storage capabilities for their virtual machine
+storage requirements.
 
-Ceph uses monitor clusters for reliability and fault tolerance. To establish
-consensus about cluster state, Ceph employs the Paxos algorithm, requiring a
-majority of monitors to agree (one in single-monitor clusters, two in
-three-monitor clusters, three in five-monitor clusters, and so forth). This
-prevents issues when monitors fall behind due to latency or faults.
+### Unified Storage Cluster
 
-### Authentication and Security
+One of Ceph's significant architectural advantages is its ability to support
+multiple storage interfaces simultaneously within a single cluster. The same
+Ceph cluster can concurrently operate the Ceph RADOS Gateway for object
+storage, the Ceph File System (CephFS) for file-based storage, and Ceph block
+devices for block-based storage. This unified approach eliminates the need for
+separate storage infrastructure for different storage paradigms, simplifying
+management and reducing operational overhead.
 
-The cephx authentication system authenticates users and daemons while
-protecting against man-in-the-middle attacks, though it doesn't address
-transport encryption or encryption at rest. Using shared secret keys, cephx
-enables mutual authentication without revealing keys. Like Kerberos, each
-monitor can authenticate users and distribute keys, eliminating single points
-of failure. The system issues session keys encrypted with users' permanent
-secret keys, which clients use to request services. Monitors provide tickets
-authenticating clients against OSDs handling data, with monitors and OSDs
-sharing secrets enabling ticket use across any cluster OSD or metadata server.
-Tickets expire to prevent attackers from using obtained credentials, protecting
-against message forgery and alteration as long as secret keys remain secure
-before expiration.
+This multi-interface capability allows organizations to deploy a single storage
+solution that addresses diverse storage requirements, from traditional block
+storage for databases and virtual machines to object storage for unstructured
+data and file storage for shared filesystems. The convergence of these storage
+types within one cluster provides operational efficiency and cost-effectiveness
+while maintaining the performance and reliability characteristics required for
+enterprise deployments.
 
-### Smart Daemons and Hyperscale
+### Technical Implementation
 
-Ceph's architecture makes OSD Daemons and clients cluster-aware, unlike
-centralized storage clusters requiring double dispatches that bottleneck at
-petabyte-to-exabyte scale. Each Ceph OSD Daemon knows other OSDs in the
-cluster, enabling direct interaction with other OSDs and monitors. This
-awareness allows clients to interact directly with OSDs, and because monitors
-and OSD daemons interact directly, OSDs leverage aggregate cluster CPU and RAM
-resources.
+The thin-provisioning feature of Ceph block devices means that storage space is
+allocated only as data is written, rather than pre-allocating the entire volume
+capacity upfront. This approach optimizes storage utilization by avoiding waste
+from unused pre-allocated space and allows for oversubscription strategies
+where the sum of provisioned capacity can exceed physical capacity, based on
+actual usage patterns.
 
-This distributed intelligence provides several benefits: OSDs service clients
-directly, improving performance by avoiding centralized interface connection
-limits; OSDs report membership and status (up or down), with neighboring OSDs
-detecting and reporting failures; data scrubbing maintains consistency by
-comparing object metadata across replicas, with deeper scrubbing comparing data
-bit-for-bit against checksums to find bad drive sectors; and replication
-involves client-OSD collaboration, with clients using CRUSH to determine object
-locations, mapping objects to pools and placement groups, then writing to
-primary OSDs that replicate to secondary OSDs.
+The resizable nature of Ceph block devices provides operational flexibility,
+allowing administrators to expand or contract volume sizes based on changing
+application requirements without disrupting service availability. This dynamic
+sizing capability supports evolving storage needs without requiring complex
+migration procedures or extended downtime windows.
 
-### Dynamic Cluster Management
+Data striping across multiple OSDs distributes data blocks across the cluster's
+storage nodes. This distribution achieves two critical objectives: it increases
+aggregate throughput by allowing parallel I/O operations across multiple
+devices, and it ensures data availability through the replication mechanisms
+built into RADOS. The striping process breaks data into smaller chunks that are
+distributed according to the cluster's CRUSH (Controlled Scalable Decentralized
+Placement of Replicated Data) algorithm, which determines optimal placement
+based on cluster topology and configured policies.
 
-Pools are logical partitions for storing objects, with clients retrieving
-cluster maps from monitors and writing RADOS objects to pools. CRUSH
-dynamically maps placement groups (PGs) to OSDs, with clients storing objects
-by having CRUSH map each RADOS object to a PG. This abstraction layer between
-OSDs and clients enables adaptive cluster growth, shrinkage, and data
-redistribution when topology changes. The indirection allows dynamic
-rebalancing when new OSDs come online.
+### RADOS Integration
 
-Clients compute object locations rather than querying, requiring only object ID
-and pool name. Ceph hashes object IDs, calculates hash modulo PG numbers,
-retrieves pool IDs from pool names, and prepends pool IDs to PG IDs. This
-computation proves faster than query sessions, with CRUSH enabling clients to
-compute expected object locations and contact primary OSDs for storage or
-retrieval.
+The integration with RADOS provides Ceph block devices with enterprise-grade
+features. Snapshotting capability enables point-in-time copies of block devices,
+supporting backup operations, testing scenarios, and recovery procedures.
+Snapshots are space-efficient, storing only changed data rather than full
+copies, and can be created instantaneously without impacting ongoing operations.
 
-### Client Interfaces
+Replication ensures data durability by maintaining multiple copies of data
+across different cluster nodes. The replication factor is configurable,
+allowing organizations to balance storage efficiency against data protection
+requirements. Strong consistency guarantees ensure that all replicas reflect the
+same data state, preventing split-brain scenarios and ensuring data integrity
+even during failure conditions.
 
-Ceph provides three client types: Ceph Block Device (RBD) offers resizable,
-thin-provisioned, snapshottable block devices striped across clusters for high
-performance; Ceph Object Storage (RGW) provides RESTful APIs compatible with
-Amazon S3 and OpenStack Swift; and CephFS provides POSIX-compliant filesystems
-mountable as kernel objects or FUSE. Modern applications access storage through
-librados, which provides direct parallel cluster access supporting pool
-operations, snapshots, copy-on-write cloning, object read/write operations,
-extended attributes, key/value pairs, and object classes.
+The communication architecture between block storage clients and Ceph clusters
+through kernel modules or librbd provides flexibility in deployment scenarios.
+Kernel module integration enables direct access from operating systems, while
+librbd allows applications to interact with Ceph block devices programmatically,
+supporting a wide range of use cases from bare-metal servers to containerized
+applications.
 
-The architecture demonstrates how Ceph's distributed, intelligent design
-eliminates traditional storage limitations, enabling massive scalability while
-maintaining reliability and performance through algorithmic data placement,
-autonomous daemon operations, and direct client-storage interactions.
+### Conclusion
+
+Ceph block devices represent a sophisticated implementation of block storage
+that combines the traditional simplicity of block-based interfaces with modern
+distributed storage capabilities. The thin-provisioned, resizable architecture
+with data striping across multiple OSDs provides a foundation for scalable,
+high-performance storage. Integration with RADOS brings enterprise features
+including snapshotting, replication, and strong consistency, while support for
+both kernel modules and librbd ensures broad compatibility across deployment
+scenarios. The ability to run block devices alongside object and file storage
+within a unified cluster positions Ceph as a comprehensive storage solution
+capable of addressing diverse organizational storage requirements through a
+single infrastructure platform. This convergence of capabilities, combined with
+proven integration with major virtualization and cloud platforms, establishes
+Ceph block devices as a viable solution for modern data center storage needs.
 
 ## See Also
 The architecture of the Ceph cluster is explained in [the Architecture
