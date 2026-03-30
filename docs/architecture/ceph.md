@@ -136,6 +136,159 @@ single infrastructure platform. This convergence of capabilities, combined with
 proven integration with major virtualization and cloud platforms, establishes
 Ceph block devices as a viable solution for modern data center storage needs.
 
+## RADOS Gateway (RGW) in Summary 
+
+### Introduction
+
+RADOS Gateway, commonly referred to as RGW or radosgw, is Ceph's object storage
+interface that provides applications with a RESTful gateway to store objects
+and metadata in a Ceph cluster. As one of Ceph's three primary storage
+interfaces alongside CephFS (file storage) and RBD (block storage), RGW
+transforms Ceph's underlying RADOS object store into a scalable, S3 and
+Swift-compatible object storage service. This enables organizations to build
+cloud storage solutions that are compatible with industry-standard APIs while
+leveraging Ceph's distributed architecture for reliability, scalability, and
+performance.
+
+### Architecture and Design
+
+RGW operates as a FastCGI or standalone HTTP service that sits atop the Ceph
+Storage Cluster. Unlike direct RADOS access, RGW provides a higher-level
+abstraction specifically designed for object storage workloads. The gateway
+maintains its own data formats, user database, authentication mechanisms, and
+access control systems independent of the underlying Ceph cluster's
+authentication.
+
+When a client stores data through RGW, the gateway receives HTTP requests,
+authenticates the user, authorizes the operation, and then translates the
+request into RADOS operations. Objects stored via RGW are ultimately persisted
+as RADOS objects in the Ceph cluster, but RGW manages the mapping between
+S3/Swift objects and the underlying RADOS objects. This abstraction layer allows
+a single S3 or Swift object to potentially map to multiple RADOS objects,
+particularly for large files that are striped across the cluster.
+
+### API Compatibility
+
+One of RGW's most significant features is its dual API compatibility. RGW
+provides RESTful interfaces compatible with both Amazon S3 and OpenStack Swift,
+enabling applications designed for these platforms to work with Ceph without
+modification. This compatibility extends beyond basic object operations to
+include advanced features like multipart uploads, versioning, lifecycle
+management, and bucket policies.
+
+The S3-compatible API supports a comprehensive set of operations including
+bucket creation and deletion, object PUT/GET/DELETE operations, ACL management,
+and metadata handling. The Swift-compatible API provides similar functionality
+using Swift's terminology and conventions, with containers instead of buckets
+and account/container/object hierarchy. Importantly, RGW implements a unified
+namespace, meaning data written through the S3 API can be read through the Swift
+API and vice versa, providing exceptional flexibility for multi-application
+environments.
+
+### Multi-Tenancy and User Management
+
+RGW implements sophisticated multi-tenancy capabilities that allow multiple
+independent users and organizations to share the same Ceph cluster while
+maintaining complete isolation. The system supports multiple authentication
+mechanisms including built-in user management, LDAP integration, and integration
+with external authentication systems like Keystone for OpenStack environments.
+
+Users in RGW are organized into a hierarchical structure. Each user belongs to a
+tenant (which can be implicit or explicit), and users can have multiple access
+keys for different applications or purposes. RGW manages user credentials,
+quotas, and usage statistics independently, enabling service providers to offer
+object storage as a multi-tenant service with per-user billing and resource
+limits.
+
+### Data Organization
+
+RGW organizes data using a bucket-based model for S3 compatibility (containers
+in Swift terminology). Buckets are logical containers that hold objects, with
+each bucket having its own policies, ACLs, and configuration. Objects within
+buckets are identified by unique keys and can include arbitrary metadata
+alongside the actual data payload.
+
+Internally, RGW uses multiple RADOS pools to organize different types of data.
+Separate pools typically store bucket indexes, data objects, and metadata,
+allowing administrators to apply different replication or erasure coding
+strategies to different data types. For example, bucket indexes might use
+replication for fast access while large data objects use erasure coding for
+storage efficiency.
+
+### Advanced Features
+
+RGW supports numerous advanced object storage features that make it suitable for
+production deployments. Object versioning allows multiple versions of the same
+object to coexist, enabling recovery from accidental overwrites or deletions.
+Lifecycle management policies automate the transition of objects between storage
+classes or deletion after specified periods, reducing storage costs and
+administrative overhead.
+
+Server-side encryption provides data protection at rest, with support for
+multiple encryption modes including customer-provided keys. Cross-origin
+resource sharing (CORS) configuration enables web applications to access RGW
+directly from browsers. Bucket notifications allow applications to receive
+real-time events when objects are created, deleted, or modified, enabling
+event-driven architectures.
+
+### Scalability and Performance
+
+RGW's architecture enables horizontal scaling to meet growing storage and
+throughput demands. Multiple RGW instances can be deployed behind load
+balancers to distribute client requests across many gateways. Each RGW instance
+operates independently, communicating directly with the underlying Ceph
+cluster, avoiding any single point of contention.
+
+For improved performance, RGW implements various optimization strategies. It
+can cache frequently accessed objects and metadata to reduce latency for
+popular content. Asynchronous operations handle time-consuming tasks like
+garbage collection and data synchronization without blocking client requests.
+The gateway also supports byte-range requests, enabling efficient partial
+object retrieval for large files and supporting features like HTTP video
+streaming.
+
+### Multi-Site Capabilities
+
+RGW includes robust multi-site replication capabilities for disaster recovery,
+geographic distribution, and compliance requirements. The multi-site
+architecture supports active-active configurations where multiple RGW clusters
+can accept writes simultaneously, with changes automatically synchronized
+across sites. This enables organizations to build globally distributed object
+storage systems with local read/write access and automatic data replication.
+
+Metadata and data can be replicated independently with different strategies,
+allowing for flexible topology designs. Zone groups organize multiple zones
+(independent RGW deployments) into replication domains, while periods define
+consistent configuration states across all zones. This sophisticated
+replication framework supports complex scenarios like hub-and-spoke topologies,
+full-mesh replication, and tiered storage architectures.
+
+### Monitoring and Operations
+
+RGW provides comprehensive monitoring capabilities through usage statistics,
+performance metrics, and administrative APIs. Administrators can track
+bandwidth consumption, request rates, and storage utilization on a per-user or
+per-bucket basis. Integration with standard monitoring tools allows RGW metrics
+to be collected and visualized alongside other infrastructure components.
+
+The admin API enables programmatic management of users, buckets, and quotas,
+facilitating automation and integration with billing systems or custom
+management tools. Command-line tools provide capabilities for troubleshooting,
+data inspection, and emergency operations.
+
+### Conclusion
+
+RADOS Gateway represents a mature, feature-rich object storage solution that
+brings cloud-compatible APIs to Ceph's distributed storage platform. By
+providing S3 and Swift compatibility, RGW enables organizations to build
+private cloud storage solutions or offer object storage as a service while
+maintaining control over their infrastructure. Its scalability, multi-tenancy
+support, and advanced features make it suitable for use cases ranging from
+backup and archive to content distribution and application data storage. As
+part of the unified Ceph storage platform, RGW benefits from the same
+reliability, performance, and operational characteristics that make Ceph a
+leading choice for software-defined storage solutions.
+
 ## See Also
 The architecture of the Ceph cluster is explained in [the Architecture
 chapter of the upstream Ceph
