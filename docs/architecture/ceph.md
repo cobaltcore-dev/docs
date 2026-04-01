@@ -289,6 +289,172 @@ part of the unified Ceph storage platform, RGW benefits from the same
 reliability, performance, and operational characteristics that make Ceph a
 leading choice for software-defined storage solutions.
 
+## CephFS in Summary 
+
+### Introduction
+
+CephFS (Ceph File System) is Ceph's distributed file system interface that
+provides POSIX-compliant file storage built on top of the RADOS object store.
+As one of Ceph's three primary storage interfaces alongside RBD (block storage)
+and RGW (object storage), CephFS enables users to mount a shared filesystem that
+appears as a traditional hierarchical directory structure while leveraging
+Ceph's distributed storage capabilities for scalability, reliability, and
+performance. This combination of familiar filesystem semantics with enterprise
+storage features makes CephFS suitable for workloads ranging from home
+directories and shared application data to high-performance computing and big
+data analytics.
+
+### Architecture and Components
+
+CephFS operates through a carefully designed architecture that separates data
+and metadata management. At its core, CephFS relies on two essential components:
+the Metadata Server (MDS) and the underlying RADOS storage cluster that stores
+both file data and metadata.
+
+The Metadata Server daemon (ceph-mds) manages all filesystem metadata including
+directory structures, file ownership, permissions, access timestamps, and
+extended attributes. Unlike traditional filesystems where metadata resides on
+the same storage devices as data, CephFS stores metadata in dedicated RADOS
+pools, allowing it to be replicated and distributed independently. This
+separation enables CephFS to scale metadata operations independently of data
+operations, a critical capability for large-scale deployments.
+
+File data in CephFS is stored as RADOS objects distributed across the cluster's
+Object Storage Daemons (OSDs). When a client writes a file, CephFS stripes the
+data across multiple objects according to configurable striping parameters,
+enabling parallel I/O and leveraging the aggregate bandwidth of multiple storage
+devices. This architecture allows CephFS to scale from gigabytes to petabytes
+while maintaining consistent performance characteristics.
+
+### POSIX Compliance and Compatibility
+
+CephFS provides strong POSIX compliance, supporting the vast majority of
+standard filesystem operations expected by applications and users. This includes
+hierarchical directory structures, standard file permissions and ownership,
+symbolic and hard links, extended attributes, and file locking mechanisms. The
+POSIX compliance ensures that existing applications can use CephFS without
+modification, making it a drop-in replacement for traditional network filesystems
+like NFS or SMB.
+
+Clients can access CephFS through multiple methods. The kernel client integrates
+directly with the Linux kernel, providing native filesystem performance and
+supporting standard mount operations. FUSE (Filesystem in User Space) clients
+enable CephFS mounting on systems without kernel module support or in situations
+requiring non-root access. Additionally, libcephfs provides a library interface
+for applications to interact with CephFS programmatically, enabling custom
+integration scenarios.
+
+### Metadata Server Design
+
+The MDS represents a sophisticated component designed specifically for
+distributed metadata management. In CephFS, metadata operations like listing
+directories, creating files, or checking permissions can dominate workload
+patterns, particularly with applications handling many small files. By
+maintaining metadata in memory and leveraging high-performance RADOS operations
+for persistence, the MDS achieves low-latency metadata operations essential for
+good filesystem performance.
+
+CephFS supports multiple MDS daemons operating simultaneously, enabling both
+high availability and horizontal scalability. In active-passive configurations,
+standby MDS daemons monitor active instances and can take over immediately if an
+active MDS fails, with the transition handled automatically by Ceph monitors.
+The journal stored in RADOS ensures that no metadata operations are lost during
+failover.
+
+For scalability, CephFS implements dynamic subtree partitioning, allowing
+multiple active MDS daemons to divide the filesystem namespace among themselves.
+The system automatically balances load by migrating directory subtrees between
+MDS instances based on access patterns. A heavily accessed directory can even be
+sharded across multiple MDS daemons, with each daemon handling different entries
+within the same directory. This dynamic load balancing ensures that metadata
+operations scale with the number of active MDS instances.
+
+### Performance Characteristics
+
+CephFS delivers strong performance across diverse workloads through several
+architectural optimizations. Client-side caching reduces latency for frequently
+accessed data and metadata, with cache coherency maintained through distributed
+locking mechanisms managed by the MDS. This caching enables multiple clients to
+access the same files efficiently while maintaining consistency.
+
+The striping of file data across multiple RADOS objects enables high-bandwidth
+sequential I/O operations, with clients performing parallel reads and writes
+directly to OSDs. For large files, this parallelism allows CephFS to saturate
+available network bandwidth and leverage the aggregate throughput of many
+storage devices simultaneously.
+
+Metadata performance benefits from the MDS's in-memory metadata cache and
+efficient RADOS operations for persistence. For workloads with good locality,
+where applications repeatedly access files within the same directory trees, the
+MDS cache provides excellent performance. The ability to scale metadata
+operations through multiple active MDS daemons addresses the metadata bottleneck
+that plagues many distributed filesystems at scale.
+
+### Snapshots and Quotas
+
+CephFS provides sophisticated snapshot capabilities enabling point-in-time
+copies of directory trees. Snapshots are space-efficient, storing only changed
+data rather than full copies, and can be created instantly on any directory
+within the filesystem. Users can browse snapshot contents through a special
+`.snap` directory and restore files or entire directory trees as needed.
+Administrative snapshots enable backup and recovery strategies while
+user-accessible snapshots provide self-service recovery from accidental
+deletions or modifications.
+
+Directory quotas allow administrators to limit storage consumption at any point
+in the directory hierarchy. Quotas can restrict both the total bytes consumed
+and the number of files, with enforcement occurring at write time. This enables
+multi-tenant deployments where different users or projects share a filesystem
+while preventing any single entity from consuming excessive resources.
+
+### Multiple Filesystems
+
+Recent CephFS versions support multiple independent filesystems within a single
+Ceph cluster, each with its own namespace, MDS cluster, and data pools. This
+capability enables isolation between different use cases or tenants while
+sharing the underlying storage infrastructure. Each filesystem can be configured
+with different parameters, replication strategies, or performance
+characteristics appropriate to its specific workload requirements.
+
+### Security and Access Control
+
+CephFS implements multiple layers of security. Path-based access restrictions
+allow administrators to limit client access to specific directory subtrees,
+enabling multi-tenant scenarios where different clients see only their allocated
+portions of the filesystem. CephX authentication integrates with Ceph's native
+authentication system, ensuring that only authorized clients can mount the
+filesystem.
+
+Standard POSIX permissions and ACLs provide fine-grained access control at the
+file and directory level, allowing familiar Unix-style permission management.
+Extended attributes enable additional metadata storage for applications
+requiring custom attributes or security labels.
+
+### Use Cases and Applications
+
+CephFS excels in scenarios requiring shared filesystem access across multiple
+clients. Home directories, shared application data, and collaborative workspaces
+benefit from CephFS's strong consistency and POSIX compatibility. High
+performance computing environments leverage CephFS for shared job data and
+scratch space, taking advantage of the parallel I/O capabilities and scalability.
+
+Content creation workflows in media and entertainment utilize CephFS for shared
+storage of large media files, benefiting from high bandwidth and the ability to
+scale capacity and performance independently. Big data analytics platforms use
+CephFS for storing datasets that multiple processing nodes must access
+simultaneously.
+
+### Conclusion
+
+CephFS represents a mature, scalable distributed filesystem that brings POSIX
+compatibility to Ceph's distributed storage platform. By separating metadata and
+data management, supporting multiple active MDS daemons, and leveraging RADOS
+for reliable distributed storage, CephFS delivers enterprise-grade filesystem
+capabilities suitable for demanding production workloads. Its combination of
+familiar filesystem semantics, strong performance, and advanced features like
+snapshots and dynamic metadata scaling makes CephFS a compelling choice for
+organizations requiring shared filesystem storage at scale.
+
 ## See Also
 The architecture of the Ceph cluster is explained in [the Architecture
 chapter of the upstream Ceph
