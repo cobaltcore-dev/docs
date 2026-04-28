@@ -1,0 +1,461 @@
+---
+title: Ceph 
+---
+
+# Ceph 
+Ceph is a clustered and distributed storage manager.
+
+Ceph uniquely delivers object, block, and file storage in one unified system.
+Ceph is highly reliable, easy to manage, and free. Ceph delivers extraordinary
+scalability–thousands of clients accessing petabytes to exabytes of data. A
+Ceph Node leverages commodity hardware and intelligent daemons, and a Ceph
+Storage Cluster accommodates large numbers of nodes, which communicate with
+each other to replicate and redistribute data dynamically.
+
+## Architecture
+
+### Ceph Block Device Summary (RBD)
+
+#### Overview of RBD
+
+A block is a sequence of bytes, often 512 bytes in size. Block-based storage
+interfaces represent a mature and common method for storing data on various
+media types including hard disk drives (HDDs), solid-state drives (SSDs),
+compact discs (CDs), floppy disks, and magnetic tape. The widespread adoption
+of block device interfaces makes them an ideal fit for mass data storage
+applications, including their integration with Ceph storage systems.
+
+#### Core Features
+
+Ceph block devices are designed with three fundamental characteristics:
+thin-provisioning, resizability, and data striping across multiple Object
+Storage Daemons (OSDs). These devices leverage the full capabilities of RADOS
+(Reliable Autonomic Distributed Object Store), including snapshotting,
+replication, and strong consistency guarantees. Ceph block storage clients
+establish communication with Ceph clusters through two primary methods: kernel
+modules or the librbd library.
+
+An important distinction exists between these two communication methods
+regarding caching behavior. Kernel modules have the capability to utilize Linux
+page caching for performance optimization. For applications that rely on the
+librbd library, Ceph provides its own RBD (RADOS Block Device) caching
+mechanism to enhance performance.
+
+#### Performance and Scalability
+
+Ceph's block devices are engineered to deliver high performance combined with
+vast scalability capabilities. This performance extends to various deployment
+scenarios, including direct integration with kernel modules and virtualization
+environments. The architecture supports Key-Value Machines (KVMs) such as QEMU,
+enabling efficient virtualized storage operations.
+
+Cloud-based computing platforms have embraced Ceph block devices as a storage
+backend solution. Major cloud computing systems including OpenStack, OpenNebula,
+and CloudStack integrate with Ceph block devices through their reliance on
+libvirt and QEMU technologies. This integration allows these cloud platforms to
+leverage Ceph's distributed storage capabilities for their virtual machine
+storage requirements.
+
+#### Unified Storage Cluster
+
+One of Ceph's significant architectural advantages is its ability to support
+multiple storage interfaces simultaneously within a single cluster. The same
+Ceph cluster can concurrently operate the Ceph RADOS Gateway for object
+storage, the Ceph File System (CephFS) for file-based storage, and Ceph block
+devices for block-based storage. This unified approach eliminates the need for
+separate storage infrastructure for different storage paradigms, simplifying
+management and reducing operational overhead.
+
+This multi-interface capability allows organizations to deploy a single storage
+solution that addresses diverse storage requirements, from traditional block
+storage for databases and virtual machines to object storage for unstructured
+data and file storage for shared filesystems. The convergence of these storage
+types within one cluster provides operational efficiency and cost-effectiveness
+while maintaining the performance and reliability characteristics required for
+enterprise deployments.
+
+#### Technical Implementation
+
+The thin-provisioning feature of Ceph block devices means that storage space is
+allocated only as data is written, rather than pre-allocating the entire volume
+capacity upfront. This approach optimizes storage utilization by avoiding waste
+from unused pre-allocated space and allows for oversubscription strategies
+where the sum of provisioned capacity can exceed physical capacity, based on
+actual usage patterns.
+
+The resizable nature of Ceph block devices provides operational flexibility,
+allowing administrators to expand or contract volume sizes based on changing
+application requirements without disrupting service availability. This dynamic
+sizing capability supports evolving storage needs without requiring complex
+migration procedures or extended downtime windows.
+
+Data striping across multiple OSDs distributes data blocks across the cluster's
+storage nodes. This distribution achieves two critical objectives: it increases
+aggregate throughput by allowing parallel I/O operations across multiple
+devices, and it ensures data availability through the replication mechanisms
+built into RADOS. The striping process breaks data into smaller chunks that are
+distributed according to the cluster's CRUSH (Controlled Scalable Decentralized
+Placement of Replicated Data) algorithm, which determines optimal placement
+based on cluster topology and configured policies.
+
+#### RADOS Integration
+
+The integration with RADOS provides Ceph block devices with enterprise-grade
+features. Snapshotting capability enables point-in-time copies of block devices,
+supporting backup operations, testing scenarios, and recovery procedures.
+Snapshots are space-efficient, storing only changed data rather than full
+copies, and can be created instantaneously without impacting ongoing operations.
+
+Replication ensures data durability by maintaining multiple copies of data
+across different cluster nodes. The replication factor is configurable,
+allowing organizations to balance storage efficiency against data protection
+requirements. Strong consistency guarantees ensure that all replicas reflect the
+same data state, preventing split-brain scenarios and ensuring data integrity
+even during failure conditions.
+
+The communication architecture between block storage clients and Ceph clusters
+through kernel modules or librbd provides flexibility in deployment scenarios.
+Kernel module integration enables direct access from operating systems, while
+librbd allows applications to interact with Ceph block devices programmatically,
+supporting a wide range of use cases from bare-metal servers to containerized
+applications.
+
+#### Conclusion
+
+Ceph block devices represent a sophisticated implementation of block storage
+that combines the traditional simplicity of block-based interfaces with modern
+distributed storage capabilities. The thin-provisioned, resizable architecture
+with data striping across multiple OSDs provides a foundation for scalable,
+high-performance storage. Integration with RADOS brings enterprise features
+including snapshotting, replication, and strong consistency, while support for
+both kernel modules and librbd ensures broad compatibility across deployment
+scenarios. The ability to run block devices alongside object and file storage
+within a unified cluster positions Ceph as a comprehensive storage solution
+capable of addressing diverse organizational storage requirements through a
+single infrastructure platform. This convergence of capabilities, combined with
+proven integration with major virtualization and cloud platforms, establishes
+Ceph block devices as a viable solution for modern data center storage needs.
+
+### RADOS Gateway (RGW) in Summary 
+
+#### Introduction
+
+RADOS Gateway, commonly referred to as RGW or radosgw, is Ceph's object storage
+interface that provides applications with a RESTful gateway to store objects
+and metadata in a Ceph cluster. As one of Ceph's three primary storage
+interfaces alongside CephFS (file storage) and RBD (block storage), RGW
+transforms Ceph's underlying RADOS object store into a scalable, S3 and
+Swift-compatible object storage service. This enables organizations to build
+cloud storage solutions that are compatible with industry-standard APIs while
+leveraging Ceph's distributed architecture for reliability, scalability, and
+performance.
+
+#### Architecture and Design
+
+RGW operates as a FastCGI or standalone HTTP service that sits atop the Ceph
+Storage Cluster. Unlike direct RADOS access, RGW provides a higher-level
+abstraction specifically designed for object storage workloads. The gateway
+maintains its own data formats, user database, authentication mechanisms, and
+access control systems independent of the underlying Ceph cluster's
+authentication.
+
+When a client stores data through RGW, the gateway receives HTTP requests,
+authenticates the user, authorizes the operation, and then translates the
+request into RADOS operations. Objects stored via RGW are ultimately persisted
+as RADOS objects in the Ceph cluster, but RGW manages the mapping between
+S3/Swift objects and the underlying RADOS objects. This abstraction layer allows
+a single S3 or Swift object to potentially map to multiple RADOS objects,
+particularly for large files that are striped across the cluster.
+
+#### API Compatibility
+
+One of RGW's most significant features is its dual API compatibility. RGW
+provides RESTful interfaces compatible with both Amazon S3 and OpenStack Swift,
+enabling applications designed for these platforms to work with Ceph without
+modification. This compatibility extends beyond basic object operations to
+include advanced features like multipart uploads, versioning, lifecycle
+management, and bucket policies.
+
+The S3-compatible API supports a comprehensive set of operations including
+bucket creation and deletion, object PUT/GET/DELETE operations, ACL management,
+and metadata handling. The Swift-compatible API provides similar functionality
+using Swift's terminology and conventions, with containers instead of buckets
+and account/container/object hierarchy. Importantly, RGW implements a unified
+namespace, meaning data written through the S3 API can be read through the Swift
+API and vice versa, providing exceptional flexibility for multi-application
+environments.
+
+#### Multi-Tenancy and User Management
+
+RGW implements sophisticated multi-tenancy capabilities that allow multiple
+independent users and organizations to share the same Ceph cluster while
+maintaining complete isolation. The system supports multiple authentication
+mechanisms including built-in user management, LDAP integration, and integration
+with external authentication systems like Keystone for OpenStack environments.
+
+Users in RGW are organized into a hierarchical structure. Each user belongs to a
+tenant (which can be implicit or explicit), and users can have multiple access
+keys for different applications or purposes. RGW manages user credentials,
+quotas, and usage statistics independently, enabling service providers to offer
+object storage as a multi-tenant service with per-user billing and resource
+limits.
+
+#### Data Organization
+
+RGW organizes data using a bucket-based model for S3 compatibility (containers
+in Swift terminology). Buckets are logical containers that hold objects, with
+each bucket having its own policies, ACLs, and configuration. Objects within
+buckets are identified by unique keys and can include arbitrary metadata
+alongside the actual data payload.
+
+Internally, RGW uses multiple RADOS pools to organize different types of data.
+Separate pools typically store bucket indexes, data objects, and metadata,
+allowing administrators to apply different replication or erasure coding
+strategies to different data types. For example, bucket indexes might use
+replication for fast access while large data objects use erasure coding for
+storage efficiency.
+
+#### Advanced Features
+
+RGW supports numerous advanced object storage features that make it suitable for
+production deployments. Object versioning allows multiple versions of the same
+object to coexist, enabling recovery from accidental overwrites or deletions.
+Lifecycle management policies automate the transition of objects between storage
+classes or deletion after specified periods, reducing storage costs and
+administrative overhead.
+
+Server-side encryption provides data protection at rest, with support for
+multiple encryption modes including customer-provided keys. Cross-origin
+resource sharing (CORS) configuration enables web applications to access RGW
+directly from browsers. Bucket notifications allow applications to receive
+real-time events when objects are created, deleted, or modified, enabling
+event-driven architectures.
+
+#### Scalability and Performance
+
+RGW's architecture enables horizontal scaling to meet growing storage and
+throughput demands. Multiple RGW instances can be deployed behind load
+balancers to distribute client requests across many gateways. Each RGW instance
+operates independently, communicating directly with the underlying Ceph
+cluster, avoiding any single point of contention.
+
+For improved performance, RGW implements various optimization strategies. It
+can cache frequently accessed objects and metadata to reduce latency for
+popular content. Asynchronous operations handle time-consuming tasks like
+garbage collection and data synchronization without blocking client requests.
+The gateway also supports byte-range requests, enabling efficient partial
+object retrieval for large files and supporting features like HTTP video
+streaming.
+
+#### Multi-Site Capabilities
+
+RGW includes robust multi-site replication capabilities for disaster recovery,
+geographic distribution, and compliance requirements. The multi-site
+architecture supports active-active configurations where multiple RGW clusters
+can accept writes simultaneously, with changes automatically synchronized
+across sites. This enables organizations to build globally distributed object
+storage systems with local read/write access and automatic data replication.
+
+Metadata and data can be replicated independently with different strategies,
+allowing for flexible topology designs. Zone groups organize multiple zones
+(independent RGW deployments) into replication domains, while periods define
+consistent configuration states across all zones. This sophisticated
+replication framework supports complex scenarios like hub-and-spoke topologies,
+full-mesh replication, and tiered storage architectures.
+
+#### Monitoring and Operations
+
+RGW provides comprehensive monitoring capabilities through usage statistics,
+performance metrics, and administrative APIs. Administrators can track
+bandwidth consumption, request rates, and storage utilization on a per-user or
+per-bucket basis. Integration with standard monitoring tools allows RGW metrics
+to be collected and visualized alongside other infrastructure components.
+
+The admin API enables programmatic management of users, buckets, and quotas,
+facilitating automation and integration with billing systems or custom
+management tools. Command-line tools provide capabilities for troubleshooting,
+data inspection, and emergency operations.
+
+#### Conclusion
+
+RADOS Gateway represents a mature, feature-rich object storage solution that
+brings cloud-compatible APIs to Ceph's distributed storage platform. By
+providing S3 and Swift compatibility, RGW enables organizations to build
+private cloud storage solutions or offer object storage as a service while
+maintaining control over their infrastructure. Its scalability, multi-tenancy
+support, and advanced features make it suitable for use cases ranging from
+backup and archive to content distribution and application data storage. As
+part of the unified Ceph storage platform, RGW benefits from the same
+reliability, performance, and operational characteristics that make Ceph a
+leading choice for software-defined storage solutions.
+
+### CephFS in Summary 
+
+#### Introduction
+
+CephFS (Ceph File System) is Ceph's distributed file system interface that
+provides POSIX-compliant file storage built on top of the RADOS object store.
+As one of Ceph's three primary storage interfaces alongside RBD (block storage)
+and RGW (object storage), CephFS enables users to mount a shared filesystem that
+appears as a traditional hierarchical directory structure while leveraging
+Ceph's distributed storage capabilities for scalability, reliability, and
+performance. This combination of familiar filesystem semantics with enterprise
+storage features makes CephFS suitable for workloads ranging from home
+directories and shared application data to high-performance computing and big
+data analytics.
+
+#### Architecture and Components
+
+CephFS operates through a carefully designed architecture that separates data
+and metadata management. At its core, CephFS relies on two essential components:
+the Metadata Server (MDS) and the underlying RADOS storage cluster that stores
+both file data and metadata.
+
+The Metadata Server daemon (ceph-mds) manages all filesystem metadata including
+directory structures, file ownership, permissions, access timestamps, and
+extended attributes. Unlike traditional filesystems where metadata resides on
+the same storage devices as data, CephFS stores metadata in dedicated RADOS
+pools, allowing it to be replicated and distributed independently. This
+separation enables CephFS to scale metadata operations independently of data
+operations, a critical capability for large-scale deployments.
+
+File data in CephFS is stored as RADOS objects distributed across the cluster's
+Object Storage Daemons (OSDs). When a client writes a file, CephFS stripes the
+data across multiple objects according to configurable striping parameters,
+enabling parallel I/O and leveraging the aggregate bandwidth of multiple storage
+devices. This architecture allows CephFS to scale from gigabytes to petabytes
+while maintaining consistent performance characteristics.
+
+#### POSIX Compliance and Compatibility
+
+CephFS provides strong POSIX compliance, supporting the vast majority of
+standard filesystem operations expected by applications and users. This includes
+hierarchical directory structures, standard file permissions and ownership,
+symbolic and hard links, extended attributes, and file locking mechanisms. The
+POSIX compliance ensures that existing applications can use CephFS without
+modification, making it a drop-in replacement for traditional network filesystems
+like NFS or SMB.
+
+Clients can access CephFS through multiple methods. The kernel client integrates
+directly with the Linux kernel, providing native filesystem performance and
+supporting standard mount operations. FUSE (Filesystem in User Space) clients
+enable CephFS mounting on systems without kernel module support or in situations
+requiring non-root access. Additionally, libcephfs provides a library interface
+for applications to interact with CephFS programmatically, enabling custom
+integration scenarios.
+
+#### Metadata Server Design
+
+The MDS represents a sophisticated component designed specifically for
+distributed metadata management. In CephFS, metadata operations like listing
+directories, creating files, or checking permissions can dominate workload
+patterns, particularly with applications handling many small files. By
+maintaining metadata in memory and leveraging high-performance RADOS operations
+for persistence, the MDS achieves low-latency metadata operations essential for
+good filesystem performance.
+
+CephFS supports multiple MDS daemons operating simultaneously, enabling both
+high availability and horizontal scalability. In active-passive configurations,
+standby MDS daemons monitor active instances and can take over immediately if an
+active MDS fails, with the transition handled automatically by Ceph monitors.
+The journal stored in RADOS ensures that no metadata operations are lost during
+failover.
+
+For scalability, CephFS implements dynamic subtree partitioning, allowing
+multiple active MDS daemons to divide the filesystem namespace among themselves.
+The system automatically balances load by migrating directory subtrees between
+MDS instances based on access patterns. A heavily accessed directory can even be
+sharded across multiple MDS daemons, with each daemon handling different entries
+within the same directory. This dynamic load balancing ensures that metadata
+operations scale with the number of active MDS instances.
+
+#### Performance Characteristics
+
+CephFS delivers strong performance across diverse workloads through several
+architectural optimizations. Client-side caching reduces latency for frequently
+accessed data and metadata, with cache coherency maintained through distributed
+locking mechanisms managed by the MDS. This caching enables multiple clients to
+access the same files efficiently while maintaining consistency.
+
+The striping of file data across multiple RADOS objects enables high-bandwidth
+sequential I/O operations, with clients performing parallel reads and writes
+directly to OSDs. For large files, this parallelism allows CephFS to saturate
+available network bandwidth and leverage the aggregate throughput of many
+storage devices simultaneously.
+
+Metadata performance benefits from the MDS's in-memory metadata cache and
+efficient RADOS operations for persistence. For workloads with good locality,
+where applications repeatedly access files within the same directory trees, the
+MDS cache provides excellent performance. The ability to scale metadata
+operations through multiple active MDS daemons addresses the metadata bottleneck
+that plagues many distributed filesystems at scale.
+
+#### Snapshots and Quotas
+
+CephFS provides sophisticated snapshot capabilities enabling point-in-time
+copies of directory trees. Snapshots are space-efficient, storing only changed
+data rather than full copies, and can be created instantly on any directory
+within the filesystem. Users can browse snapshot contents through a special
+`.snap` directory and restore files or entire directory trees as needed.
+Administrative snapshots enable backup and recovery strategies while
+user-accessible snapshots provide self-service recovery from accidental
+deletions or modifications.
+
+Directory quotas allow administrators to limit storage consumption at any point
+in the directory hierarchy. Quotas can restrict both the total bytes consumed
+and the number of files, with enforcement occurring at write time. This enables
+multi-tenant deployments where different users or projects share a filesystem
+while preventing any single entity from consuming excessive resources.
+
+#### Multiple Filesystems
+
+Recent CephFS versions support multiple independent filesystems within a single
+Ceph cluster, each with its own namespace, MDS cluster, and data pools. This
+capability enables isolation between different use cases or tenants while
+sharing the underlying storage infrastructure. Each filesystem can be configured
+with different parameters, replication strategies, or performance
+characteristics appropriate to its specific workload requirements.
+
+#### Security and Access Control
+
+CephFS implements multiple layers of security. Path-based access restrictions
+allow administrators to limit client access to specific directory subtrees,
+enabling multi-tenant scenarios where different clients see only their allocated
+portions of the filesystem. CephX authentication integrates with Ceph's native
+authentication system, ensuring that only authorized clients can mount the
+filesystem.
+
+Standard POSIX permissions and ACLs provide fine-grained access control at the
+file and directory level, allowing familiar Unix-style permission management.
+Extended attributes enable additional metadata storage for applications
+requiring custom attributes or security labels.
+
+#### Use Cases and Applications
+
+CephFS excels in scenarios requiring shared filesystem access across multiple
+clients. Home directories, shared application data, and collaborative workspaces
+benefit from CephFS's strong consistency and POSIX compatibility. High
+performance computing environments leverage CephFS for shared job data and
+scratch space, taking advantage of the parallel I/O capabilities and scalability.
+
+Content creation workflows in media and entertainment utilize CephFS for shared
+storage of large media files, benefiting from high bandwidth and the ability to
+scale capacity and performance independently. Big data analytics platforms use
+CephFS for storing datasets that multiple processing nodes must access
+simultaneously.
+
+#### Conclusion
+
+CephFS represents a mature, scalable distributed filesystem that brings POSIX
+compatibility to Ceph's distributed storage platform. By separating metadata and
+data management, supporting multiple active MDS daemons, and leveraging RADOS
+for reliable distributed storage, CephFS delivers enterprise-grade filesystem
+capabilities suitable for demanding production workloads. Its combination of
+familiar filesystem semantics, strong performance, and advanced features like
+snapshots and dynamic metadata scaling makes CephFS a compelling choice for
+organizations requiring shared filesystem storage at scale.
+
+## See Also
+The architecture of the Ceph cluster is explained in [the Architecture
+chapter of the upstream Ceph
+documentation](https://docs.ceph.com/en/latest/architecture/)
