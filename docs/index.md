@@ -20,6 +20,9 @@ hero:
     - theme: alt
       text: API Reference
       link: /api
+    - theme: alt 
+      text: Changelog
+      link: /changelog
 
 features:
   - title: 🚀 Automatic Server Discovery, Provisioning and Evacuation
