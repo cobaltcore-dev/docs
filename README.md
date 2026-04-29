@@ -8,7 +8,7 @@
 
 ## About this project
 
-This is the official CobaltChore documentation.
+This is the official CobaltCore documentation.
 
 ## Requirements and Setup
 
