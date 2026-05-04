@@ -14,3 +14,7 @@ CobaltCore is built on top of OpenStack and IronCore, leveraging their capabilit
 - [**HA Service**](./cluster#ha-service): The high availability service that ensures critical workloads remain operational even in the event of failures.
 - [**Cortex**](./cortex): Smart initial placement and scheduling service for compute, storage, and network in cloud-native cloud environments.
 - [**Cloud Storage**](./cloud-storage/): Ceph-based distributed storage stack including Rook, Chorus, Arbiter, and Prysm for lifecycle management, replication, quorum, and observability.
+- [**Ceph**](.cloud-storage/ceph): An all-in-one storage system that provides object, block, and file storage and delivers extraordinary scalability. 
+- [**Rook-Ceph Installation**](./rook-ceph-install): A procedure for deploying
+  the all-in-one storage system that provides object, block, and file storage
+  and delivers extraordinary scalability. 
