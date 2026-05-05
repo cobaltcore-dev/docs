@@ -10,7 +10,10 @@ This guide provides step-by-step instructions for deploying a Ceph storage
 cluster using the Rook operator on Kubernetes. Rook automates the deployment,
 configuration, and management of Ceph clusters within Kubernetes environments.
 
-The instructions here are meant only as a general guideline. We recommend that you use the instructions found in the [official Rook documentation](https://rook.io/docs/rook/latest/) and the [upstream Ceph documentation](https://docs.ceph.com/).
+The instructions here are meant only as a general guideline. We recommend that
+you use the instructions found in the [official Rook
+documentation](https://rook.io/docs/rook/latest/) and the [upstream Ceph
+documentation](https://docs.ceph.com/).
 
 
 ## Prerequisites
