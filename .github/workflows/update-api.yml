@@ -13,14 +13,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout this repository
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
     - name: Checkout openstack-hypervisor-operator repository
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
       with:
         repository: cobaltcore-dev/openstack-hypervisor-operator
         path: openstack-hypervisor-operator
     - name: Checkout kvm-node-agent repository
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
       with:
         repository: cobaltcore-dev/kvm-node-agent
         path: kvm-node-agent
