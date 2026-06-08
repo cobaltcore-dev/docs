@@ -13,4 +13,4 @@ CobaltCore is built on top of OpenStack and IronCore, leveraging their capabilit
 - **Greenhouse**: The monitoring and management tool that provides insights into the health and performance of the CobaltCore environment.
 - [**HA Service**](./cluster#ha-service): The high availability service that ensures critical workloads remain operational even in the event of failures.
 - [**Cortex**](./cortex): Smart initial placement and scheduling service for compute, storage, and network in cloud-native cloud environments.
-- [**Cloud Storage**](./cloud-storage): Ceph-based distributed storage stack including Rook, Chorus, Arbiter, and Prysm for lifecycle management, replication, quorum, and observability.
+- [**Cloud Storage**](./cloud-storage/): Ceph-based distributed storage stack including Rook, Chorus, Arbiter, and Prysm for lifecycle management, replication, quorum, and observability.
