@@ -5,7 +5,7 @@ title: Prysm
 # Prysm 
 
 Prysm is a comprehensive observability CLI tool developed by CobaltCore for
-monitoring [Ceph](./ceph.md) storage clusters and RADOS Gateway (RGW)
+monitoring [Ceph](../ceph.md) storage clusters and RADOS Gateway (RGW)
 deployments. Prysm provides a multi-layered architecture designed to deliver
 real-time monitoring, data collection, and analysis across Ceph environments.
 

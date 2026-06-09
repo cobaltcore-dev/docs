@@ -1,10 +1,10 @@
 ---
-title: Overview
+title: Observability & Audit
 ---
 
-# Observability Overview
+# Observability & Audit Overview
 
-CobaltCore monitors the cloud storage stack through a combination of Prometheus-based metrics collection and Perses dashboards. Together they provide real-time visibility into Ceph cluster health, OSD performance, RGW throughput, and storage capacity trends.
+CobaltCore monitors the cloud storage stack through a combination of Prometheus-based metrics collection, Perses dashboards, and the Prysm observability CLI. Together they provide real-time visibility into Ceph cluster health, OSD performance, RGW throughput, storage capacity trends, and audit compliance.
 
 ## Stack
 
@@ -12,6 +12,7 @@ CobaltCore monitors the cloud storage stack through a combination of Prometheus-
 |-----------|------|
 | [Prometheus](./prometheus.md) | Scrapes and stores time-series metrics from Ceph, Rook, and RGW exporters |
 | [Perses](./perses.md) | Dashboard platform for visualizing storage metrics and defining alerts |
+| [Prysm](./prysm.md) | CLI-based observability tool for Ceph clusters and RGW — real-time monitoring, SMART disk health, log compliance |
 
 ## Key Metrics
 
@@ -23,6 +24,7 @@ The following signal categories are covered by the observability stack:
 - **RGW** — request rates, error rates, bandwidth per bucket and user
 - **Replication** — Chorus replication lag, sync success/failure rates
 - **Availability** — Arbiter monitor reachability, MDS active/standby state
+- **Audit** — log compliance analysis and access audit via Prysm consumers
 
 ## Alerting
 
@@ -32,4 +34,4 @@ Alerts are defined as Prometheus rules and surfaced through the CobaltCore alert
 
 - [Prometheus](./prometheus.md)
 - [Perses](./perses.md)
-- [Prysm](../prysm.md) — CLI-based observability for Ceph and RGW
+- [Prysm](./prysm.md)

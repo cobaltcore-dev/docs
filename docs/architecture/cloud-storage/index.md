@@ -14,7 +14,7 @@ The storage stack is organized into three layers:
 
 **Operations** — [Rook](./rook.md) runs as a Kubernetes operator and manages the full lifecycle of Ceph daemons (monitors, managers, OSDs, MDS, RGW) as containerized workloads. [Arbiter](./arbiter.md) extends quorum into stretched cluster topologies by deploying external Ceph monitors that Rook does not manage directly.
 
-**Data Services** — [Chorus](./chorus.md) provides zero-downtime data replication and migration between object storage systems (S3 and Swift). [Liquid-Ceph](./liquid-ceph.md) enables dynamic, on-demand storage allocation across the cluster. [Prysm](./prysm.md) delivers a CLI-based observability layer over Ceph clusters and RGW deployments.
+**Data Services** — [Chorus](./chorus.md) provides zero-downtime data replication and migration between object storage systems (S3 and Swift). [Liquid-Ceph](./liquid-ceph.md) enables dynamic, on-demand storage allocation across the cluster.
 
 ## Components
 
@@ -25,8 +25,7 @@ The storage stack is organized into three layers:
 | [Arbiter](./arbiter.md) | Operations | External Ceph monitors for quorum in stretched clusters |
 | [Chorus](./chorus.md) | Data Services | Zero-downtime object storage replication and migration |
 | [Liquid-Ceph](./liquid-ceph.md) | Data Services | Dynamic storage allocation across the Ceph cluster |
-| [Prysm](./prysm.md) | Data Services | Observability CLI for Ceph clusters and RGW |
-| [Observability](./observability/) | Observability | Metrics, dashboards, and alerting for the storage stack |
+| [Observability & Audit](./observability/) | Observability | Metrics, dashboards, alerting, and audit — Prometheus, Perses, Prysm |
 
 ## Storage Interfaces
 
@@ -58,9 +57,10 @@ Applications / VMs
    └───────────┘   └─────────┘   └────────────┘
    (quorum)        (replication)  (allocation)
         │
-   ┌────┴──────┐
-   │   Prysm   │  ← observability CLI
-   └───────────┘
+   ┌────┴──────────────────────────┐
+   │  Observability & Audit        │
+   │  Prometheus · Perses · Prysm  │
+   └───────────────────────────────┘
 ```
 
 ## High Availability
@@ -69,6 +69,6 @@ Ceph achieves HA through monitor quorum (typically 3 or 5 monitors), OSD replica
 
 ## See Also
 
-- [Observability](./observability/) — Prometheus metrics and Perses dashboards for the storage stack
+- [Observability & Audit](./observability/) — Prometheus metrics, Perses dashboards, and Prysm CLI for the storage stack
 - [Ceph upstream architecture docs](https://docs.ceph.com/en/latest/architecture/)
 - [Rook documentation](https://rook.io/docs/rook/latest-release/Getting-Started/intro/)
