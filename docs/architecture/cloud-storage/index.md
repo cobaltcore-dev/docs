@@ -37,7 +37,7 @@ Ceph exposes three storage interfaces that CobaltCore services consume:
 
 ## Data Flow
 
-```
+```text
 Applications / VMs
         │
 ┌───────┴────────────────────┐
