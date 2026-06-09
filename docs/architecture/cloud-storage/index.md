@@ -1,15 +1,74 @@
 ---
-title: Cloud Storage
+title: Overview
 ---
 
-# Cloud Storage
+# Cloud Storage Overview
 
-CobaltCore's cloud storage layer is built on [Ceph](./ceph.md), an open-source, distributed storage system that delivers object, block, and file storage in a single unified platform. The surrounding components manage its lifecycle, replication, observability, and high-availability configuration.
+CobaltCore's cloud storage layer is built on [Ceph](./ceph.md), a distributed storage system that delivers object, block, and file storage in a single unified platform. The surrounding components handle lifecycle automation, data replication, high-availability quorum, observability, and liquid storage allocation — each with a focused responsibility.
 
-| Component | Role |
-|-----------|------|
-| [Ceph](./ceph.md) | Distributed storage engine |
-| [Rook](./rook.md) | Kubernetes operator that automates Ceph deployment and management |
-| [Chorus](./chorus.md) | Data replication across object storage systems |
-| [Arbiter](./arbiter.md) | External arbiter monitors for Ceph quorum in stretched clusters |
-| [Prysm](./prysm.md) | Observability CLI for Ceph clusters and RGW deployments |
+## Architecture
+
+The storage stack is organized into three layers:
+
+**Foundation** — Ceph provides the core distributed storage engine. All other components either operate it, extend it, or observe it.
+
+**Operations** — [Rook](./rook.md) runs as a Kubernetes operator and manages the full lifecycle of Ceph daemons (monitors, managers, OSDs, MDS, RGW) as containerized workloads. [Arbiter](./arbiter.md) extends quorum into stretched cluster topologies by deploying external Ceph monitors that Rook does not manage directly.
+
+**Data Services** — [Chorus](./chorus.md) provides zero-downtime data replication and migration between object storage systems (S3 and Swift). [Liquid-Ceph](./liquid-ceph.md) enables dynamic, on-demand storage allocation across the cluster. [Prysm](./prysm.md) delivers a CLI-based observability layer over Ceph clusters and RGW deployments.
+
+## Components
+
+| Component | Layer | Role |
+|-----------|-------|------|
+| [Ceph](./ceph.md) | Foundation | Distributed storage engine — block (RBD), file (CephFS), object (RGW) |
+| [Rook](./rook.md) | Operations | Kubernetes operator for Ceph lifecycle management |
+| [Arbiter](./arbiter.md) | Operations | External Ceph monitors for quorum in stretched clusters |
+| [Chorus](./chorus.md) | Data Services | Zero-downtime object storage replication and migration |
+| [Liquid-Ceph](./liquid-ceph.md) | Data Services | Dynamic storage allocation across the Ceph cluster |
+| [Prysm](./prysm.md) | Data Services | Observability CLI for Ceph clusters and RGW |
+| [Observability](./observability/) | Observability | Metrics, dashboards, and alerting for the storage stack |
+
+## Storage Interfaces
+
+Ceph exposes three storage interfaces that CobaltCore services consume:
+
+- **RBD (RADOS Block Device)** — thin-provisioned, resizable block volumes used by virtual machines and databases. Striped across OSDs for parallel I/O and backed by RADOS snapshots and replication.
+- **CephFS** — POSIX-compliant distributed filesystem. Metadata is managed by a dedicated MDS cluster; data is striped across OSDs. Supports snapshots, quotas, and multiple active MDS daemons for horizontal metadata scaling.
+- **RGW (RADOS Gateway)** — S3 and Swift-compatible object storage gateway. Supports multi-tenancy, versioning, lifecycle policies, server-side encryption, and multi-site active-active replication.
+
+## Data Flow
+
+```
+Applications / VMs
+        │
+┌───────┴────────────────────┐
+│  RBD  │  CephFS  │  RGW   │  ← Ceph interfaces
+└───────┴────────────────────┘
+        │
+    RADOS (Reliable Autonomic Distributed Object Store)
+        │
+   OSDs across cluster nodes
+        │
+   ┌────┴─────┐
+   │  Rook    │  ← manages daemon lifecycle via Kubernetes CRDs
+   └──────────┘
+        │
+   ┌────┴──────┐   ┌─────────┐   ┌────────────┐
+   │  Arbiter  │   │  Chorus │   │ Liquid-Ceph│
+   └───────────┘   └─────────┘   └────────────┘
+   (quorum)        (replication)  (allocation)
+        │
+   ┌────┴──────┐
+   │   Prysm   │  ← observability CLI
+   └───────────┘
+```
+
+## High Availability
+
+Ceph achieves HA through monitor quorum (typically 3 or 5 monitors), OSD replication or erasure coding, and MDS standby daemons. In stretched deployments that span two sites, [Arbiter](./arbiter.md) deploys a third monitor at a tiebreaker site so that quorum is maintained even if one full site goes offline.
+
+## See Also
+
+- [Observability](./observability/) — Prometheus metrics and Perses dashboards for the storage stack
+- [Ceph upstream architecture docs](https://docs.ceph.com/en/latest/architecture/)
+- [Rook documentation](https://rook.io/docs/rook/latest-release/Getting-Started/intro/)
