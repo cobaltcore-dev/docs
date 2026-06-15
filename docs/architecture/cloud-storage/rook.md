@@ -28,7 +28,7 @@ mechanisms.
 Rook continuously monitors cluster health and automatically responds to
 failures by restarting failed daemons, replacing unhealthy OSDs, and
 maintaining desired state as defined in the cluster specifications. It
-integrates with [Kubernetes](./cluster.md) monitoring and logging systems,
+integrates with [Kubernetes](../cluster.md) monitoring and logging systems,
 providing visibility into storage operations alongside application workloads.
 
 ## See Also 
