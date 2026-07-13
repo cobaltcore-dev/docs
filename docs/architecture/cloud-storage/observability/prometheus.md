@@ -1,5 +1,6 @@
 ---
 title: Prometheus
+order: 10
 ---
 
 # Prometheus
