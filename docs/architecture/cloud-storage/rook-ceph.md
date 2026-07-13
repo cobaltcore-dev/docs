@@ -1,5 +1,6 @@
 ---
 title: Installing Rook-Ceph on Kubernetes 
+order: 25
 ---
 
 # Installing Rook-Ceph on Kubernetes
