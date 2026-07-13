@@ -1,5 +1,6 @@
 ---
 title: Rook
+order: 20
 ---
 
 # Rook

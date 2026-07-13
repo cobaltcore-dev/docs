@@ -1,5 +1,6 @@
 ---
 title: Observability & Audit
+order: 80
 ---
 
 # Observability & Audit Overview

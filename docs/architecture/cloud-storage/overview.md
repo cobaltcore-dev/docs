@@ -1,9 +1,9 @@
 ---
-title: Cloud Storage
-order: 50
+title: Overview - Cloud Storage
+order: 15
 ---
 
-# Cloud Storage
+# Overview - Cloud Storage
 
 CobaltCore's cloud storage layer is built on [Ceph](./ceph.md), a distributed storage system that delivers object, block, and file storage in a single unified platform. The surrounding components handle lifecycle automation, data replication, high-availability quorum, observability, and liquid storage allocation — each with a focused responsibility.
 
@@ -42,7 +42,7 @@ Ceph exposes three storage interfaces that CobaltCore services consume:
 Applications / VMs
         │
 ┌───────┴────────────────────┐
-│  RBD  │  CephFS  │  RGW    │  ← Ceph interfaces
+│  RBD  │  CephFS  │  RGW   │  ← Ceph interfaces
 └───────┴────────────────────┘
         │
     RADOS (Reliable Autonomic Distributed Object Store)
