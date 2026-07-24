@@ -1,9 +1,9 @@
 ---
-title: Cloud Storage
-order: 50
+title: Overview - Cloud Storage
+order: 15
 ---
 
-# Cloud Storage
+# Overview - Cloud Storage
 
 CobaltCore's cloud storage layer is built on [Ceph](./ceph.md), a distributed storage system that delivers object, block, and file storage in a single unified platform. The surrounding components handle lifecycle automation, data replication, high-availability quorum, observability, and liquid storage allocation — each with a focused responsibility.
 
@@ -42,7 +42,7 @@ Ceph exposes three storage interfaces that CobaltCore services consume:
 Applications / VMs
         │
 ┌───────┴────────────────────┐
-│  RBD  │  CephFS  │  RGW    │  ← Ceph interfaces
+│  RBD  │  CephFS  │  RGW   │  ← Ceph interfaces
 └───────┴────────────────────┘
         │
     RADOS (Reliable Autonomic Distributed Object Store)
@@ -70,6 +70,6 @@ Ceph achieves HA through monitor quorum (typically 3 or 5 monitors), OSD replica
 
 ## See Also
 
-- [Observability & Audit](./observability/) — Prometheus metrics, Perses dashboards, and Prysm CLI for the storage stack
 - [Ceph upstream architecture docs](https://docs.ceph.com/en/latest/architecture/)
 - [Rook documentation](https://rook.io/docs/rook/latest-release/Getting-Started/intro/)
+- [Observability & Audit](./observability/) — Prometheus metrics, Perses dashboards, and Prysm CLI for the storage stack

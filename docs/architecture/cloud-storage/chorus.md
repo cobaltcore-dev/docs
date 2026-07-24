@@ -1,5 +1,6 @@
 ---
 title: Chorus
+order: 50
 ---
 
 # Chorus 
@@ -20,3 +21,7 @@ users to pause and resume replication via web admin UI or CLI. Chorus handles
 initial replication of existing data in the background and can accept change
 events via webhooks when proxy deployment isn't feasible, supporting S3 bucket
 notifications and Swift access-log events.
+
+## See Also
+
+[Chorus Documentation](https://github.com/cobaltcore-dev/cloud-storage/tree/main/docs/chorus)

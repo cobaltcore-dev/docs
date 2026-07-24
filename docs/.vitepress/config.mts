@@ -48,6 +48,7 @@ export default defineConfig(withMermaid({
       useTitleFromFrontmatter: true,
       useFolderLinkFromIndexFile: true,
       useFolderTitleFromIndexFile: true,
+      sortMenusByFrontmatterOrder: true,
     }),
 
     socialLinks: [
