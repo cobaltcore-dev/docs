@@ -24,4 +24,4 @@ notifications and Swift access-log events.
 
 ## See Also
 
-[Chorus Documentation](https://github.com/cobaltcore-dev/cloud-storage/tree/main/docs/chorus)
+[Chorus Project Documentation](https://github.com/cobaltcore-dev/cloud-storage/tree/main/docs/chorus)

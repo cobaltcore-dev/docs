@@ -196,4 +196,4 @@ Before running the operator, ensure the following conditions are met:
 1. Verify that the arbiter has joined the quorum by running `ceph mon dump`.
 
 ## See Also
-[Arbiter Repository](https://github.com/cobaltcore-dev/external-arbiter-operator?tab=readme-ov-file)
+[Arbiter Project Repository](https://github.com/cobaltcore-dev/external-arbiter-operator?tab=readme-ov-file)
