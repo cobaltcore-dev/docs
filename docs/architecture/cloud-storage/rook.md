@@ -33,6 +33,6 @@ integrates with [Kubernetes](../cluster.md) monitoring and logging systems,
 providing visibility into storage operations alongside application workloads.
 
 ## See Also 
-1. [The rook.io page](https://rook.io/)
-1. [The Rook Documentation](https://rook.io/docs/rook/latest-release/Getting-Started/intro/)
-1. [The Rook project repository](https://github.com/rook/rook)
+1. [rook.io Page](https://rook.io/)
+1. [Rook Project Documentation](https://rook.io/docs/rook/latest-release/Getting-Started/intro/)
+1. [Rook Project Repository](https://github.com/rook/rook)
