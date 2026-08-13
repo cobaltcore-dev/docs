@@ -11,9 +11,9 @@ CobaltCore monitors the cloud storage stack through a combination of Prometheus-
 
 | Component | Role |
 |-----------|------|
+| [Prysm](./prysm.md) | CLI-based observability tool for Ceph clusters and RGW — real-time monitoring, SMART disk health, log compliance |
 | [Prometheus](./prometheus.md) | Scrapes and stores time-series metrics from Ceph, Rook, and RGW exporters |
 | [Perses](./perses.md) | Dashboard platform for visualizing storage metrics (alert rules are defined as Prometheus rules) |
-| [Prysm](./prysm.md) | CLI-based observability tool for Ceph clusters and RGW — real-time monitoring, SMART disk health, log compliance |
 
 ## Key Metrics
 
@@ -33,6 +33,6 @@ Alerts are defined as Prometheus rules and surfaced through the CobaltCore alert
 
 ## See Also
 
+- [Prysm](./prysm.md)
 - [Prometheus](./prometheus.md)
 - [Perses](./perses.md)
-- [Prysm](./prysm.md)
