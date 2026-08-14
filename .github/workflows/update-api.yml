@@ -25,7 +25,7 @@ jobs:
         repository: cobaltcore-dev/kvm-node-agent
         path: kvm-node-agent
     - name: Install crdoc
-      uses: jaxxstorm/action-install-gh-release@v1.10.0
+      uses: jaxxstorm/action-install-gh-release@v1.14.0
       with: # Grab the latest version
         repo: fybrik/crdoc
         tag: v0.6.4
