@@ -3,13 +3,13 @@
 layout: home
 
 hero:
-  name: "CobaltCore"
-  text: "Cloud-Native OpenStack distribution to support non-Cloud-Native workloads"
+  name: "CobaltCore Project"
+  text: "Infrastructure Management for Cloud Native and Traditional Workloads"
   image:
     src: https://raw.githubusercontent.com/cobaltcore-dev/.github/refs/heads/main/assets/Logo_Cobalt_Core_background_black.svg
     alt: CobaltCore logo
 
-  tagline: Leverage the power of OpenStack and IronCore bring your workloads to the cloud
+  tagline: Get your cloud running in weeks with Kubernetes-native orchestration and OpenStack-influenced services, fully open source.
   actions:
     - theme: brand
       text: Usage
@@ -33,5 +33,3 @@ features:
     details: Integrated monitoring and management tools powered by Greenhouse to keep your OpenStack environment healthy
 ---
 
-
-![Bundesministerium für Wirtschaft und Energie (BMWE)-EU funding logo](https://apeirora.eu/assets/img/BMWK-EU.png "apeirora_logo")
