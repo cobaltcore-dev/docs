@@ -12,13 +12,25 @@ This is the official CobaltCore documentation.
 
 ## Requirements and Setup
 
-### Docker Compose
+Use **Local** if you have Node.js installed — it's faster and simpler.
+Use **Docker** if you'd rather not install Node.js locally.
 
-	$ docker compose up
+### Local
 
-Run the above command to bring up an auto-refreshable development version of
-the documentation.  The documentation is accessible via
-[http://localhost:5173/]().
+Requires [Node.js](https://nodejs.org/) 18+.
+
+```sh
+npm install
+npm run docs:dev
+```
+
+### Docker
+
+```sh
+docker compose up
+```
+
+In both cases the documentation is accessible at [http://localhost:5173/](http://localhost:5173/).
 
 ## Support, Feedback, Contributing
 
