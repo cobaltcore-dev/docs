@@ -14,6 +14,7 @@ path = [
   ".editorconfig",
   "docs/.vitepress/**",
   "docs/**.md",
+  "docs/assets/project-owned/**",
   "hack/**"
 ]
 SPDX-FileCopyrightText = "SAP SE or an SAP affiliate company"

@@ -15,6 +15,35 @@ The operator also monitors the remote cluster to verify its availability and
 ensure that the tenant has sufficient permissions to handle the deployment of
 Arbiter.
 
+## Why Use Arbiter? 
+
+The diagram below explains how Arbiter works and why it is necessary. The three
+paragraphs that follow this one walk you through the procedure detailed in the
+diagram.
+
+Red section: In the event that there is an outage of an availability zone (AZ)
+or a network failure between two availability zones, the cluster loses quorum
+because neither side can reach a majority (one out of two isn't enough).  In
+this event, Ceph is unable safely to make decisions about the cluster state. 
+
+Blue Section: This situation can be remedied if Arbiter has been deployed. The
+operator will spring into action, reading the Ceph cluster, reserving an
+`externalMonID`, creating remote resources, and then making sure all necessary
+updates are in place.
+
+Green Section: After the Arbiter Operator has taken remedial action, a remote
+and independent cluster (`mon.ext-a` in the diagram) will be in operation,
+restoring quorum to the cluster.
+
+![Arbiter Diagram](../../assets/project-owned/diagrams/purpose-external-arbiter-operator.png)
+
+>[!IMPORTANT]
+>It is important to understand the scope of Arbiter, and the problem that it
+>solves. Arbiter restores control-plane quorum to clusters that have lost
+>quorum. It does not guarantee data redundancy.  Arbiter ensures that the
+>cluster is still able to make quorum-related decisions. It does not guarantee
+>the congruency of data between OSDs.
+
 ## Requirements and Setup
 
 ### Required Tools
@@ -196,4 +225,4 @@ Before running the operator, ensure the following conditions are met:
 1. Verify that the arbiter has joined the quorum by running `ceph mon dump`.
 
 ## See Also
-[Arbiter Repository](https://github.com/cobaltcore-dev/external-arbiter-operator?tab=readme-ov-file)
+[Arbiter Project Repository](https://github.com/cobaltcore-dev/external-arbiter-operator?tab=readme-ov-file)

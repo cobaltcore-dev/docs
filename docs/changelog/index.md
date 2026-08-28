@@ -5,7 +5,7 @@ title: Changelog
 # Change Log
 
 | Date          | Change                        | git hash  |
-| :---          | :---                          |           |
+| :---          | :---                          | :---       |
 | 2025-11-26    | Add ceph.md, an overview page that explains the function and purpose of Ceph                   | a01c4435  |
 | 2026-03-03    | Add a page that explains how to use Rook, a tool for deploying Ceph                 | 499a3a76  |
 | 2026-03-04    | Add documentation for Prysm, a CLI tool for real-time monitoring of RGW, Ceph storage clusters, and various hardware components.       | deeb3ea8  |
