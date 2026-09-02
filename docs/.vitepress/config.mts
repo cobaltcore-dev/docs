@@ -6,7 +6,7 @@ import { fileURLToPath, URL } from 'node:url'
 export default withMermaid({
   title: "CobaltCore",
   description: "Opinionated OpenStack distribution that builds upon IronCore's foundation to support non-cloud-native workloads",
-  base: "/docs/",
+  base: "/",
   head: [['link', { rel: 'icon', href: 'https://raw.githubusercontent.com/cobaltcore-dev/.github/refs/heads/main/assets/Logo_Cobalt_Core_background_white.svg' }]],
   vite: {
     resolve: {
