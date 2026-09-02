@@ -84,15 +84,26 @@ kubectl get cephcluster -n rook-ceph -w
 
 **RBD (block):**
 ```bash
-kubectl apply -f https://raw.githubusercontent.com/rook/rook/master/deploy/examples/csi/rbd/storageclass.yaml
+kubectl apply -f https://raw.githubusercontent.com/rook/rook/refs/heads/release-1.17/deploy/examples/csi/rbd/storageclass.yaml
 ```
 
 **CephFS (file):**
 ```bash
-kubectl apply -f https://raw.githubusercontent.com/rook/rook/master/deploy/examples/csi/cephfs/storageclass.yaml
+kubectl apply -f https://raw.githubusercontent.com/rook/rook/refs/heads/release-1.17/deploy/examples/csi/cephfs/storageclass.yaml
 ```
 
+Replace `release-1.17` with the Rook version you installed.
+
 ### Verify
+
+First install the Rook toolbox to get access to `ceph` CLI commands:
+
+```bash
+kubectl apply -f https://raw.githubusercontent.com/rook/rook/refs/heads/release-1.17/deploy/examples/toolbox.yaml
+kubectl rollout status deployment/rook-ceph-tools -n rook-ceph
+```
+
+Then check cluster health:
 
 ```bash
 # Check cluster health

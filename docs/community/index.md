@@ -15,19 +15,19 @@ layout: page
     <div class="card-icon">💬</div>
     <h3>GitHub Discussions</h3>
     <p>Ask questions, share ideas, and discuss CobaltCore with maintainers and other community members.</p>
-    <a href="https://github.com/cobaltcore-dev" class="card-link">github.com/cobaltcore-dev →</a>
+    <a href="https://github.com/orgs/cobaltcore-dev/discussions" class="card-link">Open a discussion →</a>
   </div>
   <div class="community-card">
     <div class="card-icon">🐛</div>
     <h3>Issues & Roadmap</h3>
     <p>Browse open issues, report bugs, request features, and track what's being worked on.</p>
-    <a href="https://github.com/cobaltcore-dev" class="card-link">Browse issues →</a>
+    <a href="https://github.com/cobaltcore-dev/docs/issues" class="card-link">Browse issues →</a>
   </div>
   <div class="community-card">
     <div class="card-icon">📋</div>
     <h3>Community Meetings</h3>
     <p>Regular community meetings to discuss development, proposals, and the project roadmap. All are welcome.</p>
-    <a href="https://github.com/cobaltcore-dev" class="card-link">See schedule →</a>
+    <a href="https://github.com/cobaltcore-dev/cobaltcore/discussions" class="card-link">See discussions →</a>
   </div>
 </div>
 
@@ -57,7 +57,7 @@ The documentation lives in [github.com/cobaltcore-dev/docs](https://github.com/c
 
 ## Code of Conduct
 
-CobaltCore follows the [SAP Open Source Code of Conduct](https://github.com/SAP/.github/blob/main/CODE_OF_CONDUCT.md). We are committed to a welcoming and inclusive environment for everyone. Instances of unacceptable behavior can be reported to a [project maintainer](https://github.com/cobaltcore-dev/docs/blob/main/REUSE.toml).
+CobaltCore follows the [SAP Open Source Code of Conduct](https://github.com/SAP/.github/blob/main/CODE_OF_CONDUCT.md). We are committed to a welcoming and inclusive environment for everyone. To report instances of unacceptable behavior, open a [GitHub issue](https://github.com/cobaltcore-dev/docs/issues) or contact the maintainers listed in [REUSE.toml](https://github.com/cobaltcore-dev/docs/blob/main/REUSE.toml) directly via GitHub.
 
 ## Governance
 

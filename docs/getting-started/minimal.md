@@ -85,14 +85,15 @@ kubectl get hypervisors
 For a minimal setup, deploy Ceph in single-replica mode via Rook:
 
 ```bash
-helm install rook-ceph cobaltcore/rook-ceph \
+helm repo add rook-release https://charts.rook.io/release
+helm repo update
+
+helm install rook-ceph rook-release/rook-ceph \
   --namespace rook-ceph \
-  --create-namespace \
-  --set cluster.mon.count=1 \
-  --set cluster.mgr.count=1
+  --create-namespace
 ```
 
-See [Storage — Rook](/storage/rook) for cluster configuration options.
+Then deploy a minimal single-node `CephCluster`. See [Storage — Rook](/storage/rook) for the full cluster configuration.
 
 ## Step 5: Deploy OpenStack
 
