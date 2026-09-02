@@ -20,6 +20,9 @@ hero:
     - theme: alt
       text: Architecture
       link: /overview/architecture
+    - theme: alt
+      text: Showroom
+      link: /showroom/
 
 features:
   - title: Kubernetes-native operations
