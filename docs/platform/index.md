@@ -18,4 +18,4 @@ The platform layer is the foundation that everything else in CobaltCore runs on.
 
 ## How the layers relate
 
-IronCore discovers physical machines and makes them available as managed resources. Gardener uses those resources to provision Kubernetes clusters. GardenLinux is the OS deployed on the hypervisor nodes that Gardener provisions. Everything above — Kubernetes operators, OpenStack services, Ceph — runs on top of this foundation.
+IronCore discovers physical machines and makes them available as managed resources. Gardener uses those resources to provision Kubernetes clusters. GardenLinux is the OS deployed on the hypervisor nodes that Gardener provisions. Everything above - Kubernetes operators, OpenStack services, Ceph - runs on top of this foundation.

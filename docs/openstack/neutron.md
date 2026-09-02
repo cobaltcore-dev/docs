@@ -57,12 +57,12 @@ OVN replaces Neutron's traditional agent-per-node model:
 | **OVN-NorthD** | Translates logical network state into low-level flow rules in OVN-SB |
 | **OVN-SB (Southbound DB)** | Physical network state and flow rules consumed by OVN Controllers |
 | **OVN Controller** | Runs on each compute node; translates SB flows into OVS rules |
-| **OVS** | Open vSwitch — the kernel datapath that forwards VM traffic |
+| **OVS** | Open vSwitch - the kernel datapath that forwards VM traffic |
 
-See [Networking — OVN](/networking/ovn) for the full OVN architecture and CobaltCore-specific configuration.
+See [Networking - OVN](/networking/ovn) for the full OVN architecture and CobaltCore-specific configuration.
 
 ## See also
 
-- [Networking — OVN](/networking/ovn)
+- [Networking - OVN](/networking/ovn)
 - [OpenStack Neutron docs](https://docs.openstack.org/neutron/latest/)
 - [OVN architecture overview](https://www.ovn.org/en/architecture/)

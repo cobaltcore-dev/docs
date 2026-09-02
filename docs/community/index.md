@@ -5,7 +5,7 @@ layout: page
 
 <div class="community-hero">
   <h1>Join the CobaltCore Community</h1>
-  <p>CobaltCore is an open source project built by operators, for operators. Whether you want to ask a question, report a bug, contribute code, or help shape the project's direction — you're welcome here.</p>
+  <p>CobaltCore is an open source project built by operators, for operators. Whether you want to ask a question, report a bug, contribute code, or help shape the project's direction - you're welcome here.</p>
 </div>
 
 ## Get connected
@@ -33,7 +33,7 @@ layout: page
 
 ## Contribute
 
-CobaltCore welcomes contributions of all kinds — code, documentation, bug reports, and feedback.
+CobaltCore welcomes contributions of all kinds - code, documentation, bug reports, and feedback.
 
 ### Before you start
 
@@ -44,7 +44,7 @@ CobaltCore welcomes contributions of all kinds — code, documentation, bug repo
 
 1. Fork the relevant repository under [github.com/cobaltcore-dev](https://github.com/cobaltcore-dev)
 2. Create a branch for your change
-3. Submit a pull request — a maintainer will review it
+3. Submit a pull request - a maintainer will review it
 4. Sign off your commits with a [Developer Certificate of Origin (DCO)](https://developercertificate.org/)
 
 All contributions must be licensed under [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0).
@@ -53,7 +53,7 @@ For full contribution guidelines, see [CONTRIBUTING.md](https://github.com/cobal
 
 ### Contributing to docs
 
-The documentation lives in [github.com/cobaltcore-dev/docs](https://github.com/cobaltcore-dev/docs). Every page has an **Edit this page on GitHub** link at the bottom — the quickest way to suggest a fix or improvement.
+The documentation lives in [github.com/cobaltcore-dev/docs](https://github.com/cobaltcore-dev/docs). Every page has an **Edit this page on GitHub** link at the bottom - the quickest way to suggest a fix or improvement.
 
 ## Code of Conduct
 

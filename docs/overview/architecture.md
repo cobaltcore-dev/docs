@@ -34,11 +34,11 @@ Everything above this layer runs as Kubernetes workloads.
 
 ## Compute, Storage, Networking
 
-The infrastructure data plane — the raw execution environment for virtual machines and cloud services.
+The infrastructure data plane - the raw execution environment for virtual machines and cloud services.
 
-- **[Compute](/compute/)** — KVM hypervisors managed by a Kubernetes operator. VMs run on bare metal nodes via libvirt. The HA service monitors hypervisor health and triggers evacuation when nodes fail.
-- **[Storage](/storage/)** — Ceph provides block (RBD), object (RGW), and file (CephFS) storage. Rook operates Ceph as a Kubernetes-native workload. Arbiter enables stretched clusters across two data centers. Chorus handles S3 object replication.
-- **[Networking](/networking/)** — OVN provides virtual networking for VMs. Neutron's OVN integration manages the control plane.
+- **[Compute](/compute/)** - KVM hypervisors managed by a Kubernetes operator. VMs run on bare metal nodes via libvirt. The HA service monitors hypervisor health and triggers evacuation when nodes fail.
+- **[Storage](/storage/)** - Ceph provides block (RBD), object (RGW), and file (CephFS) storage. Rook operates Ceph as a Kubernetes-native workload. Arbiter enables stretched clusters across two data centers. Chorus handles S3 object replication.
+- **[Networking](/networking/)** - OVN provides virtual networking for VMs. Neutron's OVN integration manages the control plane.
 
 ## Observability
 

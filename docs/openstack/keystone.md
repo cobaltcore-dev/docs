@@ -16,7 +16,7 @@ All OpenStack services (Nova, Neutron, Cinder, Glance) authenticate requests thr
 | Concept | Description |
 |---|---|
 | **Domain** | Top-level grouping of users and projects |
-| **Project** | A tenant — the unit of resource ownership and quota enforcement |
+| **Project** | A tenant - the unit of resource ownership and quota enforcement |
 | **User** | An identity that can authenticate and receive tokens |
 | **Role** | A set of permissions assigned to a user within a project |
 | **Service catalog** | The list of services and their endpoint URLs, returned with each token |

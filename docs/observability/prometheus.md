@@ -40,5 +40,5 @@ Full alert rule definitions and scrape configuration are being documented. See t
 
 ## See also
 
-- [Observability — Perses](./perses) — dashboards consuming these metrics
-- [Observability — Prysm](./prysm) — additional storage-specific metrics
+- [Observability - Perses](./perses) - dashboards consuming these metrics
+- [Observability - Prysm](./prysm) - additional storage-specific metrics

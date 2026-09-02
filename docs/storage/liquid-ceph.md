@@ -13,7 +13,7 @@ Liquid-Ceph enables dynamic, on-demand storage allocation across the Ceph cluste
 
 ## What it does
 
-Rather than statically pre-allocating Ceph pools and storage quotas, Liquid-Ceph allows capacity to be requested and released dynamically — storage is allocated when needed and returned to the shared pool when no longer required. This improves cluster utilization and simplifies capacity planning.
+Rather than statically pre-allocating Ceph pools and storage quotas, Liquid-Ceph allows capacity to be requested and released dynamically - storage is allocated when needed and returned to the shared pool when no longer required. This improves cluster utilization and simplifies capacity planning.
 
 ## Integration
 
@@ -25,5 +25,5 @@ Detailed deployment and configuration documentation is being expanded. See the [
 
 ## See also
 
-- [Storage — Ceph](./ceph)
-- [Storage — Rook](./rook)
+- [Storage - Ceph](./ceph)
+- [Storage - Rook](./rook)

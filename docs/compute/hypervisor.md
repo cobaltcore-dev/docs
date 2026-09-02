@@ -10,7 +10,7 @@ outline: deep
 [github.com/cobaltcore-dev/openstack-hypervisor-operator](https://github.com/cobaltcore-dev/openstack-hypervisor-operator)
 :::
 
-The hypervisor is the bare metal node that runs virtual machines. CobaltCore manages hypervisors through a set of Kubernetes operators and containerized agents that handle configuration, health reporting, and VM lifecycle — without requiring direct access to the node.
+The hypervisor is the bare metal node that runs virtual machines. CobaltCore manages hypervisors through a set of Kubernetes operators and containerized agents that handle configuration, health reporting, and VM lifecycle - without requiring direct access to the node.
 
 ## Component stack
 
@@ -105,7 +105,7 @@ See the [API Reference](/api/kvm.cloud.sap/v1/hypervisor) for the full spec.
 
 ### `migrations.kvm.cloud.sap`
 
-Tracks live migration operations between hypervisors — source, destination, progress (data transferred, memory iteration, elapsed time).
+Tracks live migration operations between hypervisors - source, destination, progress (data transferred, memory iteration, elapsed time).
 
 ```shell
 $ kubectl get migrations.kvm.cloud.sap

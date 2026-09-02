@@ -6,7 +6,7 @@ outline: deep
 
 # Nova (Compute)
 
-Nova is the OpenStack compute service. It handles VM lifecycle — scheduling, spawning, live migration, and evacuation — across the hypervisor nodes.
+Nova is the OpenStack compute service. It handles VM lifecycle - scheduling, spawning, live migration, and evacuation - across the hypervisor nodes.
 
 ## Architecture
 
@@ -60,6 +60,6 @@ The [HA Service](/compute/ha-service) calls Nova's host evacuation API when a hy
 
 ## See also
 
-- [Compute — Hypervisor](/compute/hypervisor)
-- [Compute — HA Service](/compute/ha-service)
+- [Compute - Hypervisor](/compute/hypervisor)
+- [Compute - HA Service](/compute/ha-service)
 - [OpenStack Nova docs](https://docs.openstack.org/nova/latest/)

@@ -6,13 +6,13 @@ outline: deep
 
 # Observability
 
-CobaltCore's observability stack provides real-time visibility into every layer — compute, storage, networking, and OpenStack services. It combines Prometheus for metrics, Perses for dashboards, and Prysm for storage-specific monitoring and audit.
+CobaltCore's observability stack provides real-time visibility into every layer - compute, storage, networking, and OpenStack services. It combines Prometheus for metrics, Perses for dashboards, and Prysm for storage-specific monitoring and audit.
 
 ## Components
 
 | Component | Role |
 |---|---|
-| [Prysm](./prysm) | Observability CLI for Ceph and RGW — real-time monitoring, SMART disk health, log audit |
+| [Prysm](./prysm) | Observability CLI for Ceph and RGW - real-time monitoring, SMART disk health, log audit |
 | [Prometheus](./prometheus) | Scrapes and stores time-series metrics from all CobaltCore components |
 | [Perses](./perses) | Dashboard platform for visualizing metrics from Prometheus |
 
@@ -39,6 +39,6 @@ Alerts are defined as Prometheus rules. Critical thresholds monitored across the
 
 ## See also
 
-- [Observability — Prysm](./prysm)
-- [Observability — Prometheus](./prometheus)
-- [Observability — Perses](./perses)
+- [Observability - Prysm](./prysm)
+- [Observability - Prometheus](./prometheus)
+- [Observability - Perses](./perses)
