@@ -5,7 +5,7 @@ import { fileURLToPath, URL } from 'node:url'
 // https://vitepress.dev/reference/site-config
 export default withMermaid({
   title: "CobaltCore",
-  description: "Opinionated OpenStack distribution that builds upon IronCore's foundation to support non-cloud-native workloads",
+  description: "Infrastructure management for cloud native and traditional workloads. Get your cloud running in weeks with Kubernetes-native orchestration and OpenStack-influenced services, fully open source.",
   base: "/",
   head: [['link', { rel: 'icon', href: 'https://raw.githubusercontent.com/cobaltcore-dev/.github/refs/heads/main/assets/Logo_Cobalt_Core_background_white.svg' }]],
   vite: {
