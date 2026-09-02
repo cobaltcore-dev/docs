@@ -1,16 +1,10 @@
-<!--
-# SPDX-FileCopyrightText: Copyright 2024 SAP SE or an SAP affiliate company and cobaltcore-dev contributors
-#
-# SPDX-License-Identifier: Apache-2.0
--->
-
 # Contributing
 
 ## Code of Conduct
 
 All members of the project community must abide by the [SAP Open Source Code of Conduct](https://github.com/SAP/.github/blob/main/CODE_OF_CONDUCT.md).
 Only by respecting each other we can develop a productive, collaborative community.
-Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by contacting [a project maintainer](REUSE.toml).
+Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by contacting [a project maintainer](https://github.com/cobaltcore-dev/docs/blob/main/.github/CODEOWNERS).
 
 ## Engaging in Our Project
 
