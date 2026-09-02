@@ -3,13 +3,13 @@
 layout: home
 
 hero:
-  name: "CobaltCore"
-  text: "Open Source OpenStack Distribution on Kubernetes"
+  name: "CobaltCore Project"
+  text: "Infrastructure Management for Cloud Native and Traditional Workloads"
   image:
     src: https://raw.githubusercontent.com/cobaltcore-dev/.github/refs/heads/main/assets/Logo_Cobalt_Core_background_black.svg
     alt: CobaltCore logo
 
-  tagline: Run KVM-based virtual machines at scale with Kubernetes-native operations, OpenStack cloud APIs, and distributed Ceph storage - fully open source.
+  tagline: Get your cloud running in weeks with Kubernetes-native orchestration and OpenStack-influenced services, fully open source.
   actions:
     - theme: brand
       text: Get Started
