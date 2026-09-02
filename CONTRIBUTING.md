@@ -4,7 +4,7 @@
 
 All members of the project community must abide by the [SAP Open Source Code of Conduct](https://github.com/SAP/.github/blob/main/CODE_OF_CONDUCT.md).
 Only by respecting each other we can develop a productive, collaborative community.
-Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by contacting [a project maintainer](https://github.com/cobaltcore-dev/docs/blob/main/.github/CODEOWNERS).
+Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by opening a [GitHub issue](https://github.com/cobaltcore-dev/docs/issues).
 
 ## Engaging in Our Project
 
