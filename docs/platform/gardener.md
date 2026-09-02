@@ -6,15 +6,15 @@ outline: deep
 
 # Gardener
 
-[Gardener](https://gardener.cloud) manages the lifecycle of Kubernetes clusters in CobaltCore. It is responsible for creating, upgrading, scaling, and deleting clusters — what Gardener calls "Shoot" clusters.
+[Gardener](https://gardener.cloud) manages the lifecycle of Kubernetes clusters in CobaltCore. It is responsible for creating, upgrading, scaling, and deleting clusters - what Gardener calls "Shoot" clusters.
 
 In CobaltCore, Gardener provisions the Kubernetes clusters that the hypervisor operators, OpenStack services, and storage components run on.
 
 ## Key concepts
 
-- **Garden cluster** — the control plane where Gardener itself runs and where you create Shoot resources
-- **Shoot cluster** — a Kubernetes cluster managed by Gardener; this is where CobaltCore workloads run
-- **Machine Controller Manager (MCM)** — manages the underlying nodes (machines) of a Shoot cluster
+- **Garden cluster** - the control plane where Gardener itself runs and where you create Shoot resources
+- **Shoot cluster** - a Kubernetes cluster managed by Gardener; this is where CobaltCore workloads run
+- **Machine Controller Manager (MCM)** - manages the underlying nodes (machines) of a Shoot cluster
 
 ## Common operations
 

@@ -14,7 +14,7 @@ Rook is the Kubernetes operator that manages the Ceph cluster in CobaltCore. It 
 
 ## Why Rook?
 
-Running Ceph as a Kubernetes workload means the cluster lifecycle — initial deployment, scaling, upgrades, and self-healing — is handled by Kubernetes controllers rather than manual playbooks. Rook bridges the gap between Ceph's daemon model and Kubernetes' declarative model.
+Running Ceph as a Kubernetes workload means the cluster lifecycle - initial deployment, scaling, upgrades, and self-healing - is handled by Kubernetes controllers rather than manual playbooks. Rook bridges the gap between Ceph's daemon model and Kubernetes' declarative model.
 
 ## How Rook manages Ceph
 
@@ -124,10 +124,10 @@ A healthy cluster reports `HEALTH_OK`.
 | `HEALTH_WARN: too few PGs` | Pool PG count needs adjustment for cluster size |
 | Monitors not forming quorum | Network partitioning between nodes |
 
-For stretched-cluster quorum in multi-site deployments, see [Storage — Arbiter](./arbiter).
+For stretched-cluster quorum in multi-site deployments, see [Storage - Arbiter](./arbiter).
 
 ## See also
 
-- [Storage — Ceph](./ceph)
-- [Storage — Arbiter](./arbiter)
+- [Storage - Ceph](./ceph)
+- [Storage - Arbiter](./arbiter)
 - [Rook documentation](https://rook.io/docs/rook/latest-release/Getting-Started/intro/)

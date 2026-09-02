@@ -8,7 +8,7 @@ outline: deep
 
 This guide walks you through deploying the smallest viable CobaltCore environment: one control plane node running the Kubernetes control plane and OpenStack services, and one hypervisor node running KVM virtual machines.
 
-This is not a production configuration — it has no high availability and no redundant storage. It is suitable for exploration, development, and learning how the components fit together.
+This is not a production configuration - it has no high availability and no redundant storage. It is suitable for exploration, development, and learning how the components fit together.
 
 ## What you will deploy
 
@@ -42,7 +42,7 @@ CobaltCore uses [Gardener](https://gardener.cloud) for cluster lifecycle managem
 
 The control plane must be reachable from the hypervisor node.
 
-See [Platform — Bootstrap](/platform/bootstrap) for details on how CobaltCore clusters are set up in production.
+See [Platform - Bootstrap](/platform/bootstrap) for details on how CobaltCore clusters are set up in production.
 
 ## Step 2: Install the Hypervisor Operator
 
@@ -56,7 +56,7 @@ helm install hypervisor-operator cobaltcore/hypervisor-operator \
   --create-namespace
 ```
 
-See [Compute — Hypervisor](/compute/hypervisor) for configuration options.
+See [Compute - Hypervisor](/compute/hypervisor) for configuration options.
 
 ## Step 3: Register the hypervisor node
 
@@ -93,7 +93,7 @@ helm install rook-ceph rook-release/rook-ceph \
   --create-namespace
 ```
 
-Then deploy a minimal single-node `CephCluster`. See [Storage — Rook](/storage/rook) for the full cluster configuration.
+Then deploy a minimal single-node `CephCluster`. See [Storage - Rook](/storage/rook) for the full cluster configuration.
 
 ## Step 5: Deploy OpenStack
 
@@ -123,7 +123,7 @@ Access the OpenStack API endpoint and create a test VM to confirm end-to-end fun
 
 ## Next steps
 
-- [Full production deployment](/getting-started/full-deployment) — add HA, stretched storage, and the management frontend
-- [Compute — Hypervisor](/compute/hypervisor) — configure hypervisor agents and HA
-- [Storage — Ceph](/storage/ceph) — tune storage pools and replication
-- [OpenStack](/openstack/) — configure individual services
+- [Full production deployment](/getting-started/full-deployment) - add HA, stretched storage, and the management frontend
+- [Compute - Hypervisor](/compute/hypervisor) - configure hypervisor agents and HA
+- [Storage - Ceph](/storage/ceph) - tune storage pools and replication
+- [OpenStack](/openstack/) - configure individual services

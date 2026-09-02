@@ -33,9 +33,9 @@ Follow the [Minimal Environment](/getting-started/minimal) guide first to unders
 
 ## Prerequisites
 
-- IronCore configured and managing your bare metal nodes — see [Platform — IronCore](/platform/ironcore)
-- Gardener cluster provisioned — see [Platform — Gardener](/platform/gardener)
-- GardenLinux deployed on hypervisor nodes — see [Platform — GardenLinux](/platform/gardenlinux)
+- IronCore configured and managing your bare metal nodes - see [Platform - IronCore](/platform/ironcore)
+- Gardener cluster provisioned - see [Platform - Gardener](/platform/gardener)
+- GardenLinux deployed on hypervisor nodes - see [Platform - GardenLinux](/platform/gardenlinux)
 - At least 3 control plane nodes for HA Kubernetes
 - At least 2 data centers (or failure domains) for stretched Ceph
 
@@ -51,52 +51,52 @@ Follow the [Minimal Environment](/getting-started/minimal) guide first to unders
 ### Compute layer
 
 - [ ] Hypervisor Operator installed and all hypervisors registered
-- [ ] HA Service configured — see [Compute — HA Service](/compute/ha-service)
+- [ ] HA Service configured - see [Compute - HA Service](/compute/ha-service)
 - [ ] Live migration tested between hypervisor nodes
-- [ ] (Optional) GPU/SR-IOV configured — see [Compute — GPU](/compute/gpu)
+- [ ] (Optional) GPU/SR-IOV configured - see [Compute - GPU](/compute/gpu)
 
 ### Storage layer
 
-- [ ] Rook operator installed — see [Storage — Rook](/storage/rook)
-- [ ] Ceph cluster deployed with 3+ MONs and replicated OSDs — see [Storage — Ceph](/storage/ceph)
-- [ ] Arbiter configured for stretched cluster — see [Storage — Arbiter](/storage/arbiter)
+- [ ] Rook operator installed - see [Storage - Rook](/storage/rook)
+- [ ] Ceph cluster deployed with 3+ MONs and replicated OSDs - see [Storage - Ceph](/storage/ceph)
+- [ ] Arbiter configured for stretched cluster - see [Storage - Arbiter](/storage/arbiter)
 - [ ] Storage classes created (RBD, CephFS, RGW)
 - [ ] Ceph health verified: `ceph status` shows `HEALTH_OK`
 
 ### Networking layer
 
-- [ ] OVN control plane deployed — see [Networking — OVN](/networking/ovn)
+- [ ] OVN control plane deployed - see [Networking - OVN](/networking/ovn)
 - [ ] OVN Controller daemonset running on all hypervisor nodes
 - [ ] Neutron API connected to OVN Northbound DB
 
 ### OpenStack layer
 
 - [ ] All services deployed with HA configuration (multi-replica, clustered RabbitMQ/MariaDB)
-- [ ] Keystone identity configured — see [OpenStack — Keystone](/openstack/keystone)
-- [ ] Glance image service configured — see [OpenStack — Glance](/openstack/glance)
-- [ ] Nova compute service verified (create test VM) — see [OpenStack — Nova](/openstack/nova)
-- [ ] Neutron networking verified (create test network and port) — see [OpenStack — Neutron](/openstack/neutron)
-- [ ] Cinder block storage verified (create test volume) — see [OpenStack — Cinder](/openstack/cinder)
+- [ ] Keystone identity configured - see [OpenStack - Keystone](/openstack/keystone)
+- [ ] Glance image service configured - see [OpenStack - Glance](/openstack/glance)
+- [ ] Nova compute service verified (create test VM) - see [OpenStack - Nova](/openstack/nova)
+- [ ] Neutron networking verified (create test network and port) - see [OpenStack - Neutron](/openstack/neutron)
+- [ ] Cinder block storage verified (create test volume) - see [OpenStack - Cinder](/openstack/cinder)
 
 ### Observability layer
 
-- [ ] Prysm deployed and collecting events — see [Observability — Prysm](/observability/prysm)
-- [ ] Prometheus scraping all targets — see [Observability — Prometheus](/observability/prometheus)
-- [ ] Perses dashboards deployed — see [Observability — Perses](/observability/perses)
+- [ ] Prysm deployed and collecting events - see [Observability - Prysm](/observability/prysm)
+- [ ] Prometheus scraping all targets - see [Observability - Prometheus](/observability/prometheus)
+- [ ] Perses dashboards deployed - see [Observability - Perses](/observability/perses)
 - [ ] Alerting rules configured and routing verified
 
 ### Management layer
 
-- [ ] Greenhouse connected to the cluster — see [Management — Greenhouse](/management/greenhouse)
-- [ ] Aurora management frontend accessible — see [Management — Aurora](/management/aurora)
-- [ ] Cortex placement configured and integrated with Nova — see [Management — Cortex](/management/cortex)
+- [ ] Greenhouse connected to the cluster - see [Management - Greenhouse](/management/greenhouse)
+- [ ] Aurora management frontend accessible - see [Management - Aurora](/management/aurora)
+- [ ] Cortex placement configured and integrated with Nova - see [Management - Cortex](/management/cortex)
 
 ## Operational readiness
 
 Before going live:
 
-1. **Failure testing** — shut down a hypervisor node and verify HA evacuation triggers correctly
-2. **Storage resilience** — verify Ceph rebalances after an OSD failure
-3. **Network failover** — verify OVN continues routing after a node restart
-4. **Backup** — confirm etcd backup for the Kubernetes control plane is in place
-5. **Alerting** — trigger a test alert and verify it reaches your on-call channel
+1. **Failure testing** - shut down a hypervisor node and verify HA evacuation triggers correctly
+2. **Storage resilience** - verify Ceph rebalances after an OSD failure
+3. **Network failover** - verify OVN continues routing after a node restart
+4. **Backup** - confirm etcd backup for the Kubernetes control plane is in place
+5. **Alerting** - trigger a test alert and verify it reaches your on-call channel

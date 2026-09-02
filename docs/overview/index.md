@@ -5,9 +5,9 @@ order: 1
 
 # What is CobaltCore?
 
-CobaltCore is an open source, opinionated OpenStack distribution built on Kubernetes. It brings cloud-native operations to traditional, non-containerized workloads — giving operators the automation, resilience, and observability of a modern platform without requiring their applications to change.
+CobaltCore is an open source, opinionated OpenStack distribution built on Kubernetes. It brings cloud-native operations to traditional, non-containerized workloads - giving operators the automation, resilience, and observability of a modern platform without requiring their applications to change.
 
-At its core, CobaltCore assembles proven open source technologies — Kubernetes, OpenStack, Ceph, OVN — into a coherent, production-ready distribution with a clear operational model. Instead of assembling and integrating these components yourself, you get a tested stack with sensible defaults, lifecycle management, and a consistent control plane.
+At its core, CobaltCore assembles proven open source technologies - Kubernetes, OpenStack, Ceph, OVN - into a coherent, production-ready distribution with a clear operational model. Instead of assembling and integrating these components yourself, you get a tested stack with sensible defaults, lifecycle management, and a consistent control plane.
 
 ## Who it's for
 
@@ -32,7 +32,7 @@ CobaltCore is for teams that:
 
 ## How to navigate these docs
 
-- **[Getting Started](/getting-started/)** — start here if you want to deploy CobaltCore
-- **[Architecture](/overview/architecture)** — understand how the layers fit together
-- **[Why CobaltCore](/overview/why)** — the reasoning behind the design decisions
-- Layer sections (**Platform**, **Compute**, **OpenStack**, **Storage**, **Networking**, **Observability**, **Management**) — deep-dive reference for each part of the stack
+- **[Getting Started](/getting-started/)** - start here if you want to deploy CobaltCore
+- **[Architecture](/overview/architecture)** - understand how the layers fit together
+- **[Why CobaltCore](/overview/why)** - the reasoning behind the design decisions
+- Layer sections (**Platform**, **Compute**, **OpenStack**, **Storage**, **Networking**, **Observability**, **Management**) - deep-dive reference for each part of the stack

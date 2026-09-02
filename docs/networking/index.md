@@ -11,10 +11,10 @@ CobaltCore uses OVN (Open Virtual Network) as the virtual networking layer for V
 
 | Component | Role |
 |---|---|
-| [OVN](/networking/ovn) | Virtual networking for VMs — provides L2/L3 switching and routing |
+| [OVN](/networking/ovn) | Virtual networking for VMs - provides L2/L3 switching and routing |
 
 ## How it fits in the stack
 
-Neutron (in the OpenStack layer) owns the logical network model — networks, subnets, ports, routers, security groups. OVN translates those logical resources into forwarding rules on each hypervisor node via the OVN Controller daemonset. VMs get virtual interfaces managed by OVS.
+Neutron (in the OpenStack layer) owns the logical network model - networks, subnets, ports, routers, security groups. OVN translates those logical resources into forwarding rules on each hypervisor node via the OVN Controller daemonset. VMs get virtual interfaces managed by OVS.
 
-See [OpenStack — Neutron](/openstack/neutron) for the Neutron API layer, and [Networking — OVN](/networking/ovn) for the OVN data plane details.
+See [OpenStack - Neutron](/openstack/neutron) for the Neutron API layer, and [Networking - OVN](/networking/ovn) for the OVN data plane details.

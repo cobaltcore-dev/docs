@@ -6,15 +6,15 @@ outline: deep
 
 # Bootstrap
 
-This page describes how a new CobaltCore cluster is stood up from bare metal — from the initial IronCore inventory through to a running Kubernetes control plane ready to receive workloads.
+This page describes how a new CobaltCore cluster is stood up from bare metal - from the initial IronCore inventory through to a running Kubernetes control plane ready to receive workloads.
 
 ## Overview
 
 Bootstrapping a CobaltCore cluster involves three phases:
 
-1. **Hardware inventory** — IronCore discovers and registers physical machines
-2. **Cluster provisioning** — Gardener creates the Kubernetes cluster on those machines
-3. **Component installation** — CobaltCore operators, OpenStack, and storage are deployed into the cluster
+1. **Hardware inventory** - IronCore discovers and registers physical machines
+2. **Cluster provisioning** - Gardener creates the Kubernetes cluster on those machines
+3. **Component installation** - CobaltCore operators, OpenStack, and storage are deployed into the cluster
 
 ```mermaid
 graph LR
@@ -27,13 +27,13 @@ graph LR
 
 IronCore must be configured with access to your BMC (IPMI/Redfish) interfaces. Once connected, it discovers servers, collects hardware capabilities (CPU, memory, NIC topology), and makes them available as Kubernetes resources.
 
-See [Platform — IronCore](/platform/ironcore) for configuration details.
+See [Platform - IronCore](/platform/ironcore) for configuration details.
 
 ## Phase 2: Cluster provisioning
 
 Gardener creates a Kubernetes cluster using the machines made available by IronCore. You define a `Shoot` resource describing the cluster topology (node count, machine type, Kubernetes version), and Gardener reconciles it.
 
-See [Platform — Gardener](/platform/gardener) for Shoot configuration and common operations.
+See [Platform - Gardener](/platform/gardener) for Shoot configuration and common operations.
 
 ## Phase 3: Component installation
 

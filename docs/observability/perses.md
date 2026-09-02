@@ -28,5 +28,5 @@ Dashboard source definitions and CI deployment configuration are being added to 
 
 ## See also
 
-- [Observability — Prometheus](./prometheus) — metrics source for all dashboards
+- [Observability - Prometheus](./prometheus) - metrics source for all dashboards
 - [Perses project](https://perses.dev)

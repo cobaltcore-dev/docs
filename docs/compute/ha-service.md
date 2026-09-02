@@ -69,5 +69,5 @@ graph LR;
 
 ## See also
 
-- [API Reference — Eviction](/api/kvm.cloud.sap/v1/eviction)
-- [Compute — Hypervisor](/compute/hypervisor)
+- [API Reference - Eviction](/api/kvm.cloud.sap/v1/eviction)
+- [Compute - Hypervisor](/compute/hypervisor)

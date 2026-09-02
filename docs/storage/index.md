@@ -12,17 +12,17 @@ CobaltCore's storage layer is built on [Ceph](./ceph), a distributed storage sys
 
 The storage stack is organized into three layers:
 
-**Foundation** — Ceph provides the core distributed storage engine. All other components either operate it, extend it, or observe it.
+**Foundation** - Ceph provides the core distributed storage engine. All other components either operate it, extend it, or observe it.
 
-**Operations** — [Rook](./rook) manages the full Ceph cluster lifecycle as a Kubernetes operator. [Arbiter](./arbiter) extends quorum into stretched topologies by deploying external monitors at a tiebreaker site.
+**Operations** - [Rook](./rook) manages the full Ceph cluster lifecycle as a Kubernetes operator. [Arbiter](./arbiter) extends quorum into stretched topologies by deploying external monitors at a tiebreaker site.
 
-**Data Services** — [Chorus](./chorus) provides zero-downtime S3/Swift object replication and migration. [Liquid-Ceph](./liquid-ceph) enables dynamic, on-demand storage allocation.
+**Data Services** - [Chorus](./chorus) provides zero-downtime S3/Swift object replication and migration. [Liquid-Ceph](./liquid-ceph) enables dynamic, on-demand storage allocation.
 
 ## Components
 
 | Component | Layer | Role |
 |---|---|---|
-| [Ceph](./ceph) | Foundation | Distributed storage engine — block (RBD), file (CephFS), object (RGW) |
+| [Ceph](./ceph) | Foundation | Distributed storage engine - block (RBD), file (CephFS), object (RGW) |
 | [Rook](./rook) | Operations | Kubernetes operator for Ceph lifecycle management |
 | [Arbiter](./arbiter) | Operations | External Ceph monitors for quorum in stretched clusters |
 | [Chorus](./chorus) | Data Services | Zero-downtime object storage replication and migration |
@@ -32,7 +32,7 @@ The storage stack is organized into three layers:
 
 | Interface | Use case |
 |---|---|
-| **RBD** (RADOS Block Device) | VM disks, database volumes — thin-provisioned, snapshotted block storage |
+| **RBD** (RADOS Block Device) | VM disks, database volumes - thin-provisioned, snapshotted block storage |
 | **CephFS** | Shared POSIX filesystem for workloads that need file access across multiple VMs |
 | **RGW** (RADOS Gateway) | S3 and Swift-compatible object storage for application data |
 
@@ -65,6 +65,6 @@ Ceph achieves HA through monitor quorum (3 or 5 monitors), OSD replication or er
 
 ## See also
 
-- [Observability](/observability/) — Prometheus metrics, Perses dashboards, and Prysm for the storage stack
+- [Observability](/observability/) - Prometheus metrics, Perses dashboards, and Prysm for the storage stack
 - [Ceph upstream architecture docs](https://docs.ceph.com/en/latest/architecture/)
 - [Rook documentation](https://rook.io/docs/rook/latest-release/Getting-Started/intro/)

@@ -5,7 +5,7 @@ order: 30
 
 # GPU & SR-IOV
 
-CobaltCore supports passthrough of GPUs and SR-IOV network interfaces to virtual machines for workloads that require direct hardware access — machine learning inference, HPC, and latency-sensitive networking.
+CobaltCore supports passthrough of GPUs and SR-IOV network interfaces to virtual machines for workloads that require direct hardware access - machine learning inference, HPC, and latency-sensitive networking.
 
 ::: info Documentation in progress
 This section is being expanded. The information below describes the intended architecture and current capabilities.
@@ -35,5 +35,5 @@ SR-IOV (Single Root I/O Virtualization) allows a single physical NIC to present 
 
 ## See also
 
-- [Compute — Hypervisor](/compute/hypervisor)
-- [Networking — OVN](/networking/ovn)
+- [Compute - Hypervisor](/compute/hypervisor)
+- [Networking - OVN](/networking/ovn)

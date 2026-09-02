@@ -10,18 +10,18 @@ outline: deep
 [github.com/cobaltcore-dev/external-arbiter-operator](https://github.com/cobaltcore-dev/external-arbiter-operator)
 :::
 
-Arbiter deploys external Ceph monitors at a tiebreaker site, enabling Ceph clusters to maintain quorum across two data centers. Without Arbiter, a two-site cluster loses quorum whenever one site becomes unavailable — Arbiter adds a lightweight third monitor at a separate site to break the tie.
+Arbiter deploys external Ceph monitors at a tiebreaker site, enabling Ceph clusters to maintain quorum across two data centers. Without Arbiter, a two-site cluster loses quorum whenever one site becomes unavailable - Arbiter adds a lightweight third monitor at a separate site to break the tie.
 
 ## Why Arbiter?
 
-In a stretched Ceph cluster spanning two availability zones (AZ-A and AZ-B), monitors are split evenly between the two sites. If either AZ loses connectivity, neither side can reach a majority — the cluster is unable to make quorum decisions and becomes unavailable.
+In a stretched Ceph cluster spanning two availability zones (AZ-A and AZ-B), monitors are split evenly between the two sites. If either AZ loses connectivity, neither side can reach a majority - the cluster is unable to make quorum decisions and becomes unavailable.
 
 Arbiter deploys an external monitor (`mon.ext-a`) at a third site. This monitor does not store data but participates in quorum, so the cluster survives a full AZ failure:
 
 ![Arbiter quorum diagram](/assets/project-owned/diagrams/purpose-external-arbiter-operator.png)
 
 ::: warning Important scope
-Arbiter restores **control-plane quorum** — it does not guarantee data redundancy. Data availability depends on OSD replication across the two primary sites.
+Arbiter restores **control-plane quorum** - it does not guarantee data redundancy. Data availability depends on OSD replication across the two primary sites.
 :::
 
 ## How it works
@@ -81,6 +81,6 @@ kubectl exec deployment/rook-ceph-tools -n rook-ceph -it -- ceph mon dump
 
 ## See also
 
-- [Storage — Ceph](./ceph)
-- [Storage — Rook](./rook)
+- [Storage - Ceph](./ceph)
+- [Storage - Rook](./rook)
 - [Arbiter GitHub repository](https://github.com/cobaltcore-dev/external-arbiter-operator)

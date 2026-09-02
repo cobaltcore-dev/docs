@@ -9,14 +9,14 @@ order: 40
 
 ## Why GardenLinux?
 
-- **Minimal attack surface** — stripped to only what is needed; no package manager or shell in production images
-- **Immutable by default** — OS is read-only; changes are applied by replacing the image, not modifying the running system
-- **Kernel tuned for KVM** — includes the patches and configuration needed for high-performance libvirt and KVM workloads
-- **Automated updates** — Gardener manages GardenLinux upgrades on hypervisor nodes with zero-downtime rolling updates
+- **Minimal attack surface** - stripped to only what is needed; no package manager or shell in production images
+- **Immutable by default** - OS is read-only; changes are applied by replacing the image, not modifying the running system
+- **Kernel tuned for KVM** - includes the patches and configuration needed for high-performance libvirt and KVM workloads
+- **Automated updates** - Gardener manages GardenLinux upgrades on hypervisor nodes with zero-downtime rolling updates
 
 ## Role in CobaltCore
 
-GardenLinux is the OS layer that the KVM hypervisor agents run on. The Hypervisor Operator interacts with GardenLinux through systemd unit management and the node agent — no SSH or manual shell access is needed for routine operations.
+GardenLinux is the OS layer that the KVM hypervisor agents run on. The Hypervisor Operator interacts with GardenLinux through systemd unit management and the node agent - no SSH or manual shell access is needed for routine operations.
 
 The hypervisor stack runs on top of GardenLinux:
 

@@ -14,9 +14,9 @@ Chorus provides zero-downtime data replication and migration between S3 and Swif
 
 ## What Chorus does
 
-- **Replication** — mirrors objects from a source object store to a destination, at the user or bucket level
-- **Migration** — moves data between object stores without downtime; traffic is proxied so reads and writes work during migration
-- **Multi-backend support** — works with any S3 or Swift-compatible storage, not only Ceph
+- **Replication** - mirrors objects from a source object store to a destination, at the user or bucket level
+- **Migration** - moves data between object stores without downtime; traffic is proxied so reads and writes work during migration
+- **Multi-backend support** - works with any S3 or Swift-compatible storage, not only Ceph
 
 ## Architecture
 
@@ -31,11 +31,11 @@ Replication policies are configured per user or per bucket. Webhooks are support
 
 ## Use cases in CobaltCore
 
-- **Storage migration** — move RGW data to a new Ceph cluster (e.g., during hardware refresh) without application changes
-- **Multi-site replication** — replicate buckets across two sites for disaster recovery
-- **Parallel writes** — write to both a primary and secondary store during a transition period
+- **Storage migration** - move RGW data to a new Ceph cluster (e.g., during hardware refresh) without application changes
+- **Multi-site replication** - replicate buckets across two sites for disaster recovery
+- **Parallel writes** - write to both a primary and secondary store during a transition period
 
 ## See also
 
 - [Chorus full documentation](https://github.com/cobaltcore-dev/chorus)
-- [Storage — Ceph](./ceph)
+- [Storage - Ceph](./ceph)
