@@ -15,6 +15,7 @@ path = [
   "docs/.vitepress/**",
   "docs/**.md",
   "docs/assets/project-owned/**",
+  "docs/public/CNAME",
   "hack/**"
 ]
 SPDX-FileCopyrightText = "SAP SE or an SAP affiliate company"
