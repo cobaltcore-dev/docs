@@ -24,17 +24,6 @@ export default withMermaid({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
-      {
-        text: 'Projects',
-        items: [
-          { text: 'ApeiroRA', link: 'https://apeirora.eu/' },
-          { text: 'Gardener', link: 'https://gardener.cloud/' },
-          { text: 'GardenLinux', link: 'https://github.com/gardenlinux/gardenlinux' },
-          { text: 'IronCore', link: 'https://ironcore.dev/' },
-          { text: 'IronCore Metal Operator', link: 'https://ironcore.dev/metal-operator/' },
-          { text: 'OpenStack', link: 'https://www.openstack.org/' },
-        ]
-      },
     ],
 
     editLink: {
