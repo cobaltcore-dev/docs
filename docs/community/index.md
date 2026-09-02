@@ -1,6 +1,5 @@
 ---
 title: Community
-layout: page
 ---
 
 <div class="community-hero">
