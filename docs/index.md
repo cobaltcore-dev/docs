@@ -15,14 +15,11 @@ hero:
       text: Get Started
       link: /getting-started/
     - theme: alt
-      text: What is CobaltCore?
+      text: Overview
       link: /overview/
     - theme: alt
       text: Architecture
       link: /overview/architecture
-    - theme: alt
-      text: API Reference
-      link: /api/
 
 features:
   - title: Kubernetes-native operations
