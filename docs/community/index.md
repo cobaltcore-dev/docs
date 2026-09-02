@@ -56,7 +56,7 @@ The documentation lives in [github.com/cobaltcore-dev/docs](https://github.com/c
 
 ## Code of Conduct
 
-CobaltCore follows the [SAP Open Source Code of Conduct](https://github.com/SAP/.github/blob/main/CODE_OF_CONDUCT.md). We are committed to a welcoming and inclusive environment for everyone. To report instances of unacceptable behavior, open a [GitHub issue](https://github.com/cobaltcore-dev/docs/issues).
+CobaltCore follows the [SAP Open Source Code of Conduct](https://github.com/SAP/.github/blob/main/CODE_OF_CONDUCT.md). We are committed to a welcoming and inclusive environment for everyone. To report instances of unacceptable behavior, please follow the reporting process described in the Code of Conduct.
 
 ## Governance
 
