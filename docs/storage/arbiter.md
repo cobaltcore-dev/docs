@@ -20,8 +20,6 @@ Arbiter.
 [github.com/cobaltcore-dev/external-arbiter-operator](https://github.com/cobaltcore-dev/external-arbiter-operator)
 :::
 
-Arbiter deploys external Ceph monitors at a tiebreaker site, enabling Ceph clusters to maintain quorum across two data centers. Without Arbiter, a two-site cluster loses quorum whenever one site becomes unavailable - Arbiter adds a lightweight third monitor at a separate site to break the tie.
-
 ## Why Arbiter?
 
 In a stretched Ceph cluster spanning two availability zones (AZ-A and AZ-B), monitors are split evenly between the two sites. If either AZ loses connectivity, neither side can reach a majority - the cluster is unable to make quorum decisions and becomes unavailable.

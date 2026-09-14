@@ -10,8 +10,6 @@ outline: deep
 [github.com/rook/rook](https://github.com/rook/rook)
 :::
 
-Rook is the Kubernetes operator that manages the Ceph cluster in CobaltCore. It runs Ceph daemons (monitors, managers, OSDs, MDS, RGW) as containerized Kubernetes workloads and provides declarative management through CRDs.
-
 Rook is an open-source cloud-native storage orchestrator that automates the
 deployment, configuration, and management of [Ceph](./ceph.md) storage clusters
 within Kubernetes environments. Built as a Kubernetes operator, Rook extends
@@ -62,11 +60,11 @@ graph LR
 
 ### Prerequisites
 
-- Kubernetes 1.28 through 1.33
+- Kubernetes 1.31 through 1.37
 - Raw block devices available on storage nodes (unformatted, no filesystem)
 - Network connectivity between storage nodes
 
-The commands below pin Rook `v1.17.9` and Ceph `v19.2.3` so the chart,
+The commands below pin Rook `v1.20.7` and Ceph `v20.2.4` so the chart,
 manifests, and compatibility range remain consistent.
 
 ### Install the operator
@@ -77,7 +75,7 @@ helm repo update
 
 helm install --create-namespace \
   --namespace rook-ceph \
-  --version v1.17.9 \
+  --version v1.20.7 \
   --wait \
   rook-ceph rook-release/rook-ceph
 ```
@@ -101,7 +99,7 @@ metadata:
   namespace: rook-ceph
 spec:
   cephVersion:
-    image: quay.io/ceph/ceph:v19.2.3
+    image: quay.io/ceph/ceph:v20.2.4
   dataDirHostPath: /var/lib/rook
   mon:
     count: 3
@@ -125,13 +123,13 @@ kubectl get cephcluster -n rook-ceph -w
 **RBD (block):**
 
 ```bash
-kubectl apply -f https://raw.githubusercontent.com/rook/rook/v1.17.9/deploy/examples/csi/rbd/storageclass.yaml
+kubectl apply -f https://raw.githubusercontent.com/rook/rook/v1.20.7/deploy/examples/csi/rbd/storageclass.yaml
 ```
 
 **CephFS (file):**
 
 ```bash
-kubectl apply -f https://raw.githubusercontent.com/rook/rook/v1.17.9/deploy/examples/csi/cephfs/storageclass.yaml
+kubectl apply -f https://raw.githubusercontent.com/rook/rook/v1.20.7/deploy/examples/csi/cephfs/storageclass.yaml
 ```
 
 ### Verify
@@ -139,7 +137,7 @@ kubectl apply -f https://raw.githubusercontent.com/rook/rook/v1.17.9/deploy/exam
 First install the Rook toolbox to get access to `ceph` CLI commands:
 
 ```bash
-kubectl apply -f https://raw.githubusercontent.com/rook/rook/v1.17.9/deploy/examples/toolbox.yaml
+kubectl apply -f https://raw.githubusercontent.com/rook/rook/v1.20.7/deploy/examples/toolbox.yaml
 kubectl rollout status deployment/rook-ceph-tools -n rook-ceph
 ```
 

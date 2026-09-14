@@ -22,7 +22,7 @@ Before beginning the installation, ensure the following requirements are met:
 
 ### Kubernetes Cluster Requirements
 
-- Kubernetes v1.28 through v1.33
+- Kubernetes v1.31 through v1.37
 - `kubectl` configured to communicate with your cluster
 - Administrator access to the Kubernetes cluster
 - At least 3 worker nodes for a production cluster (1 node minimum for testing)
@@ -54,17 +54,18 @@ Before beginning the installation, ensure the following requirements are met:
 
 ## Install Rook-Ceph
 
-The examples below pin Rook `v1.17.9`, which supports the Kubernetes range
+The examples below pin Rook `v1.20.7`, which supports the Kubernetes range
 listed above. Select another tagged release and follow its compatibility guide
 if your Kubernetes version falls outside that range.
 
 ```bash
-git clone --depth 1 --branch v1.17.9 https://github.com/rook/rook.git
+git clone --depth 1 --branch v1.20.7 https://github.com/rook/rook.git
 cd rook/deploy/examples
 
 # Install the Rook operator
 kubectl create -f crds.yaml
 kubectl create -f common.yaml
+kubectl create -f csi-operator.yaml
 kubectl create -f operator.yaml
 
 # Wait for the operator before configuring the Ceph cluster
@@ -181,28 +182,6 @@ Create a storage class for block devices:
 kubectl create -f csi/rbd/storageclass.yaml
 ```
 
-Test the storage class:
-
-```bash
-# Create a test PVC
-cat <<EOF | kubectl apply -f -
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: rbd-pvc
-spec:
-  accessModes:
-  - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi
-  storageClassName: rook-ceph-block
-EOF
-
-# Verify PVC is bound
-kubectl get pvc rbd-pvc
-```
-
 ### File Storage (CephFS)
 
 Deploy the CephFS filesystem:
@@ -228,7 +207,8 @@ kubectl create -f object.yaml
 Wait for the RGW pods to be ready:
 
 ```bash
-kubectl -n rook-ceph get pods -l app=rook-ceph-rgw
+kubectl -n rook-ceph wait --for=condition=Ready pod \
+  -l app=rook-ceph-rgw --timeout=5m
 ```
 
 ## Verification
@@ -265,10 +245,12 @@ Create test workloads using each storage type:
 # Test RBD block storage
 kubectl create -f csi/rbd/pvc.yaml
 kubectl create -f csi/rbd/pod.yaml
+kubectl wait --for=condition=Ready pod/csirbd-demo-pod --timeout=5m
 
 # Test CephFS
 kubectl create -f csi/cephfs/pvc.yaml
 kubectl create -f csi/cephfs/pod.yaml
+kubectl wait --for=condition=Ready pod/csicephfs-demo-pod --timeout=5m
 ```
 
 ## Troubleshooting
@@ -324,7 +306,6 @@ kubectl delete -f csi/rbd/pod.yaml --ignore-not-found
 kubectl delete -f csi/rbd/pvc.yaml --ignore-not-found
 kubectl delete -f csi/cephfs/pod.yaml --ignore-not-found
 kubectl delete -f csi/cephfs/pvc.yaml --ignore-not-found
-kubectl delete pvc rbd-pvc --ignore-not-found
 
 # Delete the storage classes
 kubectl delete -f csi/rbd/storageclass.yaml --ignore-not-found
@@ -344,6 +325,7 @@ kubectl delete -f cluster.yaml
 
 # Delete the operator
 kubectl delete -f operator.yaml
+kubectl delete -f csi-operator.yaml
 kubectl delete -f common.yaml
 kubectl delete -f crds.yaml
 ```
