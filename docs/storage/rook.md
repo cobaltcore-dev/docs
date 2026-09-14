@@ -62,9 +62,12 @@ graph LR
 
 ### Prerequisites
 
-- Kubernetes 1.25+
+- Kubernetes 1.28 through 1.33
 - Raw block devices available on storage nodes (unformatted, no filesystem)
 - Network connectivity between storage nodes
+
+The commands below pin Rook `v1.17.9` and Ceph `v19.2.3` so the chart,
+manifests, and compatibility range remain consistent.
 
 ### Install the operator
 
@@ -74,12 +77,21 @@ helm repo update
 
 helm install --create-namespace \
   --namespace rook-ceph \
+  --version v1.17.9 \
+  --wait \
   rook-ceph rook-release/rook-ceph
 ```
 
 ### Deploy the Ceph cluster
 
 Create a `CephCluster` resource. A minimal 3-node cluster:
+
+::: danger Dedicated devices only
+The example sets `useAllDevices: true`. Rook will consume every eligible raw
+device it discovers on the selected nodes. Use dedicated storage nodes, or set
+this option to `false` and select devices explicitly before applying the
+manifest.
+:::
 
 ```yaml
 apiVersion: ceph.rook.io/v1
@@ -89,7 +101,7 @@ metadata:
   namespace: rook-ceph
 spec:
   cephVersion:
-    image: quay.io/ceph/ceph:v18
+    image: quay.io/ceph/ceph:v19.2.3
   dataDirHostPath: /var/lib/rook
   mon:
     count: 3
@@ -112,22 +124,20 @@ kubectl get cephcluster -n rook-ceph -w
 
 **RBD (block):**
 ```bash
-kubectl apply -f https://raw.githubusercontent.com/rook/rook/refs/heads/release-1.17/deploy/examples/csi/rbd/storageclass.yaml
+kubectl apply -f https://raw.githubusercontent.com/rook/rook/v1.17.9/deploy/examples/csi/rbd/storageclass.yaml
 ```
 
 **CephFS (file):**
 ```bash
-kubectl apply -f https://raw.githubusercontent.com/rook/rook/refs/heads/release-1.17/deploy/examples/csi/cephfs/storageclass.yaml
+kubectl apply -f https://raw.githubusercontent.com/rook/rook/v1.17.9/deploy/examples/csi/cephfs/storageclass.yaml
 ```
-
-Replace `release-1.17` with the Rook version you installed.
 
 ### Verify
 
 First install the Rook toolbox to get access to `ceph` CLI commands:
 
 ```bash
-kubectl apply -f https://raw.githubusercontent.com/rook/rook/refs/heads/release-1.17/deploy/examples/toolbox.yaml
+kubectl apply -f https://raw.githubusercontent.com/rook/rook/v1.17.9/deploy/examples/toolbox.yaml
 kubectl rollout status deployment/rook-ceph-tools -n rook-ceph
 ```
 

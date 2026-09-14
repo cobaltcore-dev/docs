@@ -23,7 +23,7 @@ Before beginning the installation, ensure the following requirements are met:
 
 ### Kubernetes Cluster Requirements
 
-- Kubernetes v1.25 or higher
+- Kubernetes v1.28 through v1.33
 - `kubectl` configured to communicate with your cluster
 - Administrator access to the Kubernetes cluster
 - At least 3 worker nodes for a production cluster (1 node minimum for testing)
@@ -34,7 +34,8 @@ Before beginning the installation, ensure the following requirements are met:
 ### Storage Requirements
 
 - Raw block devices available on worker nodes (unformatted, no filesystem)
-- Minimum 10 GB of storage per OSD
+- At least 10 GB per OSD for testing; size production OSDs for the expected
+  workload, recovery headroom, and Ceph release guidance
 - Devices should not be mounted or in use by the operating system
 
 ### Network Requirements
@@ -47,18 +48,19 @@ Before beginning the installation, ensure the following requirements are met:
 
 ### System Requirements
 
-- Linux kernel 4.5 or higher (5.x recommended)
+- A Linux kernel supported by the selected Kubernetes and Ceph releases
 - LVM2 packages installed on all nodes
-- Minimum 2 GB RAM per node (4 GB+ recommended)
+- CPU and memory sized for the planned Ceph daemons and workload
 - `helm` installed if using Helm-based deployment (optional)
 
 ## Install Rook-Ceph
 
-The examples below use the Rook `release-1.17` branch. Select a branch that is
-compatible with your Kubernetes and Ceph versions before deploying.
+The examples below pin Rook `v1.17.9`, which supports the Kubernetes range
+listed above. Select another tagged release and follow its compatibility guide
+if your Kubernetes version falls outside that range.
 
 ```bash
-git clone --depth 1 --branch release-1.17 https://github.com/rook/rook.git
+git clone --depth 1 --branch v1.17.9 https://github.com/rook/rook.git
 cd rook/deploy/examples
 
 # Install the Rook operator

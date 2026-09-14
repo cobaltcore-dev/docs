@@ -154,7 +154,8 @@ The integration with RADOS provides Ceph block devices with enterprise-grade
 features. Snapshotting capability enables point-in-time copies of block devices,
 supporting backup operations, testing scenarios, and recovery procedures.
 Snapshots are space-efficient, storing only changed data rather than full
-copies, and can be created instantaneously without impacting ongoing operations.
+copies. Applications should still coordinate writes when an
+application-consistent snapshot is required.
 
 Replication ensures data durability by maintaining multiple copies of data
 across different cluster nodes. The replication factor is configurable,
@@ -202,7 +203,7 @@ performance.
 
 #### Architecture and Design
 
-RGW operates as a FastCGI or standalone HTTP service that sits atop the Ceph
+RGW operates as an HTTP service that sits atop the Ceph
 Storage Cluster. Unlike direct RADOS access, RGW provides a higher-level
 abstraction specifically designed for object storage workloads. The gateway
 maintains its own data formats, user database, authentication mechanisms, and
@@ -406,10 +407,9 @@ good filesystem performance.
 
 CephFS supports multiple MDS daemons operating simultaneously, enabling both
 high availability and horizontal scalability. In active-passive configurations,
-standby MDS daemons monitor active instances and can take over immediately if an
-active MDS fails, with the transition handled automatically by Ceph monitors.
-The journal stored in RADOS ensures that no metadata operations are lost during
-failover.
+Ceph monitors assign a standby when an active MDS fails. Recovery time depends
+on factors such as journal replay and whether standby-replay is configured. The
+journal stored in RADOS provides the metadata needed for recovery.
 
 For scalability, CephFS implements dynamic subtree partitioning, allowing
 multiple active MDS daemons to divide the filesystem namespace among themselves.
