@@ -9,7 +9,7 @@ order: 60
 [github.com/cobaltcore-dev/liquid-ceph](https://github.com/cobaltcore-dev/liquid-ceph)
 :::
 
-Liquid-Ceph enables dynamic, on-demand storage allocation across the Ceph cluster. It integrates with the [Liquid](https://github.com/sapcc/liquid) framework to expose Ceph storage capacity as a schedulable resource in the CobaltCore cloud.
+Liquid-Ceph enables dynamic, on-demand storage allocation across the CobaltCore Ceph cluster. It abstracts the complexity of pool and quota management, allowing workloads to claim storage capacity fluidly without manual pre-provisioning steps.
 
 ## What it does
 

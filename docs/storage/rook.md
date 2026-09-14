@@ -12,6 +12,33 @@ outline: deep
 
 Rook is the Kubernetes operator that manages the Ceph cluster in CobaltCore. It runs Ceph daemons (monitors, managers, OSDs, MDS, RGW) as containerized Kubernetes workloads and provides declarative management through CRDs.
 
+Rook is an open-source cloud-native storage orchestrator that automates the
+deployment, configuration, and management of [Ceph](./ceph.md) storage clusters
+within Kubernetes environments. Built as a Kubernetes operator, Rook extends
+Kubernetes with custom resource definitions (CRDs) that allow administrators to
+define and manage Ceph clusters using native Kubernetes APIs and tools.
+
+Rook eliminates much of the operational complexity traditionally associated
+with running Ceph by leveraging Kubernetes primitives for scheduling,
+self-healing, and scaling. When deployed, Rook runs as a set of pods within the
+Kubernetes cluster, managing the lifecycle of Ceph daemons (monitors, managers,
+OSDs, MDS, and RGW) as containerized workloads. It automatically handles tasks
+such as OSD provisioning from available storage devices, the management of the
+monitor quorum.
+
+The system provides declarative configuration through YAML manifests, enabling
+infrastructure-as-code practices for storage management. Administrators can
+define storage classes that map to Ceph pools, allowing applications to
+dynamically provision persistent volumes for block storage (RBD), shared file
+systems (CephFS), or object storage (RGW) through standard Kubernetes
+mechanisms.
+
+Rook continuously monitors cluster health and automatically responds to
+failures by restarting failed daemons, replacing unhealthy OSDs, and
+maintaining desired state as defined in the cluster specifications. It
+integrates with [Kubernetes](https://kubernetes.io/) monitoring and logging systems,
+providing visibility into storage operations alongside application workloads.
+
 ## Why Rook?
 
 Running Ceph as a Kubernetes workload means the cluster lifecycle - initial deployment, scaling, upgrades, and self-healing - is handled by Kubernetes controllers rather than manual playbooks. Rook bridges the gap between Ceph's daemon model and Kubernetes' declarative model.
