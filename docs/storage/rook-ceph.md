@@ -234,6 +234,15 @@ kubectl -n rook-ceph get pods -l app=rook-ceph-rgw
 
 ## Verification
 
+### Install the Ceph Toolbox
+
+Install the toolbox used by the health and troubleshooting commands below:
+
+```bash
+kubectl create -f toolbox.yaml
+kubectl -n rook-ceph rollout status deployment/rook-ceph-tools
+```
+
 ### Verify All Storage Types
 
 Check that all storage components are operational:
@@ -279,9 +288,14 @@ kubectl -n rook-ceph logs -l app=rook-ceph-operator
 ```bash
 # Check OSD prepare logs
 kubectl -n rook-ceph logs -l app=rook-ceph-osd-prepare
+```
 
-# Verify devices are available and unused
-kubectl -n rook-ceph exec -it deployment/rook-ceph-tools -- ceph-volume inventory
+Run these read-only checks directly on the affected storage node, replacing
+`/dev/sdX` with the intended OSD device:
+
+```bash
+lsblk -f
+sudo wipefs --no-act /dev/sdX
 ```
 
 **Cluster stuck in HEALTH_WARN:**
@@ -316,6 +330,9 @@ kubectl delete pvc rbd-pvc --ignore-not-found
 # Delete the storage classes
 kubectl delete -f csi/rbd/storageclass.yaml --ignore-not-found
 kubectl delete -f csi/cephfs/storageclass.yaml --ignore-not-found
+
+# Delete the troubleshooting toolbox
+kubectl delete -f toolbox.yaml --ignore-not-found
 
 # Delete object storage (if created)
 kubectl delete -f object.yaml

@@ -37,32 +37,32 @@ Ceph exposes three storage interfaces that CobaltCore services consume:
 - **CephFS** — POSIX-compliant distributed filesystem. Metadata is managed by a dedicated MDS cluster; data is striped across OSDs. Supports snapshots, quotas, and multiple active MDS daemons for horizontal metadata scaling.
 - **RGW (RADOS Gateway)** — S3 and Swift-compatible object storage gateway. Supports multi-tenancy, versioning, lifecycle policies, server-side encryption, and multi-site active-active replication.
 
-## Data Flow
+## Component Relationships
 
-```text
-Applications / VMs
-        │
-┌───────┴────────────────────┐
-│  RBD  │  CephFS  │  RGW    │  ← Ceph interfaces
-└───────┴────────────────────┘
-        │
-    RADOS (Reliable Autonomic Distributed Object Store)
-        │
-   OSDs across cluster nodes
-        │
-   ┌────┴─────┐
-   │  Rook    │  ← manages daemon lifecycle via Kubernetes CRDs
-   └──────────┘
-        │
-   ┌────┴──────┐   ┌─────────┐   ┌────────────┐
-   │  Arbiter  │   │  Chorus │   │ Liquid-Ceph│
-   └───────────┘   └─────────┘   └────────────┘
-   (quorum)        (replication)  (metering)
-        │
-   ┌────┴──────────────────────────┐
-   │  Observability & Audit        │
-   │  Prometheus · Perses · Prysm  │
-   └───────────────────────────────┘
+```mermaid
+flowchart TB
+    Apps[Applications and VMs]
+    RBD[RBD]
+    CephFS[CephFS]
+    RGW[RGW]
+    RADOS[RADOS]
+    OSDs[OSDs across storage nodes]
+    MON[Ceph monitors]
+
+    Apps --> RBD
+    Apps --> CephFS
+    Apps --> RGW
+    RBD --> RADOS
+    CephFS --> RADOS
+    RGW --> RADOS
+    RADOS --> OSDs
+
+    Rook -. manages daemons .-> MON
+    Rook -. manages daemons .-> OSDs
+    Arbiter -. adds an external quorum member .-> MON
+    Chorus -. replicates objects .-> RGW
+    LiquidCeph[Liquid-Ceph] -. meters quota and usage .-> RGW
+    Observability[Prometheus, Perses, and Prysm] -. monitors .-> RADOS
 ```
 
 ## High Availability

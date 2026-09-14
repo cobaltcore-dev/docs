@@ -108,7 +108,7 @@ kubectl apply -f ./rook/deploy/examples/csi-operator.yaml
 # Create Ceph cluster
 kubectl apply -f ./rook/deploy/examples/cluster-test.yaml
 
-# (Optional) Install Ceph toolbox
+# Install the Ceph toolbox used by the verification step
 kubectl apply -f ./rook/deploy/examples/toolbox.yaml
 ```
 
@@ -146,7 +146,7 @@ kubectl apply -f ./contrib/k8s/examples/remote-cluster.yaml -n arbiter-operator
 # Create remote arbiter resource
 kubectl apply -f ./contrib/k8s/examples/remote-arbiter.yaml -n arbiter-operator
 
-# Watch until Arbiter is ready
+# Watch until Arbiter is ready, then press Ctrl+C
 kubectl get remotearbiter -n arbiter-operator -w
 
 # Check that Arbiter has joined quorum
@@ -156,6 +156,11 @@ kubectl exec deployment/rook-ceph-tools -n rook-ceph -it -- ceph mon dump
 ### Cleanup
 
 ```bash
+# Delete managed resources while the operator can still finalize them
+kubectl delete -f ./contrib/k8s/examples/remote-arbiter.yaml -n arbiter-operator
+kubectl delete -f ./contrib/k8s/examples/remote-cluster.yaml -n arbiter-operator
+kubectl delete -f ./contrib/k8s/examples/secret.yaml -n arbiter-operator
+
 # Remove Helm chart
 helm uninstall --namespace arbiter-operator arbiter-operator
 
@@ -164,6 +169,9 @@ limactl stop k8s
 
 # Delete VM
 limactl delete k8s
+
+# Delete the detached OSD disk
+limactl disk delete osd
 ```
 
 ## Make Goals
