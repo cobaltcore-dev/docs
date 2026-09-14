@@ -36,7 +36,8 @@ Arbiter restores **control-plane quorum** - it does not guarantee data redundanc
 
 ## How it works
 
-The Arbiter operator watches the Ceph cluster for quorum loss. When quorum is lost between the two primary sites, the operator:
+The Arbiter operator provisions the external monitor before a failure occurs and
+continuously reconciles its desired state. During reconciliation, the operator:
 
 1. Reads the current Ceph cluster state
 2. Reserves an external monitor ID
@@ -96,7 +97,7 @@ export KUBECONFIG="${HOME}/.lima/k8s/copied-from-guest/kubeconfig.yaml"
 
 ```bash
 # Install cert-manager
-kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.19.2/cert-manager.yaml
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.21.1/cert-manager.yaml
 
 # Install Rook operator
 kubectl apply -f ./rook/deploy/examples/crds.yaml

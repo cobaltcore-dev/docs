@@ -97,7 +97,7 @@ mechanism to enhance performance.
 Ceph's block devices are engineered to deliver high performance combined with
 vast scalability capabilities. This performance extends to various deployment
 scenarios, including direct integration with kernel modules and virtualization
-environments. The architecture supports Key-Value Machines (KVMs) such as QEMU,
+environments. The architecture supports virtualization stacks such as QEMU/KVM,
 enabling efficient virtualized storage operations.
 
 Cloud-based computing platforms have embraced Ceph block devices as a storage
@@ -134,11 +134,10 @@ from unused pre-allocated space and allows for oversubscription strategies
 where the sum of provisioned capacity can exceed physical capacity, based on
 actual usage patterns.
 
-The resizable nature of Ceph block devices provides operational flexibility,
-allowing administrators to expand or contract volume sizes based on changing
-application requirements without disrupting service availability. This dynamic
-sizing capability supports evolving storage needs without requiring complex
-migration procedures or extended downtime windows.
+The resizable nature of Ceph block devices provides operational flexibility.
+Administrators can expand images as requirements grow. Shrinking an image is a
+separate, potentially destructive operation that requires the contained
+filesystem to be reduced first and explicit confirmation to `rbd resize`.
 
 Data striping across multiple OSDs distributes data blocks across the cluster's
 storage nodes. This distribution achieves two critical objectives: it increases
@@ -291,8 +290,8 @@ operates independently, communicating directly with the underlying Ceph
 cluster, avoiding any single point of contention.
 
 For improved performance, RGW implements various optimization strategies. It
-can cache frequently accessed objects and metadata to reduce latency for
-popular content. Asynchronous operations handle time-consuming tasks like
+can cache frequently accessed metadata to reduce request latency. Asynchronous
+operations handle time-consuming tasks like
 garbage collection and data synchronization without blocking client requests.
 The gateway also supports byte-range requests, enabling efficient partial
 object retrieval for large files and supporting features like HTTP video

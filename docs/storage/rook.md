@@ -34,9 +34,10 @@ systems (CephFS), or object storage (RGW) through standard Kubernetes
 mechanisms.
 
 Rook continuously monitors cluster health and automatically responds to
-failures by restarting failed daemons, replacing unhealthy OSDs, and
-maintaining desired state as defined in the cluster specifications. It
-integrates with [Kubernetes](https://kubernetes.io/) monitoring and logging systems,
+failures by restarting failed daemon pods and maintaining the desired state
+defined in the cluster specifications. Replacing a failed storage device still
+requires an administrator to prepare the replacement and remove the failed OSD.
+It integrates with [Kubernetes](https://kubernetes.io/) monitoring and logging systems,
 providing visibility into storage operations alongside application workloads.
 
 ## Why Rook?

@@ -6,8 +6,9 @@ outline: deep
 
 # Chorus
 
-::: tip Source Code
-[github.com/cobaltcore-dev/chorus](https://github.com/cobaltcore-dev/chorus)
+::: info
+The Chorus source and detailed operational documentation currently require
+CobaltCore organization access.
 :::
 
 Chorus is data replication software designed for Object Storage systems,
@@ -52,5 +53,4 @@ Replication policies are configured per user or per bucket. Webhooks are support
 
 ## See also
 
-- [Chorus project repository](https://github.com/cobaltcore-dev/chorus)
 - [Storage - Ceph](./ceph.md)

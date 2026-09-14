@@ -66,10 +66,8 @@ kubectl create -f crds.yaml
 kubectl create -f common.yaml
 kubectl create -f operator.yaml
 
-# Wait for the operator before creating the Ceph cluster
+# Wait for the operator before configuring the Ceph cluster
 kubectl -n rook-ceph rollout status deployment/rook-ceph-operator
-kubectl create -f cluster.yaml
-kubectl -n rook-ceph get cephcluster -w
 ```
 
 Run the remaining commands from the `rook/deploy/examples` directory so that
@@ -139,6 +137,18 @@ network:
   #   encryption:
   #     enabled: true
 ```
+
+## Deploy the Ceph Cluster
+
+After reviewing the settings above and updating `cluster.yaml`, create the
+cluster and wait for it to become ready:
+
+```bash
+kubectl create -f cluster.yaml
+kubectl -n rook-ceph get cephcluster -w
+```
+
+Press `Ctrl+C` after the cluster reports `Ready`.
 
 ### Dashboard Access
 
@@ -287,12 +297,24 @@ kubectl -n rook-ceph exec -it deployment/rook-ceph-tools -- ceph -s
 To remove the Rook-Ceph cluster:
 
 **Note:** Rook uses Kubernetes finalizers to protect resources from accidental
-deletion. If `kubectl delete` commands hang, you may need to manually remove
-finalizers from the relevant custom resources. See the
+deletion and to enforce dependency order. Do not remove those finalizers
+manually. If deletion stalls, check for dependent resources and operator errors
+before continuing. See the
 [Rook cleanup documentation](https://rook.io/docs/rook/latest/Storage-Configuration/ceph-teardown/)
 for details.
 
 ```bash
+# Delete the example workloads and claims created by this guide
+kubectl delete -f csi/rbd/pod.yaml --ignore-not-found
+kubectl delete -f csi/rbd/pvc.yaml --ignore-not-found
+kubectl delete -f csi/cephfs/pod.yaml --ignore-not-found
+kubectl delete -f csi/cephfs/pvc.yaml --ignore-not-found
+kubectl delete pvc rbd-pvc --ignore-not-found
+
+# Delete the storage classes
+kubectl delete -f csi/rbd/storageclass.yaml --ignore-not-found
+kubectl delete -f csi/cephfs/storageclass.yaml --ignore-not-found
+
 # Delete object storage (if created)
 kubectl delete -f object.yaml
 
@@ -320,6 +342,8 @@ sudo rm -rf /var/lib/rook
 
 # Wipe each OSD device (replace /dev/sdX with the actual device name)
 sudo sgdisk --zap-all /dev/sdX
+sudo wipefs --all /dev/sdX
+sudo partprobe /dev/sdX
 ```
 
 ## Next Steps
@@ -338,7 +362,7 @@ After successful installation:
 - Official Rook documentation: https://rook.io/docs/rook/latest/
 - Ceph documentation: https://docs.ceph.com/
 - Rook GitHub repository: https://github.com/rook/rook
-- Rook Slack community: https://rook-io.slack.com/
+- Rook Slack community: https://slack.rook.io/
 
 ## Notes
 

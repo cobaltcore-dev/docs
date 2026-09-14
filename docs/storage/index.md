@@ -6,7 +6,7 @@ outline: deep
 
 # Storage
 
-CobaltCore's cloud storage layer is built on [Ceph](./ceph.md), a distributed storage system that delivers object, block, and file storage in a single unified platform. The surrounding components handle lifecycle automation, data replication, high-availability quorum, observability, and liquid storage allocation — each with a focused responsibility.
+CobaltCore's cloud storage layer is built on [Ceph](./ceph.md), a distributed storage system that delivers object, block, and file storage in a single unified platform. The surrounding components handle lifecycle automation, data replication, high-availability quorum, observability, and quota and usage metering — each with a focused responsibility.
 
 ## Architecture
 
@@ -16,7 +16,7 @@ The storage stack is organized into three layers:
 
 **Operations** — [Rook](./rook.md) runs as a Kubernetes operator and manages the full lifecycle of Ceph daemons (monitors, managers, OSDs, MDS, RGW) as containerized workloads. [Arbiter](./arbiter.md) extends quorum into stretched cluster topologies by deploying external Ceph monitors that Rook does not manage directly.
 
-**Data Services** — [Chorus](./chorus.md) provides zero-downtime data replication and migration between object storage systems (S3 and Swift). [Liquid-Ceph](./liquid-ceph.md) enables dynamic, on-demand storage allocation across the cluster.
+**Data Services** — [Chorus](./chorus.md) provides zero-downtime data replication and migration between object storage systems (S3 and Swift). [Liquid-Ceph](./liquid-ceph.md) reports RGW quota, capacity, and usage data to Limes.
 
 ## Components
 
@@ -26,7 +26,7 @@ The storage stack is organized into three layers:
 | [Rook](./rook.md) | Operations | Kubernetes operator for Ceph lifecycle management |
 | [Arbiter](./arbiter.md) | Operations | External Ceph monitors for quorum in stretched clusters |
 | [Chorus](./chorus.md) | Data Services | Zero-downtime object storage replication and migration |
-| [Liquid-Ceph](./liquid-ceph.md) | Data Services | Dynamic storage allocation across the Ceph cluster |
+| [Liquid-Ceph](./liquid-ceph.md) | Data Services | Limes integration for RGW quota, capacity, and usage metering |
 | [Observability & Audit](/observability/) | Observability | Metrics, dashboards, alerting, and audit — Prometheus, Perses, Prysm |
 
 ## Storage Interfaces
@@ -57,7 +57,7 @@ Applications / VMs
    ┌────┴──────┐   ┌─────────┐   ┌────────────┐
    │  Arbiter  │   │  Chorus │   │ Liquid-Ceph│
    └───────────┘   └─────────┘   └────────────┘
-   (quorum)        (replication)  (allocation)
+   (quorum)        (replication)  (metering)
         │
    ┌────┴──────────────────────────┐
    │  Observability & Audit        │
