@@ -72,9 +72,11 @@ operator locally, and deploy an external monitor.
 ### Clone and Setup
 
 ```bash
-# Clone the Rook repository: https://github.com/rook/rook
+# Clone the Arbiter repository
+git clone https://github.com/cobaltcore-dev/external-arbiter-operator.git
+cd external-arbiter-operator
 
-#Run `make deps`:
+# Install the development dependencies
 make deps
 
 # Create OSD for Ceph

@@ -28,8 +28,8 @@ Before beginning the installation, ensure the following requirements are met:
 - Administrator access to the Kubernetes cluster
 - At least 3 worker nodes for a production cluster (1 node minimum for testing)
 - Verify compatibility between your Kubernetes version and the Rook version you
-  intend to deploy — see the [Rook releases page](https://github.com/rook/rook/releases)
-  for version compatibility information
+  intend to deploy — see the [Rook releases page](https://github.com/rook/rook/releases)
+  for version compatibility information
 
 ### Storage Requirements
 
@@ -41,9 +41,9 @@ Before beginning the installation, ensure the following requirements are met:
 
 - Network connectivity between all cluster nodes
 - Network access between pods is handled by the Kubernetes network plugin (CNI).
-  Ensure your CNI supports the required pod-to-pod communication. If you need
-  to open ports for external access to Ceph services, the typical ports are
-  6789, 3300, and 6800-7300.
+  Ensure your CNI supports the required pod-to-pod communication. If you need
+  to open ports for external access to Ceph services, the typical ports are
+  6789, 3300, and 6800-7300.
 
 ### System Requirements
 
@@ -51,6 +51,29 @@ Before beginning the installation, ensure the following requirements are met:
 - LVM2 packages installed on all nodes
 - Minimum 2 GB RAM per node (4 GB+ recommended)
 - `helm` installed if using Helm-based deployment (optional)
+
+## Install Rook-Ceph
+
+The examples below use the Rook `release-1.17` branch. Select a branch that is
+compatible with your Kubernetes and Ceph versions before deploying.
+
+```bash
+git clone --depth 1 --branch release-1.17 https://github.com/rook/rook.git
+cd rook/deploy/examples
+
+# Install the Rook operator
+kubectl create -f crds.yaml
+kubectl create -f common.yaml
+kubectl create -f operator.yaml
+
+# Wait for the operator before creating the Ceph cluster
+kubectl -n rook-ceph rollout status deployment/rook-ceph-operator
+kubectl create -f cluster.yaml
+kubectl -n rook-ceph get cephcluster -w
+```
+
+Run the remaining commands from the `rook/deploy/examples` directory so that
+paths such as `cluster.yaml`, `filesystem.yaml`, and `csi/` resolve correctly.
 
 ## Configuration Options
 
@@ -64,22 +87,22 @@ Specify which devices to use for OSDs:
 
 ```yaml
 storage:
-  useAllNodes: true
-  useAllDevices: false
-  deviceFilter: "^sd[b-z]"  # Use sdb, sdc, etc.
+  useAllNodes: true
+  useAllDevices: false
+  deviceFilter: "^sd[b-z]"  # Use sdb, sdc, etc.
 ```
 
 Or specify devices explicitly:
 
 ```yaml
 storage:
-  nodes:
-  - name: "node1"
-    devices:
-    - name: "/dev/sdb"
-  - name: "node2"
-    devices:
-    - name: "/dev/sdc"
+  nodes:
+  - name: "node1"
+    devices:
+    - name: "/dev/sdb"
+  - name: "node2"
+    devices:
+    - name: "/dev/sdc"
 ```
 
 #### Resource Limits
@@ -88,20 +111,20 @@ Set resource limits for Ceph daemons:
 
 ```yaml
 resources:
-  mon:
-    limits:
-      cpu: "2000m"
-      memory: "4Gi"
-    requests:
-      cpu: "1000m"
-      memory: "2Gi"
-  osd:
-    limits:
-      cpu: "2000m"
-      memory: "4Gi"
-    requests:
-      cpu: "1000m"
-      memory: "2Gi"
+  mon:
+    limits:
+      cpu: "2000m"
+      memory: "4Gi"
+    requests:
+      cpu: "1000m"
+      memory: "2Gi"
+  osd:
+    limits:
+      cpu: "2000m"
+      memory: "4Gi"
+    requests:
+      cpu: "1000m"
+      memory: "2Gi"
 ```
 
 #### Network Configuration
@@ -110,11 +133,11 @@ Configure network settings for client and cluster traffic:
 
 ```yaml
 network:
-  provider: host  # or multus for advanced networking
-  # Uncomment for dual network configuration
-  # connections:
-  #   encryption:
-  #     enabled: true
+  provider: host  # or multus for advanced networking
+  # Uncomment for dual network configuration
+  # connections:
+  #   encryption:
+  #     enabled: true
 ```
 
 ### Dashboard Access
@@ -126,7 +149,7 @@ Enable and access the Ceph dashboard:
 
 # Get the dashboard password
 kubectl -n rook-ceph get secret rook-ceph-dashboard-password \
-  -o jsonpath="{['data']['password']}" | base64 --decode && echo
+  -o jsonpath="{['data']['password']}" | base64 --decode && echo
 
 # Port-forward to access the dashboard
 kubectl -n rook-ceph port-forward service/rook-ceph-mgr-dashboard 8443:8443
@@ -155,14 +178,14 @@ cat <<EOF | kubectl apply -f -
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: rbd-pvc
+  name: rbd-pvc
 spec:
-  accessModes:
-  - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi
-  storageClassName: rook-ceph-block
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: rook-ceph-block
 EOF
 
 # Verify PVC is bound
@@ -270,14 +293,14 @@ finalizers from the relevant custom resources. See the
 for details.
 
 ```bash
-# Delete the cluster
-kubectl delete -f cluster.yaml
-
 # Delete object storage (if created)
 kubectl delete -f object.yaml
 
 # Delete filesystem (if created)
 kubectl delete -f filesystem.yaml
+
+# Delete the cluster after its dependent resources are gone
+kubectl delete -f cluster.yaml
 
 # Delete the operator
 kubectl delete -f operator.yaml
@@ -320,8 +343,8 @@ After successful installation:
 ## Notes
 
 - This guide provides a basic Rook-Ceph deployment. While the prerequisites
-  describe a production-grade setup, additional considerations apply for
-  production environments, including high availability, performance tuning,
-  and security hardening.
+  describe a production-grade setup, additional considerations apply for
+  production environments, including high availability, performance tuning,
+  and security hardening.
 - Always test deployment procedures in a non-production environment first.
 - Keep Rook and Ceph versions updated for security and stability improvements.
