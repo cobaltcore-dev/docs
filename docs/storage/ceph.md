@@ -5,11 +5,12 @@ outline: deep
 ---
 
 # Ceph
+
 Ceph is a clustered and distributed storage manager.
 
 Ceph uniquely delivers object, block, and file storage in one unified system.
 Ceph is highly reliable, easy to manage, and free. Ceph delivers extraordinary
-scalability–thousands of clients accessing petabytes to exabytes of data. A
+scalability - thousands of clients accessing petabytes to exabytes of data. A
 Ceph Node leverages commodity hardware and intelligent daemons, and a Ceph
 Storage Cluster accommodates large numbers of nodes, which communicate with
 each other to replicate and redistribute data dynamically.
@@ -189,7 +190,7 @@ Ceph block devices as a viable solution for modern data center storage needs.
 
 ### RADOS Gateway (RGW) in Summary
 
-#### Introduction
+#### RGW Overview
 
 RADOS Gateway, commonly referred to as RGW or radosgw, is Ceph's object storage
 interface that provides applications with a RESTful gateway to store objects
@@ -327,7 +328,7 @@ facilitating automation and integration with billing systems or custom
 management tools. Command-line tools provide capabilities for troubleshooting,
 data inspection, and emergency operations.
 
-#### Conclusion
+#### RGW Summary
 
 RADOS Gateway represents a mature, feature-rich object storage solution that
 brings cloud-compatible APIs to Ceph's distributed storage platform. By
@@ -342,7 +343,7 @@ leading choice for software-defined storage solutions.
 
 ### CephFS in Summary
 
-#### Introduction
+#### CephFS Overview
 
 CephFS (Ceph File System) is Ceph's distributed file system interface that
 provides POSIX-compliant file storage built on top of the RADOS object store.
@@ -494,7 +495,7 @@ scale capacity and performance independently. Big data analytics platforms use
 CephFS for storing datasets that multiple processing nodes must access
 simultaneously.
 
-#### Conclusion
+#### CephFS Summary
 
 CephFS represents a mature, scalable distributed filesystem that brings POSIX
 compatibility to Ceph's distributed storage platform. By separating metadata and
@@ -506,6 +507,7 @@ snapshots and dynamic metadata scaling makes CephFS a compelling choice for
 organizations requiring shared filesystem storage at scale.
 
 ## See Also
+
 The architecture of the Ceph cluster is explained in [the Architecture
 chapter of the upstream Ceph
 documentation](https://docs.ceph.com/en/latest/architecture/)

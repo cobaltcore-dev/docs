@@ -123,11 +123,13 @@ kubectl get cephcluster -n rook-ceph -w
 ### Create storage classes
 
 **RBD (block):**
+
 ```bash
 kubectl apply -f https://raw.githubusercontent.com/rook/rook/v1.17.9/deploy/examples/csi/rbd/storageclass.yaml
 ```
 
 **CephFS (file):**
+
 ```bash
 kubectl apply -f https://raw.githubusercontent.com/rook/rook/v1.17.9/deploy/examples/csi/cephfs/storageclass.yaml
 ```

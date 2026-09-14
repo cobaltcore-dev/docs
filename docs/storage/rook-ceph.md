@@ -16,7 +16,6 @@ you use the instructions found in the [official Rook
 documentation](https://rook.io/docs/rook/latest/) and the [upstream Ceph
 documentation](https://docs.ceph.com/).
 
-
 ## Prerequisites
 
 Before beginning the installation, ensure the following requirements are met:
@@ -28,7 +27,7 @@ Before beginning the installation, ensure the following requirements are met:
 - Administrator access to the Kubernetes cluster
 - At least 3 worker nodes for a production cluster (1 node minimum for testing)
 - Verify compatibility between your Kubernetes version and the Rook version you
-  intend to deploy — see the [Rook releases page](https://github.com/rook/rook/releases)
+  intend to deploy - see the [Rook releases page](https://github.com/rook/rook/releases)
   for version compatibility information
 
 ### Storage Requirements
@@ -378,10 +377,10 @@ After successful installation:
 
 ## Additional Resources
 
-- Official Rook documentation: https://rook.io/docs/rook/latest/
-- Ceph documentation: https://docs.ceph.com/
-- Rook GitHub repository: https://github.com/rook/rook
-- Rook Slack community: https://slack.rook.io/
+- [Official Rook documentation](https://rook.io/docs/rook/latest/)
+- [Ceph documentation](https://docs.ceph.com/)
+- [Rook GitHub repository](https://github.com/rook/rook)
+- [Rook Slack community](https://slack.rook.io/)
 
 ## Notes
 
