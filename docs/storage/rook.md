@@ -78,6 +78,14 @@ helm install --create-namespace \
   --version v1.20.7 \
   --wait \
   rook-ceph rook-release/rook-ceph
+
+helm repo add ceph-csi-operator https://ceph.github.io/ceph-csi-operator
+helm repo update
+
+helm install --namespace rook-ceph \
+  --wait \
+  -f https://raw.githubusercontent.com/rook/rook/v1.20.7/deploy/charts/ceph-csi-drivers/values.yaml \
+  ceph-csi-drivers ceph-csi-operator/ceph-csi-drivers
 ```
 
 ### Deploy the Ceph cluster
@@ -129,6 +137,7 @@ kubectl apply -f https://raw.githubusercontent.com/rook/rook/v1.20.7/deploy/exam
 **CephFS (file):**
 
 ```bash
+kubectl apply -f https://raw.githubusercontent.com/rook/rook/v1.20.7/deploy/examples/filesystem.yaml
 kubectl apply -f https://raw.githubusercontent.com/rook/rook/v1.20.7/deploy/examples/csi/cephfs/storageclass.yaml
 ```
 
