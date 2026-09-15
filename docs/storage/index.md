@@ -27,7 +27,7 @@ The storage stack is organized into three layers:
 | [Arbiter](./arbiter.md) | Operations | External Ceph monitors for quorum in stretched clusters |
 | [Chorus](./chorus.md) | Data Services | Zero-downtime object storage replication and migration |
 | [Liquid-Ceph](./liquid-ceph.md) | Data Services | Limes integration for RGW quota, capacity, and usage metering |
-| [Observability & Audit](/observability/) | Observability | Metrics, dashboards, alerting, and audit - Prometheus, Perses, Prysm |
+| [Observability & Audit](./observability/) | Observability | Metrics, dashboards, alerting, and audit - Prometheus, Perses, Prysm |
 
 ## Storage Interfaces
 
@@ -73,4 +73,4 @@ Ceph achieves HA through monitor quorum (typically 3 or 5 monitors), OSD replica
 
 - [Ceph Upstream Architecture Docs](https://docs.ceph.com/en/latest/architecture/)
 - [Rook Documentation](https://rook.io/docs/rook/latest-release/Getting-Started/intro/)
-- [Observability & Audit](/observability/) - Prometheus metrics, Perses dashboards, and Prysm CLI for the storage stack
+- [Observability & Audit](./observability/) - Prometheus metrics, Perses dashboards, and Prysm CLI for the storage stack

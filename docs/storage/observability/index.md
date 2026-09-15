@@ -1,6 +1,6 @@
 ---
-title: Observability
-order: 1
+title: Observability & Audit
+order: 80
 outline: deep
 ---
 
