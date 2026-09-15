@@ -40,7 +40,14 @@ providing visibility into storage operations alongside application workloads.
 
 ## Why Rook?
 
-Running Ceph as a Kubernetes workload means the cluster lifecycle - initial deployment, scaling, upgrades, and self-healing - is handled by Kubernetes controllers rather than manual playbooks. Rook bridges the gap between Ceph's daemon model and Kubernetes' declarative model.
+Running Ceph as a Kubernetes workload means the cluster lifecycle - initial
+deployment, scaling, upgrades, and self-healing - is handled by Kubernetes
+controllers rather than manual playbooks. Rook bridges the gap between Ceph's
+daemon model and Kubernetes' declarative model.
+
+CobaltCore's cloud infrastructure and automation foundation are built on
+Kubernetes. Rook is therefore used to manage Ceph workloads through the same
+declarative control plane.
 
 ## How Rook manages Ceph
 
