@@ -384,9 +384,10 @@ CephFS provides strong POSIX compliance, supporting the vast majority of
 standard filesystem operations expected by applications and users. This includes
 hierarchical directory structures, standard file permissions and ownership,
 symbolic and hard links, extended attributes, and file locking mechanisms. The
-POSIX compliance ensures that existing applications can use CephFS without
-modification, making it a drop-in replacement for traditional network filesystems
-like NFS or SMB.
+POSIX compliance allows many existing applications to use CephFS without
+modification. Clients still require a CephFS kernel or FUSE mount, or a
+`libcephfs` integration, together with the appropriate Ceph credentials. CephFS
+is therefore not a protocol-level replacement for NFS or SMB.
 
 Clients can access CephFS through multiple methods. The kernel client integrates
 directly with the Linux kernel, providing native filesystem performance and

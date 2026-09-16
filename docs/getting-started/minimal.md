@@ -93,7 +93,10 @@ helm install rook-ceph rook-release/rook-ceph \
   --create-namespace
 ```
 
-Then deploy a minimal single-node `CephCluster`. See [Storage - Rook](/storage/rook) for the full cluster configuration.
+Then deploy a minimal single-node `CephCluster`. This test-only configuration
+requires one monitor, permits that monitor on the single node, and uses
+single-replica pools. Do not apply the three-node example unchanged. See
+[Storage - Rook](/storage/rook) for the production cluster configuration.
 
 ## Step 5: Deploy OpenStack
 

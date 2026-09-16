@@ -68,6 +68,12 @@ Kubebuilder toolset.
 What follows is a quick walkthrough on how to prepare the environment, run the
 operator locally, and deploy an external monitor.
 
+::: warning Development topology
+This quick start uses one Lima Kubernetes cluster for local development. It
+does not validate the failure isolation of a production stretched cluster,
+where the arbiter monitor must run in a separate failure domain.
+:::
+
 ### Clone and Setup
 
 ```bash
@@ -77,6 +83,9 @@ cd external-arbiter-operator
 
 # Install the development dependencies
 make deps
+
+# Clone the Rook manifests used below
+git clone --depth 1 --branch v1.20.7 https://github.com/rook/rook.git
 
 # Create OSD for Ceph
 limactl disk create osd --size=8G

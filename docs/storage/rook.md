@@ -90,10 +90,14 @@ helm repo add ceph-csi-operator https://ceph.github.io/ceph-csi-operator
 helm repo update
 
 helm install --namespace rook-ceph \
+  --version 1.0.4 \
   --wait \
   -f https://raw.githubusercontent.com/rook/rook/v1.20.7/deploy/charts/ceph-csi-drivers/values.yaml \
   ceph-csi-drivers ceph-csi-operator/ceph-csi-drivers
 ```
+
+The `rook-ceph` chart installs the Ceph-CSI operator and its CRDs. The second
+chart installs the driver resources reconciled by that operator.
 
 ### Deploy the Ceph cluster
 

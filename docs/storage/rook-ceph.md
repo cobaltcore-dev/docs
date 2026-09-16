@@ -25,7 +25,7 @@ Before beginning the installation, ensure the following requirements are met:
 - Kubernetes v1.31 through v1.37
 - `kubectl` configured to communicate with your cluster
 - Administrator access to the Kubernetes cluster
-- At least 3 worker nodes for a production cluster (1 node minimum for testing)
+- At least 3 worker nodes for the standard `cluster.yaml` used by this guide
 - Verify compatibility between your Kubernetes version and the Rook version you
   intend to deploy - see the [Rook releases page](https://github.com/rook/rook/releases)
   for version compatibility information
@@ -99,10 +99,10 @@ storage:
   nodes:
   - name: "node1"
     devices:
-    - name: "/dev/sdb"
+    - name: "sdb"
   - name: "node2"
     devices:
-    - name: "/dev/sdc"
+    - name: "sdc"
 ```
 
 #### Resource Limits
@@ -144,6 +144,12 @@ network:
 
 After reviewing the settings above and updating `cluster.yaml`, create the
 cluster and wait for it to become ready:
+
+::: danger Select storage devices before deployment
+The upstream `cluster.yaml` enables `useAllDevices: true`. Do not apply it until
+you have set `useAllDevices: false` and selected the intended devices, unless
+every eligible raw device on every selected node is dedicated to Ceph.
+:::
 
 ```bash
 kubectl create -f cluster.yaml
@@ -315,10 +321,10 @@ kubectl delete -f csi/cephfs/storageclass.yaml --ignore-not-found
 kubectl delete -f toolbox.yaml --ignore-not-found
 
 # Delete object storage (if created)
-kubectl delete -f object.yaml
+kubectl delete -f object.yaml --ignore-not-found
 
 # Delete filesystem (if created)
-kubectl delete -f filesystem.yaml
+kubectl delete -f filesystem.yaml --ignore-not-found
 
 # Delete the cluster after its dependent resources are gone
 kubectl delete -f cluster.yaml
