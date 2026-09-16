@@ -96,6 +96,8 @@ Or specify devices explicitly:
 
 ```yaml
 storage:
+  useAllNodes: false
+  useAllDevices: false
   nodes:
   - name: "node1"
     devices:
