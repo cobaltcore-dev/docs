@@ -64,7 +64,7 @@ Ceph uses the CRUSH algorithm to determine where data is stored across OSDs - no
 
 CobaltCore uses **replication** (typically 3 copies) for most pools. Erasure coding is available for large object stores where storage efficiency matters more than write latency.
 
-## Architecture
+## Storage interfaces and data services
 
 ### Ceph Block Device Summary (RBD)
 

@@ -333,6 +333,7 @@ kubectl delete -f filesystem.yaml --ignore-not-found
 
 # Delete the cluster after its dependent resources are gone
 kubectl delete -f cluster.yaml
+kubectl -n rook-ceph wait --for=delete cephcluster/rook-ceph --timeout=15m
 
 # Delete the operator
 kubectl delete -f operator.yaml
