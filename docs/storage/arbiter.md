@@ -114,7 +114,7 @@ kubectl apply -f ./rook/deploy/examples/csi-operator.yaml
 
 # Create Ceph cluster
 kubectl apply -f ./rook/deploy/examples/cluster-test.yaml
-kubectl -n rook-ceph wait --for=condition=Ready cephcluster/my-cluster --timeout=15m
+kubectl -n rook-ceph wait --for=condition=Ready cephcluster --all --timeout=15m
 
 # Install the Ceph toolbox used by the verification step
 kubectl apply -f ./rook/deploy/examples/toolbox.yaml

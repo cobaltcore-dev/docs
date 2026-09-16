@@ -142,6 +142,28 @@ spec:
   replicated:
     size: 1
     requireSafeReplicaSize: false
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: rook-ceph-block
+provisioner: rook-ceph.rbd.csi.ceph.com
+parameters:
+  clusterID: rook-ceph
+  pool: replicapool
+  imageFormat: "2"
+  imageFeatures: layering
+  csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
+  csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
+  csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner
+  csi.storage.k8s.io/controller-expand-secret-namespace: rook-ceph
+  csi.storage.k8s.io/controller-publish-secret-name: rook-csi-rbd-provisioner
+  csi.storage.k8s.io/controller-publish-secret-namespace: rook-ceph
+  csi.storage.k8s.io/node-stage-secret-name: rook-csi-rbd-node
+  csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
+  csi.storage.k8s.io/fstype: ext4
+allowVolumeExpansion: true
+reclaimPolicy: Delete
 ```
 
 The device must be unformatted, unmounted, and dedicated to this disposable
@@ -150,7 +172,6 @@ test cluster. Apply the manifest and wait for Ceph to become ready:
 ```bash
 kubectl apply -f minimal-ceph-cluster.yaml
 kubectl -n rook-ceph wait --for=condition=Ready cephcluster/rook-ceph --timeout=15m
-kubectl apply -f https://raw.githubusercontent.com/rook/rook/v1.20.7/deploy/examples/csi/rbd/storageclass.yaml
 ```
 
 This single-node configuration is for testing only. See [Storage - Rook](/storage/rook)

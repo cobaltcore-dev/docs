@@ -107,8 +107,8 @@ Create a `CephCluster` resource. A minimal 3-node cluster:
 ::: danger Dedicated devices only
 The example sets `useAllDevices: true`. Rook will consume every eligible raw
 device it discovers on the selected nodes. Use dedicated storage nodes, or set
-this option to `false` and select devices explicitly before applying the
-manifest.
+both `useAllNodes` and `useAllDevices` to `false` and select devices explicitly
+before applying the manifest.
 :::
 
 ```yaml
