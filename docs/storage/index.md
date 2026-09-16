@@ -10,7 +10,8 @@ CobaltCore's cloud storage layer is built on [Ceph](./ceph.md), a distributed st
 
 ## Architecture
 
-The storage stack is organized into three layers:
+The storage stack is organized into three layers, with observability providing
+cross-cutting metrics, dashboards, alerting, and audit across them:
 
 **Foundation** - Ceph provides the core distributed storage engine. All other components either operate it, extend it, or observe it.
 
@@ -27,7 +28,7 @@ The storage stack is organized into three layers:
 | [Arbiter](./arbiter.md) | Operations | External Ceph monitors for quorum in stretched clusters |
 | [Chorus](./chorus.md) | Data Services | Zero-downtime object storage replication and migration |
 | [Liquid-Ceph](./liquid-ceph.md) | Data Services | Limes integration for RGW quota, capacity, and usage metering |
-| [Observability & Audit](./observability/) | Observability | Metrics, dashboards, alerting, and audit - Prometheus, Perses, Prysm |
+| [Observability & Audit](./observability/) | Cross-cutting | Metrics, dashboards, alerting, and audit - Prometheus, Perses, Prysm |
 
 ## Storage Interfaces
 

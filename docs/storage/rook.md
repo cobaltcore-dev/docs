@@ -27,9 +27,10 @@ monitor quorum.
 The system provides declarative configuration through YAML manifests, enabling
 infrastructure-as-code practices for storage management. Administrators can
 define storage classes that map to Ceph pools, allowing applications to
-dynamically provision persistent volumes for block storage (RBD), shared file
-systems (CephFS), or object storage (RGW) through standard Kubernetes
-mechanisms.
+dynamically provision persistent volumes for block storage (RBD) and shared
+file systems (CephFS) through standard Kubernetes mechanisms. Object storage
+(RGW) is exposed separately through a `CephObjectStore` resource and S3 or
+Swift-compatible APIs.
 
 Rook continuously monitors cluster health and automatically responds to
 failures by restarting failed daemon pods and maintaining the desired state

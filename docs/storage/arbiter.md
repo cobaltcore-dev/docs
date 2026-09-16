@@ -55,7 +55,7 @@ The following tools are required on your development machine:
 - `make`
 - `git`
 - `golang`
-- `lima` (or another method to provision Kubernetes locally, such as Minikube)
+- `lima`
 - `kubectl`
 - `docker` (or any compatible container engine, such as Podman)
 - `helm`
@@ -114,9 +114,11 @@ kubectl apply -f ./rook/deploy/examples/csi-operator.yaml
 
 # Create Ceph cluster
 kubectl apply -f ./rook/deploy/examples/cluster-test.yaml
+kubectl -n rook-ceph wait --for=condition=Ready cephcluster/my-cluster --timeout=15m
 
 # Install the Ceph toolbox used by the verification step
 kubectl apply -f ./rook/deploy/examples/toolbox.yaml
+kubectl -n rook-ceph rollout status deployment/rook-ceph-tools --timeout=10m
 ```
 
 ### Build and Install Operator

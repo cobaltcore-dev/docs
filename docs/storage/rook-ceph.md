@@ -105,6 +105,9 @@ storage:
   - name: "node2"
     devices:
     - name: "sdc"
+  - name: "node3"
+    devices:
+    - name: "sdd"
 ```
 
 #### Resource Limits

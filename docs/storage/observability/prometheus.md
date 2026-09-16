@@ -13,7 +13,7 @@ Prometheus collects and stores time-series metrics from all CobaltCore component
 | Exporter | Source | What it covers |
 |---|---|---|
 | `ceph-exporter` | Ceph daemons | OSD stats, pool usage, cluster health, latency histograms |
-| `rook-ceph-mgr` | Rook manager | Operator status, daemon lifecycle events |
+| `ceph-mgr` | Ceph Manager daemon | Cluster health, daemon status, and performance metrics |
 | `radosgw-exporter` | RGW | Request rates, error rates, per-user and per-bucket bandwidth |
 | `kvm-ha-agent` | Hypervisor nodes | Hypervisor uptime, VM instance counts, libvirt events |
 | OpenStack exporters | Nova, Neutron, Cinder | API latency, queue depths, service health |
