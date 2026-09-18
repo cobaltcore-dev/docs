@@ -62,7 +62,8 @@ flowchart TB
     Rook -. manages daemons .-> OSDs
     Arbiter -. adds an external quorum member .-> MON
     Chorus -. replicates objects .-> RGW
-    LiquidCeph[Liquid-Ceph] -. meters quota and usage .-> RGW
+    RGW -. exports quota, capacity, and usage .-> LiquidCeph[Liquid-Ceph]
+    LiquidCeph -. reports resources .-> Limes[Limes quota service]
     Observability[Prometheus, Perses, and Prysm] -. monitors .-> RADOS
 ```
 

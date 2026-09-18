@@ -57,7 +57,7 @@ The following tools are required on your development machine:
 - `golang`
 - `lima`
 - `kubectl`
-- `docker` (or any compatible container engine, such as Podman)
+- `nerdctl` (available inside the Lima VM)
 - `helm`
 
 The remaining dependencies are provisioned via Go tools, including the

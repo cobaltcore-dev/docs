@@ -91,7 +91,8 @@ helm repo update
 helm install rook-ceph rook-release/rook-ceph \
   --namespace rook-ceph \
   --create-namespace \
-  --version v1.20.7
+  --version v1.20.7 \
+  --wait
 
 helm repo add ceph-csi-operator https://ceph.github.io/ceph-csi-operator
 helm repo update
