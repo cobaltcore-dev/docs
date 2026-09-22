@@ -172,7 +172,7 @@ Enable and access the Ceph dashboard:
 
 # Get the dashboard password
 kubectl -n rook-ceph get secret rook-ceph-dashboard-password \
-  -o jsonpath="{['data']['password']}" | base64 --decode && echo
+  -o jsonpath="{.data.password}" | base64 --decode && echo
 
 # Port-forward to access the dashboard
 kubectl -n rook-ceph port-forward service/rook-ceph-mgr-dashboard 8443:8443

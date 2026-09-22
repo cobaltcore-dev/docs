@@ -21,8 +21,8 @@ with running Ceph by leveraging Kubernetes primitives for scheduling,
 self-healing, and scaling. When deployed, Rook runs as a set of pods within the
 Kubernetes cluster, managing the lifecycle of Ceph daemons (monitors, managers,
 OSDs, MDS, and RGW) as containerized workloads. It automatically handles tasks
-such as OSD provisioning from available storage devices, the management of the
-monitor quorum.
+such as OSD provisioning from available storage devices and managing the monitor
+quorum.
 
 The system provides declarative configuration through YAML manifests, enabling
 infrastructure-as-code practices for storage management. Administrators can
