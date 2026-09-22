@@ -70,6 +70,15 @@ kubectl create -f operator.yaml
 
 # Wait for the operator before configuring the Ceph cluster
 kubectl -n rook-ceph rollout status deployment/rook-ceph-operator
+
+# Install the CSI driver resources reconciled by the CSI operator
+helm repo add ceph-csi-operator https://ceph.github.io/ceph-csi-operator
+helm repo update
+helm install ceph-csi-drivers ceph-csi-operator/ceph-csi-drivers \
+  --namespace rook-ceph \
+  --version 1.0.4 \
+  --wait \
+  -f https://raw.githubusercontent.com/rook/rook/v1.20.7/deploy/charts/ceph-csi-drivers/values.yaml
 ```
 
 Run the remaining commands from the `rook/deploy/examples` directory so that
@@ -334,6 +343,9 @@ kubectl delete -f filesystem.yaml --ignore-not-found
 # Delete the cluster after its dependent resources are gone
 kubectl delete -f cluster.yaml
 kubectl -n rook-ceph wait --for=delete cephcluster/rook-ceph --timeout=15m
+
+# Delete the CSI driver chart
+helm uninstall --namespace rook-ceph ceph-csi-drivers
 
 # Delete the operator
 kubectl delete -f operator.yaml
