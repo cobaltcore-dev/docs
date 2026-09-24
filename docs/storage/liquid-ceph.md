@@ -5,22 +5,25 @@ order: 60
 
 # Liquid-Ceph
 
-::: tip Source Code
-[github.com/cobaltcore-dev/liquid-ceph](https://github.com/cobaltcore-dev/liquid-ceph)
-:::
-
-Liquid-Ceph enables dynamic, on-demand storage allocation across the Ceph cluster. It integrates with the [Liquid](https://github.com/sapcc/liquid) framework to expose Ceph storage capacity as a schedulable resource in the CobaltCore cloud.
+Liquid-Ceph integrates Ceph RADOS Gateway (RGW) with Limes for quota and usage
+metering. It reports object-storage capacity and consumption through the Liquid
+service-provider API.
 
 ## What it does
 
-Rather than statically pre-allocating Ceph pools and storage quotas, Liquid-Ceph allows capacity to be requested and released dynamically - storage is allocated when needed and returned to the shared pool when no longer required. This improves cluster utilization and simplifies capacity planning.
+Liquid-Ceph maps RGW placement targets to Limes resources and availability
+zones. Limes can then collect capacity and usage data and manage project quotas
+for those resources.
 
 ## Integration
 
-Liquid-Ceph implements the Liquid service provider interface, exposing Ceph RBD and RGW capacity to the Liquid scheduler. Nova and Cinder can use this to make storage placement decisions based on real-time availability.
+Liquid-Ceph implements the Liquid service-provider interface for RGW. It uses
+Keystone for authentication and reads Ceph and RGW information to expose quota,
+capacity, and usage metrics to Limes.
 
 ::: info
-Detailed deployment and configuration documentation is being expanded. See the [Liquid-Ceph GitHub repository](https://github.com/cobaltcore-dev/liquid-ceph) for current development state.
+The Liquid-Ceph repository currently requires organization access. Public
+deployment and configuration documentation is still being expanded.
 :::
 
 ## See also

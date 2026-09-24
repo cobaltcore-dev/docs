@@ -10,11 +10,45 @@ outline: deep
 [github.com/rook/rook](https://github.com/rook/rook)
 :::
 
-Rook is the Kubernetes operator that manages the Ceph cluster in CobaltCore. It runs Ceph daemons (monitors, managers, OSDs, MDS, RGW) as containerized Kubernetes workloads and provides declarative management through CRDs.
+Rook is an open-source cloud-native storage orchestrator that automates the
+deployment, configuration, and management of [Ceph](./ceph.md) storage clusters
+within Kubernetes environments. Built as a Kubernetes operator, Rook extends
+Kubernetes with custom resource definitions (CRDs) that allow administrators to
+define and manage Ceph clusters using native Kubernetes APIs and tools.
+
+Rook eliminates much of the operational complexity traditionally associated
+with running Ceph by leveraging Kubernetes primitives for scheduling,
+self-healing, and scaling. When deployed, Rook runs as a set of pods within the
+Kubernetes cluster, managing the lifecycle of Ceph daemons (monitors, managers,
+OSDs, MDS, and RGW) as containerized workloads. It automatically handles tasks
+such as OSD provisioning from available storage devices and managing the monitor
+quorum.
+
+The system provides declarative configuration through YAML manifests, enabling
+infrastructure-as-code practices for storage management. Administrators can
+define storage classes that map to Ceph pools, allowing applications to
+dynamically provision persistent volumes for block storage (RBD) and shared
+file systems (CephFS) through standard Kubernetes mechanisms. Object storage
+(RGW) is exposed separately through a `CephObjectStore` resource and S3 or
+Swift-compatible APIs.
+
+Rook continuously monitors cluster health and automatically responds to
+failures by restarting failed daemon pods and maintaining the desired state
+defined in the cluster specifications. Replacing a failed storage device still
+requires an administrator to prepare the replacement and remove the failed OSD.
+It integrates with [Kubernetes](https://kubernetes.io/) monitoring and logging systems,
+providing visibility into storage operations alongside application workloads.
 
 ## Why Rook?
 
-Running Ceph as a Kubernetes workload means the cluster lifecycle - initial deployment, scaling, upgrades, and self-healing - is handled by Kubernetes controllers rather than manual playbooks. Rook bridges the gap between Ceph's daemon model and Kubernetes' declarative model.
+Running Ceph as a Kubernetes workload means the cluster lifecycle - initial
+deployment, scaling, upgrades, and self-healing - is handled by Kubernetes
+controllers rather than manual playbooks. Rook bridges the gap between Ceph's
+daemon model and Kubernetes' declarative model.
+
+CobaltCore's cloud infrastructure and automation foundation are built on
+Kubernetes. Rook is therefore used to manage Ceph workloads through the same
+declarative control plane.
 
 ## How Rook manages Ceph
 
@@ -34,9 +68,12 @@ graph LR
 
 ### Prerequisites
 
-- Kubernetes 1.25+
+- Kubernetes 1.31 through 1.37
 - Raw block devices available on storage nodes (unformatted, no filesystem)
 - Network connectivity between storage nodes
+
+The commands below pin Rook `v1.20.7` and Ceph `v20.2.4` so the chart,
+manifests, and compatibility range remain consistent.
 
 ### Install the operator
 
@@ -46,12 +83,33 @@ helm repo update
 
 helm install --create-namespace \
   --namespace rook-ceph \
+  --version v1.20.7 \
+  --wait \
   rook-ceph rook-release/rook-ceph
+
+helm repo add ceph-csi-operator https://ceph.github.io/ceph-csi-operator
+helm repo update
+
+helm install --namespace rook-ceph \
+  --version 1.0.4 \
+  --wait \
+  -f https://raw.githubusercontent.com/rook/rook/v1.20.7/deploy/charts/ceph-csi-drivers/values.yaml \
+  ceph-csi-drivers ceph-csi-operator/ceph-csi-drivers
 ```
+
+The `rook-ceph` chart installs the Ceph-CSI operator and its CRDs. The second
+chart installs the driver resources reconciled by that operator.
 
 ### Deploy the Ceph cluster
 
 Create a `CephCluster` resource. A minimal 3-node cluster:
+
+::: danger Dedicated devices only
+The example sets `useAllDevices: true`. Rook will consume every eligible raw
+device it discovers on the selected nodes. Use dedicated storage nodes, or set
+both `useAllNodes` and `useAllDevices` to `false` and select devices explicitly
+before applying the manifest.
+:::
 
 ```yaml
 apiVersion: ceph.rook.io/v1
@@ -61,7 +119,7 @@ metadata:
   namespace: rook-ceph
 spec:
   cephVersion:
-    image: quay.io/ceph/ceph:v18
+    image: quay.io/ceph/ceph:v20.2.4
   dataDirHostPath: /var/lib/rook
   mon:
     count: 3
@@ -83,23 +141,24 @@ kubectl get cephcluster -n rook-ceph -w
 ### Create storage classes
 
 **RBD (block):**
+
 ```bash
-kubectl apply -f https://raw.githubusercontent.com/rook/rook/refs/heads/release-1.17/deploy/examples/csi/rbd/storageclass.yaml
+kubectl apply -f https://raw.githubusercontent.com/rook/rook/v1.20.7/deploy/examples/csi/rbd/storageclass.yaml
 ```
 
 **CephFS (file):**
-```bash
-kubectl apply -f https://raw.githubusercontent.com/rook/rook/refs/heads/release-1.17/deploy/examples/csi/cephfs/storageclass.yaml
-```
 
-Replace `release-1.17` with the Rook version you installed.
+```bash
+kubectl apply -f https://raw.githubusercontent.com/rook/rook/v1.20.7/deploy/examples/filesystem.yaml
+kubectl apply -f https://raw.githubusercontent.com/rook/rook/v1.20.7/deploy/examples/csi/cephfs/storageclass.yaml
+```
 
 ### Verify
 
 First install the Rook toolbox to get access to `ceph` CLI commands:
 
 ```bash
-kubectl apply -f https://raw.githubusercontent.com/rook/rook/refs/heads/release-1.17/deploy/examples/toolbox.yaml
+kubectl apply -f https://raw.githubusercontent.com/rook/rook/v1.20.7/deploy/examples/toolbox.yaml
 kubectl rollout status deployment/rook-ceph-tools -n rook-ceph
 ```
 

@@ -63,4 +63,4 @@ Prysm supports three output modes:
 ## See also
 
 - [Observability - Prometheus](./prometheus)
-- [Storage - Ceph](../storage/ceph)
+- [Storage - Ceph](../ceph)

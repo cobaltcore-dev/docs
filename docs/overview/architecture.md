@@ -42,7 +42,9 @@ The infrastructure data plane - the raw execution environment for virtual machin
 
 ## Observability
 
-Cross-cutting. [Prysm](/observability/prysm) collects audit and operational events. [Prometheus](/observability/prometheus) scrapes metrics from all layers. [Perses](/observability/perses) provides dashboards.
+Cross-cutting. [Prysm](/storage/observability/prysm) collects audit and operational
+events. [Prometheus](/storage/observability/prometheus) scrapes metrics from all
+layers. [Perses](/storage/observability/perses) provides dashboards.
 
 ## OpenStack
 

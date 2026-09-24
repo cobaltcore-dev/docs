@@ -22,4 +22,4 @@ Greenhouse aggregates operational views from multiple tools - Prometheus, Perses
 
 - [Greenhouse documentation](https://cloudoperators.github.io/greenhouse/)
 - [Greenhouse GitHub](https://github.com/cloudoperators/greenhouse)
-- [Observability](/observability/) - Prometheus and Perses, which Greenhouse surfaces
+- [Observability](/storage/observability/) - Prometheus and Perses, which Greenhouse surfaces
