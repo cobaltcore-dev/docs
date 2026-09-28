@@ -14,7 +14,7 @@ Prometheus collects and stores time-series metrics from all CobaltCore component
 |---|---|---|
 | `ceph-exporter` | Ceph daemons | OSD stats, pool usage, cluster health, latency histograms |
 | `ceph-mgr` metrics endpoint | Ceph Manager daemon | Cluster health, daemon status, and performance metrics |
-| `prysm` | RGW and storage observability | Request rates, error rates, per-user and per-bucket bandwidth |
+| `prysm` | RGW and storage observability | Request rates, error rates, per-user and per-bucket bandwidth, SMART and disk-health metrics |
 | `kvm-ha-agent` metrics | Hypervisor nodes | Hypervisor uptime, VM instance counts, libvirt events |
 | OpenStack exporters | Nova, Neutron, Cinder | API latency, queue depths, service health |
 
