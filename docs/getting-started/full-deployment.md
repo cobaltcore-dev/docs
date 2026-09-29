@@ -80,9 +80,9 @@ Follow the [Minimal Environment](/getting-started/minimal) guide first to unders
 
 ### Observability layer
 
-- [ ] Prysm deployed and collecting events - see [Observability - Prysm](/observability/prysm)
-- [ ] Prometheus scraping all targets - see [Observability - Prometheus](/observability/prometheus)
-- [ ] Perses dashboards deployed - see [Observability - Perses](/observability/perses)
+- [ ] Prysm deployed and collecting events - see [Observability - Prysm](/storage/observability/prysm)
+- [ ] Prometheus scraping all targets - see [Observability - Prometheus](/storage/observability/prometheus)
+- [ ] Perses dashboards deployed - see [Observability - Perses](/storage/observability/perses)
 - [ ] Alerting rules configured and routing verified
 
 ### Management layer

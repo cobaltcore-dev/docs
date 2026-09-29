@@ -90,10 +90,93 @@ helm repo update
 
 helm install rook-ceph rook-release/rook-ceph \
   --namespace rook-ceph \
-  --create-namespace
+  --create-namespace \
+  --version v1.20.7 \
+  --wait
+
+helm repo add ceph-csi-operator https://ceph.github.io/ceph-csi-operator
+helm repo update
+helm install ceph-csi-drivers ceph-csi-operator/ceph-csi-drivers \
+  --namespace rook-ceph \
+  --version 1.0.4 \
+  --wait \
+  -f https://raw.githubusercontent.com/rook/rook/v1.20.7/deploy/charts/ceph-csi-drivers/values.yaml
 ```
 
-Then deploy a minimal single-node `CephCluster`. See [Storage - Rook](/storage/rook) for the full cluster configuration.
+Create `minimal-ceph-cluster.yaml`, replacing `k3s-node` and `sdb` with the
+Kubernetes node name and the dedicated raw device in your lab:
+
+```yaml
+apiVersion: ceph.rook.io/v1
+kind: CephCluster
+metadata:
+  name: rook-ceph
+  namespace: rook-ceph
+spec:
+  dataDirHostPath: /var/lib/rook
+  cephVersion:
+    image: quay.io/ceph/ceph:v20.2.4
+  mon:
+    count: 1
+    allowMultiplePerNode: true
+  mgr:
+    count: 1
+    allowMultiplePerNode: true
+  storage:
+    useAllNodes: false
+    useAllDevices: false
+    nodes:
+    - name: k3s-node
+      devices:
+      - name: sdb
+  cephConfig:
+    global:
+      osd_pool_default_size: "1"
+      mon_warn_on_pool_no_redundancy: "false"
+---
+apiVersion: ceph.rook.io/v1
+kind: CephBlockPool
+metadata:
+  name: replicapool
+  namespace: rook-ceph
+spec:
+  replicated:
+    size: 1
+    requireSafeReplicaSize: false
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: rook-ceph-block
+provisioner: rook-ceph.rbd.csi.ceph.com
+parameters:
+  clusterID: rook-ceph
+  pool: replicapool
+  imageFormat: "2"
+  imageFeatures: layering
+  csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
+  csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
+  csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner
+  csi.storage.k8s.io/controller-expand-secret-namespace: rook-ceph
+  csi.storage.k8s.io/controller-publish-secret-name: rook-csi-rbd-provisioner
+  csi.storage.k8s.io/controller-publish-secret-namespace: rook-ceph
+  csi.storage.k8s.io/node-stage-secret-name: rook-csi-rbd-node
+  csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
+  csi.storage.k8s.io/fstype: ext4
+allowVolumeExpansion: true
+reclaimPolicy: Delete
+```
+
+The device must be unformatted, unmounted, and dedicated to this disposable
+test cluster. Apply the manifest and wait for Ceph to become ready:
+
+```bash
+kubectl apply -f minimal-ceph-cluster.yaml
+kubectl -n rook-ceph wait --for=condition=Ready cephcluster/rook-ceph --timeout=15m
+```
+
+This single-node configuration is for testing only. See [Storage - Rook](/storage/rook)
+for the production three-node cluster configuration.
 
 ## Step 5: Deploy OpenStack
 

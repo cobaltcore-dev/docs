@@ -36,4 +36,4 @@ CobaltCore is for teams that:
 - **[Architecture](/overview/architecture)** - understand how the layers fit together
 - **[Why CobaltCore](/overview/why)** - the reasoning behind the design decisions
 - **[Showroom](/showroom/)** - live examples and demos of CobaltCore in action
-- Layer sections (**Platform**, **Compute**, **OpenStack**, **Storage**, **Networking**, **Observability**, **Management**) - deep-dive reference for each part of the stack
+- Layer sections (**Platform**, **Compute**, **OpenStack**, **Storage**, **Networking**, **Management**) - deep-dive reference for each part of the stack. Storage includes the observability documentation.
