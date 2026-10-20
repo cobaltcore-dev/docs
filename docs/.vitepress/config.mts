@@ -52,7 +52,14 @@ export default withMermaid({
   title: "CobaltCore",
   description: "Infrastructure management for cloud native and traditional workloads. Get your cloud running in weeks with Kubernetes-native orchestration and OpenStack-influenced services, fully open source.",
   base: "/",
-  head: [['link', { rel: 'icon', href: 'https://raw.githubusercontent.com/cobaltcore-dev/.github/refs/heads/main/assets/Logo_Cobalt_Core_background_white.svg' }]],
+  head: [
+    ['link', { rel: 'icon', href: 'https://raw.githubusercontent.com/cobaltcore-dev/.github/refs/heads/main/assets/Logo_Cobalt_Core_background_white.svg' }],
+    ['meta', { property: 'og:image', content: '/social-preview.svg' }],
+    ['meta', { property: 'og:image:width', content: '1200' }],
+    ['meta', { property: 'og:image:height', content: '630' }],
+    ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
+    ['meta', { name: 'twitter:image', content: '/social-preview.svg' }],
+  ],
   vite: {
     resolve: {
       alias: [
