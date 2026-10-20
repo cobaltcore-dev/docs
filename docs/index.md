@@ -42,7 +42,7 @@ features:
 <div class="VPFeatures" style="padding-top: 3rem; padding-bottom: 0; font-size: 1.5rem; font-weight: 600;">Featured Talk</div>
 <div class="VPFeatures" style="padding-top: 1rem; padding-bottom: 3rem;">
   <p style="color: var(--vp-c-text-2); margin-bottom: 1.25rem;">
-    Michael Schmidt walks through the core concepts behind CobaltCore Cloud Distribution and how they are applied at scale in SAP Cloud Infrastructure.
+    Michael Schmidt walks through the core concepts behind <a href="/blog/bridging-cncf-openinfra-kubernetes-control-plane">CobaltCore Cloud Distribution and how they are applied at scale in SAP Cloud Infrastructure.</a>
   </p>
   <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px;">
     <iframe
@@ -55,7 +55,4 @@ features:
       style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
     </iframe>
   </div>
-  <p style="margin-top: 1rem;">
-    <a href="/blog/bridging-cncf-openinfra-kubernetes-control-plane">Read the full write-up →</a>
-  </p>
 </div>
