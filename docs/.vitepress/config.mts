@@ -54,11 +54,11 @@ export default withMermaid({
   base: "/",
   head: [
     ['link', { rel: 'icon', href: 'https://raw.githubusercontent.com/cobaltcore-dev/.github/refs/heads/main/assets/Logo_Cobalt_Core_background_white.svg' }],
-    ['meta', { property: 'og:image', content: '/social-preview.svg' }],
+    ['meta', { property: 'og:image', content: 'https://cobaltcore.dev/social-preview.svg' }],
     ['meta', { property: 'og:image:width', content: '1200' }],
     ['meta', { property: 'og:image:height', content: '630' }],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
-    ['meta', { name: 'twitter:image', content: '/social-preview.svg' }],
+    ['meta', { name: 'twitter:image', content: 'https://cobaltcore.dev/social-preview.svg' }],
   ],
   vite: {
     resolve: {
