@@ -1,17 +1,16 @@
 ---
-title: Storage
+title: Overview
 order: 1
 outline: deep
 ---
 
-# Storage
+# Storage Overview
 
 CobaltCore's cloud storage layer is built on [Ceph](./ceph.md), a distributed storage system that delivers object, block, and file storage in a single unified platform. The surrounding components handle lifecycle automation, data replication, high-availability quorum, observability, and quota and usage metering - each with a focused responsibility.
 
 ## Architecture
 
-The storage stack is organized into three layers, with observability providing
-cross-cutting metrics, dashboards, alerting, and audit across them:
+The storage stack is organized into three layers. See [Observability & Audit](/observability/) for metrics, dashboards, and alerting across the stack.
 
 **Foundation** - Ceph provides the core distributed storage engine. All other components either operate it, extend it, or observe it.
 
@@ -28,7 +27,6 @@ cross-cutting metrics, dashboards, alerting, and audit across them:
 | [Arbiter](./arbiter.md) | Operations | External Ceph monitors for quorum in stretched clusters |
 | [Chorus](./chorus.md) | Data Services | Zero-downtime object storage replication and migration |
 | [Liquid-Ceph](./liquid-ceph.md) | Data Services | Limes integration for RGW quota, capacity, and usage metering |
-| [Observability & Audit](./observability/) | Cross-cutting | Metrics, dashboards, alerting, and audit - Prometheus, Perses, Prysm |
 
 ## Storage Interfaces
 
@@ -75,4 +73,4 @@ Ceph achieves HA through monitor quorum (typically 3 or 5 monitors), OSD replica
 
 - [Ceph Upstream Architecture Docs](https://docs.ceph.com/en/latest/architecture/)
 - [Rook Documentation](https://rook.io/docs/rook/latest-release/Getting-Started/intro/)
-- [Observability & Audit](./observability/) - Prometheus metrics, Perses dashboards, and Prysm CLI for the storage stack
+- [Observability & Audit](/observability/) - Prometheus metrics, Perses dashboards, and Prysm CLI for the storage stack

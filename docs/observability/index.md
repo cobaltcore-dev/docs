@@ -1,10 +1,10 @@
 ---
-title: Observability & Audit
-order: 80
+title: Overview
+order: 1
 outline: deep
 ---
 
-# Observability & Audit
+# Observability
 
 CobaltCore's observability stack provides real-time visibility into every layer - compute, storage, networking, and OpenStack services. It combines Prometheus for metrics, Perses for dashboards, and Prysm for storage-specific monitoring and audit.
 
