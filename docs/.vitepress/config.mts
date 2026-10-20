@@ -54,11 +54,16 @@ export default withMermaid({
   base: "/",
   head: [
     ['link', { rel: 'icon', href: 'https://raw.githubusercontent.com/cobaltcore-dev/.github/refs/heads/main/assets/Logo_Cobalt_Core_background_white.svg' }],
-    ['meta', { property: 'og:image', content: 'https://cobaltcore.dev/social-preview.svg' }],
+    ['meta', { property: 'og:title', content: 'CobaltCore — Cloud Infrastructure Docs' }],
+    ['meta', { property: 'og:description', content: 'Infrastructure management for cloud native and traditional workloads. Kubernetes-native orchestration and OpenStack-influenced services, fully open source.' }],
+    ['meta', { property: 'og:image', content: 'https://cobaltcore.dev/social-preview.png' }],
     ['meta', { property: 'og:image:width', content: '1200' }],
     ['meta', { property: 'og:image:height', content: '630' }],
+    ['meta', { property: 'og:image:type', content: 'image/png' }],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
-    ['meta', { name: 'twitter:image', content: 'https://cobaltcore.dev/social-preview.svg' }],
+    ['meta', { name: 'twitter:title', content: 'CobaltCore — Cloud Infrastructure Docs' }],
+    ['meta', { name: 'twitter:description', content: 'Infrastructure management for cloud native and traditional workloads. Kubernetes-native orchestration and OpenStack-influenced services, fully open source.' }],
+    ['meta', { name: 'twitter:image', content: 'https://cobaltcore.dev/social-preview.png' }],
   ],
   vite: {
     resolve: {
