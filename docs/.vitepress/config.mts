@@ -54,6 +54,8 @@ export default withMermaid({
   base: "/",
   head: [
     ['link', { rel: 'icon', href: 'https://raw.githubusercontent.com/cobaltcore-dev/.github/refs/heads/main/assets/Logo_Cobalt_Core_background_white.svg' }],
+    ['link', { rel: 'canonical', href: 'https://cobaltcore.dev/' }],
+    ['meta', { property: 'og:url', content: 'https://cobaltcore.dev/' }],
     ['meta', { property: 'og:title', content: 'CobaltCore — Cloud Infrastructure Docs' }],
     ['meta', { property: 'og:description', content: 'Infrastructure management for cloud native and traditional workloads. Kubernetes-native orchestration and OpenStack-influenced services, fully open source.' }],
     ['meta', { property: 'og:image', content: 'https://cobaltcore.dev/social-preview.png' }],
