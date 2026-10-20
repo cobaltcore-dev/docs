@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" fill="none">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#0a0a0f"/>
+
+  <!-- Subtle grid lines -->
+  <g stroke="#ffffff" stroke-opacity="0.04" stroke-width="1">
+    <line x1="0" y1="105" x2="1200" y2="105"/>
+    <line x1="0" y1="210" x2="1200" y2="210"/>
+    <line x1="0" y1="315" x2="1200" y2="315"/>
+    <line x1="0" y1="420" x2="1200" y2="420"/>
+    <line x1="0" y1="525" x2="1200" y2="525"/>
+    <line x1="150" y1="0" x2="150" y2="630"/>
+    <line x1="300" y1="0" x2="300" y2="630"/>
+    <line x1="450" y1="0" x2="450" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="750" y1="0" x2="750" y2="630"/>
+    <line x1="900" y1="0" x2="900" y2="630"/>
+    <line x1="1050" y1="0" x2="1050" y2="630"/>
+  </g>
+
+  <!-- Cobalt blue glow backdrop for logo -->
+  <ellipse cx="880" cy="315" rx="260" ry="260" fill="#1e40af" fill-opacity="0.15"/>
+  <ellipse cx="880" cy="315" rx="180" ry="180" fill="#2563eb" fill-opacity="0.12"/>
+
+  <!-- CobaltCore Logo (scaled ~2.5x, centered at 880,315) -->
+  <g transform="translate(740, 175) scale(0.875)">
+    <!-- outer shell -->
+    <path fill="#ffffff" fill-rule="evenodd" d="M156.531 292.793a6.866 6.866 0 0 0 6.123.008l112.486-55.825a6.868 6.868 0 1 0-6.106-12.304l-109.423 54.305-104.832-52.373V104.54l104.986-63.27 108.987 59.559a6.867 6.867 0 1 0 6.587-12.053l-112.448-61.45a6.867 6.867 0 0 0-6.838.144L44.366 94.778a6.868 6.868 0 0 0-3.323 5.882v130.19a6.869 6.869 0 0 0 3.799 6.145l111.689 55.798Z" clip-rule="evenodd"/>
+    <!-- inner layers -->
+    <path fill="#ffffff" fill-rule="evenodd" d="M153.687 254.777a5.494 5.494 0 0 0 4.966-.081l74.504-39.294 37.519 19.267a5.496 5.496 0 0 0 5.02-9.776l-30.921-15.879 31.082-17.288a5.495 5.495 0 0 0-.055-9.634l-33.459-18.118 33.395-17.514a5.494 5.494 0 0 0 .036-9.712l-33.244-17.756 33.283-18.116a5.496 5.496 0 0 0-5.254-9.652l-39.63 21.572-66.259-35.389a5.496 5.496 0 0 0-5.359.101L84.152 121.38a5.495 5.495 0 0 0 .366 9.686l32.469 15.802-32.847 19.29a5.494 5.494 0 0 0 .366 9.673l33.012 16.163-33.364 19.46a5.494 5.494 0 0 0 .365 9.687l69.168 33.636Zm-24.764-69.435L98.52 170.457l63.671-37.39 99.575 53.921-28.734 15.983-68.421-35.485a5.494 5.494 0 0 0-5.298.131l-30.39 17.725Zm92.345 23.907-59.031-30.615-63.655 37.127 57.407 27.916 65.279-34.428Zm-92.901-69.063-29.792-14.5 63.625-37.14 99.24 53.004-30.737 16.12-66.005-35.742a5.494 5.494 0 0 0-5.399.093l-30.932 18.165Z" clip-rule="evenodd"/>
+  </g>
+
+  <!-- Left accent bar -->
+  <rect x="80" y="200" width="4" height="230" rx="2" fill="#3b82f6"/>
+
+  <!-- Main title -->
+  <text x="108" y="276" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="72" font-weight="700" fill="#ffffff" letter-spacing="-2">CobaltCore</text>
+
+  <!-- Subtitle / tagline -->
+  <text x="110" y="330" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="26" font-weight="400" fill="#94a3b8" letter-spacing="0.5">Infrastructure management for cloud native</text>
+  <text x="110" y="366" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="26" font-weight="400" fill="#94a3b8" letter-spacing="0.5">and traditional workloads</text>
+
+  <!-- Divider -->
+  <line x1="110" y1="405" x2="560" y2="405" stroke="#1e3a5f" stroke-width="1.5"/>
+
+  <!-- Feature pills -->
+  <rect x="110" y="424" width="170" height="36" rx="18" fill="#172554" stroke="#1d4ed8" stroke-width="1"/>
+  <text x="195" y="447" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="14" font-weight="500" fill="#60a5fa" text-anchor="middle">Kubernetes-native</text>
+
+  <rect x="294" y="424" width="152" height="36" rx="18" fill="#172554" stroke="#1d4ed8" stroke-width="1"/>
+  <text x="370" y="447" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="14" font-weight="500" fill="#60a5fa" text-anchor="middle">OpenStack services</text>
+
+  <rect x="460" y="424" width="118" height="36" rx="18" fill="#172554" stroke="#1d4ed8" stroke-width="1"/>
+  <text x="519" y="447" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="14" font-weight="500" fill="#60a5fa" text-anchor="middle">Open Source</text>
+
+  <!-- URL -->
+  <text x="110" y="520" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="18" font-weight="400" fill="#475569" letter-spacing="0.5">cobaltcore-dev.github.io/docs</text>
+</svg>
