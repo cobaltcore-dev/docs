@@ -93,15 +93,15 @@ export default withMermaid({
           { text: 'Storage', link: '/storage/' },
           { text: 'Network', link: '/network/' },
           { text: 'OpenStack', link: '/openstack/' },
-          {
-            text: 'Operations',
-            items: [
-              { text: 'Overview', link: '/overview/' },
-              { text: 'Platform', link: '/platform/' },
-              { text: 'Observability', link: '/observability/' },
-              { text: 'Sustainability', link: '/sustainability/' },
-            ],
-          },
+        ],
+      },
+      {
+        text: 'Operations',
+        items: [
+          { text: 'Overview', link: '/overview/' },
+          { text: 'Platform', link: '/platform/' },
+          { text: 'Observability', link: '/observability/' },
+          { text: 'Sustainability', link: '/sustainability/' },
         ],
       },
       { text: 'Blog', link: '/blog/' },
