@@ -33,9 +33,9 @@ Follow the [Minimal Environment](/getting-started/minimal) guide first to unders
 
 ## Prerequisites
 
-- IronCore configured and managing your bare metal nodes - see [Platform - IronCore](/platform/ironcore)
-- Gardener cluster provisioned - see [Platform - Gardener](/platform/gardener)
-- GardenLinux deployed on hypervisor nodes - see [Platform - GardenLinux](/platform/gardenlinux)
+- IronCore configured and managing your bare metal nodes
+- Gardener cluster provisioned
+- GardenLinux deployed on hypervisor nodes
 - At least 3 control plane nodes for HA Kubernetes
 - At least 2 data centers (or failure domains) for stretched Ceph
 
@@ -65,7 +65,7 @@ Follow the [Minimal Environment](/getting-started/minimal) guide first to unders
 
 ### Networking layer
 
-- [ ] OVN control plane deployed - see [Networking - OVN](/networking/ovn)
+- [ ] OVN control plane deployed - see [Networking - OVN](/network/ovn)
 - [ ] OVN Controller daemonset running on all hypervisor nodes
 - [ ] Neutron API connected to OVN Northbound DB
 
@@ -87,9 +87,9 @@ Follow the [Minimal Environment](/getting-started/minimal) guide first to unders
 
 ### Management layer
 
-- [ ] Greenhouse connected to the cluster - see [Management - Greenhouse](/management/greenhouse)
-- [ ] Aurora management frontend accessible - see [Management - Aurora](/management/aurora)
-- [ ] Cortex placement configured and integrated with Nova - see [Management - Cortex](/management/cortex)
+- [ ] Greenhouse connected to the cluster
+- [ ] Aurora management frontend accessible
+- [ ] Cortex placement configured and integrated with Nova
 
 ## Operational readiness
 

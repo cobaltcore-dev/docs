@@ -14,7 +14,7 @@ The hypervisor is the bare metal node that runs virtual machines. CobaltCore man
 
 ## Component stack
 
-Each hypervisor node runs the following components on top of [GardenLinux](/platform/gardenlinux):
+Each hypervisor node runs the following components on top of GardenLinux:
 
 ```mermaid
 block-beta
@@ -101,7 +101,7 @@ node001-bb234   node001-bb234   Garden Linux 1933.0   11          PowerEdge R860
 node006-bb123   node006-bb123   Garden Linux 1933.0   0           ProLiant DL560 Gen11   6.12.38-amd64   27h
 ```
 
-See the [API Reference](/api/kvm.cloud.sap/v1/hypervisor) for the full spec.
+See the full spec for details.
 
 ### `migrations.kvm.cloud.sap`
 
@@ -114,7 +114,7 @@ NAME                                   ORIGIN          DESTINATION     TYPE     
 1552e60a-bdba-4850-84da-07dd635bce2c   node006-bb086   node003-bb087   completed   migration_out   22d       35.078s     64.0 GiB
 ```
 
-See the [API Reference](/api/kvm.cloud.sap/v1alpha1/migration) for the full spec.
+See the full spec for details.
 
 ## KVM HA Agent
 
