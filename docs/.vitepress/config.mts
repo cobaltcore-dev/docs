@@ -95,8 +95,8 @@ export default withMermaid({
           { text: 'OpenStack', link: '/openstack/' },
           {
             text: 'Operations',
-            link: '/overview/',
             items: [
+              { text: 'Overview', link: '/overview/' },
               { text: 'Platform', link: '/platform/' },
               { text: 'Observability', link: '/observability/' },
               { text: 'Sustainability', link: '/sustainability/' },
