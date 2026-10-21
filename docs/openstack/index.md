@@ -40,7 +40,7 @@ Compute Clusters
 
 ## CobaltCore-specific choices
 
-**Why OVN for networking?** Neutron's OVN backend replaces the per-node Open vSwitch agents with a centralized control plane (OVN-NB/SB databases) and distributed forwarding. This reduces per-node complexity and scales better at large node counts. See [Networking - OVN](/networking/ovn).
+**Why OVN for networking?** Neutron's OVN backend replaces the per-node Open vSwitch agents with a centralized control plane (OVN-NB/SB databases) and distributed forwarding. This reduces per-node complexity and scales better at large node counts. See [Networking - OVN](/network/ovn).
 
 **Why NetApp/NFS for Cinder?** In CobaltCore's reference configuration, Cinder uses a NetApp filer for block volumes delivered as NFS mounts. This enables thin provisioning and hardware-level snapshots. Ceph RBD is an alternative backend for environments without a NetApp filer.
 

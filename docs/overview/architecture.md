@@ -28,7 +28,7 @@ CobaltCore is organized as a layered stack. Each layer has a clear responsibilit
 
 ## Platform
 
-The foundation. Kubernetes provides the control plane. [IronCore](/platform/ironcore) handles bare metal discovery and lifecycle. [Gardener](/platform/gardener) manages cluster lifecycle (creating, upgrading, and deleting Kubernetes clusters). [GardenLinux](/platform/gardenlinux) is the hardened Linux OS that runs on hypervisor nodes.
+The foundation. Kubernetes provides the control plane. IronCore handles bare metal discovery and lifecycle. Gardener manages cluster lifecycle (creating, upgrading, and deleting Kubernetes clusters). GardenLinux is the hardened Linux OS that runs on hypervisor nodes.
 
 Everything above this layer runs as Kubernetes workloads.
 
@@ -38,7 +38,7 @@ The infrastructure data plane - the raw execution environment for virtual machin
 
 - **[Compute](/compute/)** - KVM hypervisors managed by a Kubernetes operator. VMs run on bare metal nodes via libvirt. The HA service monitors hypervisor health and triggers evacuation when nodes fail.
 - **[Storage](/storage/)** - Ceph provides block (RBD), object (RGW), and file (CephFS) storage. Rook operates Ceph as a Kubernetes-native workload. Arbiter enables stretched clusters across two data centers. Chorus handles S3 object replication.
-- **[Networking](/networking/)** - OVN provides virtual networking for VMs. Neutron's OVN integration manages the control plane.
+- **[Networking](/network/)** - OVN provides virtual networking for VMs. Neutron's OVN integration manages the control plane.
 
 ## Observability
 
@@ -52,7 +52,7 @@ The cloud services layer. OpenStack APIs (Nova, Neutron, Cinder, Keystone, Glanc
 
 ## Management
 
-The operations and control plane UI. [Aurora](/management/aurora) is the cloud management frontend. [Greenhouse](/management/greenhouse) provides the monitoring and management umbrella. [Cortex](/management/cortex) handles intelligent placement and scheduling of workloads across the cluster.
+The operations and control plane UI. Aurora is the cloud management frontend. Greenhouse provides the monitoring and management umbrella. Cortex handles intelligent placement and scheduling of workloads across the cluster.
 
 ## Data flow: provisioning a VM
 

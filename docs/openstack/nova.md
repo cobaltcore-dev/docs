@@ -56,7 +56,7 @@ Nova Compute Agents run as Kubernetes daemonsets on hypervisor nodes managed by 
 
 The [HA Service](/compute/ha-service) calls Nova's host evacuation API when a hypervisor fails.
 
-[Cortex](/management/cortex) integrates with Nova's placement API to make intelligent scheduling decisions based on cluster state.
+Cortex integrates with Nova's placement API to make intelligent scheduling decisions based on cluster state.
 
 ## See also
 

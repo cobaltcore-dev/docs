@@ -42,7 +42,6 @@ CobaltCore uses [Gardener](https://gardener.cloud) for cluster lifecycle managem
 
 The control plane must be reachable from the hypervisor node.
 
-See [Platform - Bootstrap](/platform/bootstrap) for details on how CobaltCore clusters are set up in production.
 
 ## Step 2: Install the Hypervisor Operator
 
