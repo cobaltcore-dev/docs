@@ -1,8 +1,8 @@
 {
   "devDependencies": {
-    "vitepress": "^1.6.3",
+    "vitepress": "^1.6.4",
     "vitepress-plugin-mermaid": "^2.0.17",
-    "vitepress-sidebar": "^1.32.1"
+    "vitepress-sidebar": "^1.40.0"
   },
   "scripts": {
     "docs:dev": "vitepress dev docs",
