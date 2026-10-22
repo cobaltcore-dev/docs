@@ -96,7 +96,7 @@ export default withMermaid({
         ],
       },
       {
-        text: 'Operations',
+        text: 'Operations Manual',
         items: [
           { text: 'Overview', link: '/overview/' },
           { text: 'Platform', link: '/platform/' },
