@@ -4,6 +4,9 @@
     "vitepress-plugin-mermaid": "^2.0.17",
     "vitepress-sidebar": "^1.40.0"
   },
+  "overrides": {
+    "mermaid": "^10"
+  },
   "scripts": {
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",

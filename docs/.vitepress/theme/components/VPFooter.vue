@@ -35,27 +35,35 @@ const { hasSidebar } = useSidebar()
 <template>
   <footer class="VPFooter" :class="{ 'has-sidebar': hasSidebar }">
     <div class="container">
-      <div class="funding-notice">
-        <div class="funding-image">
-          <img src="https://apeirora.eu/assets/img/BMWK-EU.png" alt="EU and German government funding logos">
-        </div>
-        <div class="funding-text">
-          <p>
-            <strong>Funded by the European Union – NextGenerationEU.</strong>
-          </p>
-          <p>
-            The views and opinions expressed are solely those of the author(s) and do not necessarily reflect the views of the European Union or the European Commission. Neither the European Union nor the European Commission can be held responsible for them.
-          </p>
-          <div class="copyright">
-            <p>
-              <strong>
-                Copyright © Linux Foundation Europe.
-              </strong>
-            </p>
-            CobaltCore is a project of Linux Foundation Europe.
-            For applicable policies including privacy policy, terms of use and trademark usage guidelines, please see <a href="https://linuxfoundation.eu">https://linuxfoundation.eu</a>.
-            Linux is a registered trademark of Linus Torvalds.
+      <div class="footer-main">
+        <div class="funding-notice">
+          <div class="funding-image">
+            <img src="https://apeirora.eu/assets/img/BMWK-EU.png" alt="EU and German government funding logos">
           </div>
+          <div class="funding-text">
+            <p>
+              <strong>Funded by the European Union – NextGenerationEU.</strong>
+            </p>
+            <p>
+              The views and opinions expressed are solely those of the author(s) and do not necessarily reflect the views of the European Union or the European Commission. Neither the European Union nor the European Commission can be held responsible for them.
+            </p>
+            <div class="copyright">
+              <p>
+                <strong>
+                  Copyright © Linux Foundation Europe.
+                </strong>
+              </p>
+              CobaltCore is a project of Linux Foundation Europe.
+              For applicable policies including privacy policy, terms of use and trademark usage guidelines, please see <a href="https://linuxfoundation.eu">https://linuxfoundation.eu</a>.
+              Linux is a registered trademark of Linus Torvalds.
+            </div>
+          </div>
+        </div>
+        <div class="neonephos-divider"></div>
+        <div class="neonephos-logo">
+          <a href="https://neonephos.org" target="_blank" rel="noopener noreferrer" aria-label="NeoNephos">
+            <img src="/assets/logos/neonephos_logo_white.svg" alt="NeoNephos">
+          </a>
         </div>
       </div>
     </div>
@@ -105,7 +113,14 @@ const { hasSidebar } = useSidebar()
   color: var(--vp-c-text-2);
 }
 
+.footer-main {
+  display: flex;
+  align-items: flex-start;
+  gap: 32px;
+}
+
 .funding-notice {
+  flex: 1;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -142,10 +157,56 @@ const { hasSidebar } = useSidebar()
   line-height: 1.6;
 }
 
+.neonephos-divider {
+  width: 1px;
+  align-self: stretch;
+  background-color: var(--vp-c-divider);
+  flex-shrink: 0;
+}
+
+.neonephos-logo {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  align-self: center;
+}
+
+.neonephos-logo a {
+  display: block;
+  text-decoration: none !important;
+  background-color: #1a1a1a;
+  border-radius: 6px;
+  padding: 8px 12px;
+}
+
+.neonephos-logo img {
+  width: 180px;
+  height: auto;
+  display: block;
+}
+
 @media (max-width: 768px) {
+  .footer-main {
+    flex-direction: column;
+  }
+
   .funding-notice {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .neonephos-divider {
+    width: 100%;
+    height: 1px;
+    align-self: auto;
+  }
+
+  .neonephos-logo {
+    align-self: flex-start;
+  }
+
+  .neonephos-logo img {
+    width: 140px;
   }
 }
 </style>
