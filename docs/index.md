@@ -9,7 +9,7 @@ hero:
     src: https://raw.githubusercontent.com/cobaltcore-dev/.github/refs/heads/main/assets/Logo_Cobalt_Core_background_black.svg
     alt: CobaltCore logo
 
-  tagline: Get your cloud running in weeks with Kubernetes-native orchestration and OpenStack-influenced services, fully open source.
+  tagline: Get your cloud running in weeks with Kubernetes-native orchestration and OpenStack-compatible API surface, fully open source.
   actions:
     - theme: brand
       text: Get Started
