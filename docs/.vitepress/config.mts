@@ -50,21 +50,21 @@ function observabilitySidebar() {
 // https://vitepress.dev/reference/site-config
 export default withMermaid({
   title: "CobaltCore",
-  description: "Infrastructure management for cloud native and traditional workloads. Get your cloud running in weeks with Kubernetes-native orchestration and OpenStack-influenced services, fully open source.",
+  description: "Infrastructure management for cloud native and traditional workloads. Get your cloud running in weeks with Kubernetes-native orchestration and OpenStack-compatible API surface, fully open source.",
   base: "/",
   head: [
     ['link', { rel: 'icon', href: 'https://raw.githubusercontent.com/cobaltcore-dev/.github/refs/heads/main/assets/Logo_Cobalt_Core_background_white.svg' }],
     ['link', { rel: 'canonical', href: 'https://cobaltcore.dev/' }],
     ['meta', { property: 'og:url', content: 'https://cobaltcore.dev/' }],
     ['meta', { property: 'og:title', content: 'CobaltCore — Cloud Infrastructure Docs' }],
-    ['meta', { property: 'og:description', content: 'Infrastructure management for cloud native and traditional workloads. Kubernetes-native orchestration and OpenStack-influenced services, fully open source.' }],
+    ['meta', { property: 'og:description', content: 'Infrastructure management for cloud native and traditional workloads. Kubernetes-native orchestration and OpenStack-compatible API surface, fully open source.' }],
     ['meta', { property: 'og:image', content: 'https://cobaltcore.dev/social-preview.png' }],
     ['meta', { property: 'og:image:width', content: '1200' }],
     ['meta', { property: 'og:image:height', content: '630' }],
     ['meta', { property: 'og:image:type', content: 'image/png' }],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
     ['meta', { name: 'twitter:title', content: 'CobaltCore — Cloud Infrastructure Docs' }],
-    ['meta', { name: 'twitter:description', content: 'Infrastructure management for cloud native and traditional workloads. Kubernetes-native orchestration and OpenStack-influenced services, fully open source.' }],
+    ['meta', { name: 'twitter:description', content: 'Infrastructure management for cloud native and traditional workloads. Kubernetes-native orchestration and OpenStack-compatible API surface, fully open source.' }],
     ['meta', { name: 'twitter:image', content: 'https://cobaltcore.dev/social-preview.png' }],
   ],
   vite: {
