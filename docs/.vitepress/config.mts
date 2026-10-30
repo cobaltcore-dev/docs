@@ -25,6 +25,28 @@ function storageSidebar() {
   };
 }
 
+function overviewSidebar() {
+  const generated = generateSidebar([{
+    documentRootPath: '/docs/',
+    scanStartPath: 'overview',
+    resolvePath: '/overview/',
+    capitalizeFirst: false,
+    useTitleFromFrontmatter: true,
+    useFolderLinkFromIndexFile: true,
+    useFolderTitleFromIndexFile: true,
+    sortMenusByFrontmatterOrder: true,
+  }]);
+  const items = generated['/overview/'].items.filter((i: any) => i.link !== 'index.md');
+  const showroomEntry = { text: 'Showroom', link: 'showroom/', base: '/' };
+  const overviewItems = [
+    { text: 'About CobaltCore', items: [{ text: 'Overview', link: '/overview/' }, ...items.map((i: any) => ({ ...i, link: '/overview/' + i.link })), showroomEntry] },
+  ];
+  return {
+    '/overview/': { items: overviewItems },
+    '/showroom/': { items: overviewItems },
+  };
+}
+
 function observabilitySidebar() {
   const generated = generateSidebar([{
     documentRootPath: '/docs/',
@@ -83,7 +105,7 @@ export default withMermaid({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Overview', link: '/overview/' },
+      { text: 'About CobaltCore', link: '/overview/' },
       { text: 'Getting Started', link: '/getting-started/' },
       {
         text: 'Documentation',
@@ -137,16 +159,6 @@ export default withMermaid({
         },
         {
           documentRootPath: '/docs/',
-          scanStartPath: 'overview',
-          resolvePath: '/overview/',
-          capitalizeFirst: false,
-          useTitleFromFrontmatter: true,
-          useFolderLinkFromIndexFile: true,
-          useFolderTitleFromIndexFile: true,
-          sortMenusByFrontmatterOrder: true,
-        },
-        {
-          documentRootPath: '/docs/',
           scanStartPath: 'getting-started',
           resolvePath: '/getting-started/',
           capitalizeFirst: false,
@@ -187,16 +199,6 @@ export default withMermaid({
         },
         {
           documentRootPath: '/docs/',
-          scanStartPath: 'blog',
-          resolvePath: '/blog/',
-          capitalizeFirst: false,
-          useTitleFromFrontmatter: true,
-          useFolderLinkFromIndexFile: true,
-          useFolderTitleFromIndexFile: true,
-          sortMenusByFrontmatterOrder: true,
-        },
-        {
-          documentRootPath: '/docs/',
           scanStartPath: 'community',
           resolvePath: '/community/',
           capitalizeFirst: false,
@@ -218,6 +220,7 @@ export default withMermaid({
       ]),
       ...storageSidebar(),
       ...observabilitySidebar(),
+      ...overviewSidebar(),
     },
 
     socialLinks: [
