@@ -50,6 +50,11 @@ html.dark img[title="apeirora_logo"] {
   border-radius: 12px;
 }
 
+.vp-doc h2 {
+  border-top: none;
+  padding-top: 0;
+}
+
 /* Shared section heading for landing page — mirrors VPFeatures outer padding + inner container */
 .home-section-header {
   padding: 2rem 24px 0;
