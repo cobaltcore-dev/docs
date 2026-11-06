@@ -64,6 +64,10 @@ Ceph uses the CRUSH algorithm to determine where data is stored across OSDs - no
 
 CobaltCore uses **replication** (typically 3 copies) for most pools. Erasure coding is available for large object stores where storage efficiency matters more than write latency.
 
+## Downstream Ceph images
+
+CobaltCore builds downstream Ceph images from its fork when production needs selected fixes or features sooner than an upstream release can include them. See [Downstream Ceph images](./ceph-downstream-image.md) for an overview of why we do this and how the fork relates to upstream Ceph.
+
 ## Storage interfaces and data services
 
 ### Ceph Block Device Summary (RBD)
