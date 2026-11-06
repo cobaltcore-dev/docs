@@ -72,6 +72,6 @@ Ceph achieves HA through monitor quorum (typically 3 or 5 monitors), OSD replica
 ## See Also
 
 - [Ceph Upstream Architecture Docs](https://docs.ceph.com/en/latest/architecture/)
-- [Downstream Ceph image releases](./ceph-downstream-image.md) - proposal for tracking internally managed downstream image versions and their changelogs
+- [Downstream Ceph images](./ceph-downstream-image.md) - why CobaltCore maintains a Ceph fork and builds downstream images
 - [Rook Documentation](https://rook.io/docs/rook/latest-release/Getting-Started/intro/)
 - [Observability & Audit](/observability/) - Prometheus metrics, Perses dashboards, and Prysm CLI for the storage stack
