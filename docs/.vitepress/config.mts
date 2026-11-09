@@ -25,6 +25,50 @@ function storageSidebar() {
   };
 }
 
+function networkSidebar() {
+  const generated = generateSidebar([{
+    documentRootPath: '/docs/',
+    scanStartPath: 'network',
+    resolvePath: '/network/',
+    capitalizeFirst: false,
+    useTitleFromFrontmatter: true,
+    useFolderLinkFromIndexFile: true,
+    useFolderTitleFromIndexFile: true,
+    sortMenusByFrontmatterOrder: true,
+  }]);
+  const items = generated['/network/'].items.filter((i: any) => i.link !== 'index.md');
+  return {
+    '/network/': {
+      base: '/network/',
+      items: [
+        { text: 'Network', items: [{ text: 'Overview', link: 'index.md' }, ...items] },
+      ],
+    },
+  };
+}
+
+function openstackSidebar() {
+  const generated = generateSidebar([{
+    documentRootPath: '/docs/',
+    scanStartPath: 'openstack',
+    resolvePath: '/openstack/',
+    capitalizeFirst: false,
+    useTitleFromFrontmatter: true,
+    useFolderLinkFromIndexFile: true,
+    useFolderTitleFromIndexFile: true,
+    sortMenusByFrontmatterOrder: true,
+  }]);
+  const items = generated['/openstack/'].items.filter((i: any) => i.link !== 'index.md');
+  return {
+    '/openstack/': {
+      base: '/openstack/',
+      items: [
+        { text: 'OpenStack', items: [{ text: 'Overview', link: 'index.md' }, ...items] },
+      ],
+    },
+  };
+}
+
 function overviewSidebar() {
   const generated = generateSidebar([{
     documentRootPath: '/docs/',
@@ -201,28 +245,6 @@ export default withMermaid({
           sortMenusByFrontmatterOrder: true,
         },
         {
-          documentRootPath: '/docs/',
-          scanStartPath: 'openstack',
-          resolvePath: '/openstack/',
-          capitalizeFirst: false,
-          useTitleFromFrontmatter: true,
-          useFolderLinkFromIndexFile: true,
-          useFolderTitleFromIndexFile: true,
-          sortMenusByFrontmatterOrder: true,
-        },
-        {
-          documentRootPath: '/docs/',
-          scanStartPath: 'network',
-          resolvePath: '/network/',
-          capitalizeFirst: false,
-          useTitleFromFrontmatter: true,
-          useFolderLinkFromIndexFile: true,
-          useFolderTitleFromIndexFile: true,
-          sortMenusByFrontmatterOrder: true,
-        },
-        {
-          documentRootPath: '/docs/',
-          scanStartPath: 'community',
           resolvePath: '/community/',
           capitalizeFirst: false,
           useTitleFromFrontmatter: true,
@@ -243,6 +265,8 @@ export default withMermaid({
       ]),
       ...storageSidebar(),
       ...observabilitySidebar(),
+      ...networkSidebar(),
+      ...openstackSidebar(),
       ...overviewSidebar(),
       ...governanceSidebar(),
     },

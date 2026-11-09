@@ -36,4 +36,4 @@ SR-IOV (Single Root I/O Virtualization) allows a single physical NIC to present 
 ## See also
 
 - [Compute - Hypervisor](/compute/hypervisor)
-- [Networking - OVN](/network/ovn)
+- [Network](/network/)
