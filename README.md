@@ -11,7 +11,9 @@ Use **Docker** if you'd rather not install Node.js locally.
 
 ### Local
 
-Requires [Node.js](https://nodejs.org/) 18+.
+Requires [Node.js](https://nodejs.org/) 22.18 or newer, and git. The build
+loads a TypeScript module of C5C3/cobaltcore with Node's built-in type
+stripping (see [The OpenStack section](#the-openstack-section)).
 
 ```sh
 npm install
@@ -25,6 +27,26 @@ docker compose up
 ```
 
 In both cases the documentation is accessible at [http://localhost:5173/](http://localhost:5173/).
+
+### The OpenStack section
+
+The pages under `/openstack/` are the documentation of
+[C5C3/cobaltcore](https://github.com/C5C3/cobaltcore). Before `docs:dev` and
+`docs:build`, npm runs `npm run docs:sync`, which clones C5C3/cobaltcore into
+`docs/_upstream/cobaltcore` unless a checkout is already there. The directory is
+ignored by git; delete it to fetch a fresh copy.
+
+To preview changes in a local C5C3/cobaltcore checkout, copy it in and start the
+development server:
+
+```sh
+COBALTCORE_SRC=../cobaltcore npm run docs:sync
+npm run docs:dev
+```
+
+Run `docs:sync` with `COBALTCORE_SRC` again after each change; copying needs
+rsync. [Publishing to cobaltcore.dev](https://c5c3.github.io/cobaltcore/contributing/publishing-to-cobaltcore-dev.html)
+describes which pages are published and how their links resolve.
 
 ## Support, Feedback, Contributing
 
