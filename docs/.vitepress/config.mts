@@ -69,6 +69,28 @@ function observabilitySidebar() {
   };
 }
 
+function governanceSidebar() {
+  const generated = generateSidebar([{
+    documentRootPath: '/docs/',
+    scanStartPath: 'governance',
+    resolvePath: '/governance/',
+    capitalizeFirst: false,
+    useTitleFromFrontmatter: true,
+    useFolderLinkFromIndexFile: true,
+    useFolderTitleFromIndexFile: true,
+    sortMenusByFrontmatterOrder: true,
+  }]);
+  const items = generated['/governance/'].items.filter((i: any) => i.link !== 'index.md');
+  return {
+    '/governance/': {
+      base: '/governance/',
+      items: [
+        { text: 'Governance', items: [{ text: 'Overview', link: 'index.md' }, ...items] },
+      ],
+    },
+  };
+}
+
 // https://vitepress.dev/reference/site-config
 export default withMermaid({
   title: "CobaltCore",
@@ -128,6 +150,7 @@ export default withMermaid({
       },
       { text: 'Blog', link: '/blog/' },
       { text: 'Community', link: '/community/' },
+      { text: 'Governance', link: '/governance/' },
     ],
 
     editLink: {
@@ -221,6 +244,7 @@ export default withMermaid({
       ...storageSidebar(),
       ...observabilitySidebar(),
       ...overviewSidebar(),
+      ...governanceSidebar(),
     },
 
     socialLinks: [
