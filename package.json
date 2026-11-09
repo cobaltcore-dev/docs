@@ -10,6 +10,8 @@
   "scripts": {
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs"
+    "docs:preview": "vitepress preview docs",
+    "docs:clean": "rm -rf docs/.vitepress/cache docs/.vitepress/dist",
+    "docs:build:fresh": "npm run docs:clean && npm run docs:build"
   }
 }

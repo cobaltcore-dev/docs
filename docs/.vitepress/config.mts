@@ -113,6 +113,60 @@ function observabilitySidebar() {
   };
 }
 
+function operationsSidebar() {
+  const genSection = (scanStartPath: string, resolvePath: string) => generateSidebar([{
+    documentRootPath: '/docs/',
+    scanStartPath,
+    resolvePath,
+    capitalizeFirst: false,
+    useTitleFromFrontmatter: true,
+    useFolderLinkFromIndexFile: true,
+    useFolderTitleFromIndexFile: true,
+    sortMenusByFrontmatterOrder: true,
+  }]);
+
+  const platformItems = genSection('operations/platform', '/operations/platform/')['/operations/platform/'].items
+    .filter((i: any) => i.link !== 'index.md');
+  const observabilityItems = genSection('observability', '/observability/')['/observability/'].items
+    .filter((i: any) => i.link !== 'index.md');
+  const sustainabilityItems = genSection('sustainability', '/sustainability/')['/sustainability/'].items
+    .filter((i: any) => i.link !== 'index.md');
+
+  const sharedItems = [
+    {
+      text: 'Operations Manual',
+      items: [
+        { text: 'Overview', link: '/operations/' },
+        {
+          text: 'Platform',
+          collapsed: true,
+          base: '/operations/platform/',
+          items: [{ text: 'Overview', link: '/platform/' }, ...platformItems],
+        },
+        {
+          text: 'Observability',
+          collapsed: true,
+          base: '/observability/',
+          items: [{ text: 'Overview', link: 'index.md' }, ...observabilityItems],
+        },
+        {
+          text: 'Sustainability',
+          collapsed: true,
+          base: '/sustainability/',
+          items: [{ text: 'Overview', link: 'index.md' }, ...sustainabilityItems],
+        },
+      ],
+    },
+  ];
+
+  return {
+    '/operations/': { items: sharedItems },
+    '/operations/platform/': { items: sharedItems },
+    '/observability/': { items: sharedItems },
+    '/sustainability/': { items: sharedItems },
+  };
+}
+
 function governanceSidebar() {
   const generated = generateSidebar([{
     documentRootPath: '/docs/',
@@ -171,11 +225,11 @@ export default withMermaid({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'About CobaltCore', link: '/overview/' },
-      { text: 'Getting Started', link: '/getting-started/' },
       {
         text: 'Documentation',
         items: [
+          { text: 'About CobaltCore', link: '/overview/' },
+          { text: 'Getting Started', link: '/getting-started/' },
           { text: 'Bare Metal Management', link: '/bare-metal/' },
           { text: 'Compute', link: '/compute/' },
           { text: 'Storage', link: '/storage/' },
@@ -186,7 +240,7 @@ export default withMermaid({
       {
         text: 'Operations Manual',
         items: [
-          { text: 'Overview', link: '/overview/' },
+          { text: 'Overview', link: '/operations/' },
           { text: 'Platform', link: '/platform/' },
           { text: 'Observability', link: '/observability/' },
           { text: 'Sustainability', link: '/sustainability/' },
@@ -245,17 +299,9 @@ export default withMermaid({
           sortMenusByFrontmatterOrder: true,
         },
         {
-          resolvePath: '/community/',
-          capitalizeFirst: false,
-          useTitleFromFrontmatter: true,
-          useFolderLinkFromIndexFile: true,
-          useFolderTitleFromIndexFile: true,
-          sortMenusByFrontmatterOrder: true,
-        },
-        {
           documentRootPath: '/docs/',
-          scanStartPath: 'sustainability',
-          resolvePath: '/sustainability/',
+          scanStartPath: 'community',
+          resolvePath: '/community/',
           capitalizeFirst: false,
           useTitleFromFrontmatter: true,
           useFolderLinkFromIndexFile: true,
@@ -264,10 +310,10 @@ export default withMermaid({
         },
       ]),
       ...storageSidebar(),
-      ...observabilitySidebar(),
       ...networkSidebar(),
       ...openstackSidebar(),
       ...overviewSidebar(),
+      ...operationsSidebar(),
       ...governanceSidebar(),
     },
 
