@@ -5,16 +5,20 @@ order: 1
 
 # Networking
 
-CobaltCore uses OVN (Open Virtual Network) as the virtual networking layer for VMs. OVN is managed by Neutron's OVN backend and provides virtual networks, routers, and security groups at scale without per-node agent complexity.
+CobaltCore is generally agnostic of the underlying data center network, but its reference implementation expects a vendor-based network provisioned with [WireAPI](https://wireapi.dev/) and integrated with OpenStack services for further provisioning and lifecycle management.
 
-## Components
+## Provision Network with WireAPI
 
-| Component | Role |
-|---|---|
-| [OVN](/network/ovn) | Virtual networking for VMs - provides L2/L3 switching and routing |
+WireAPI is a [Kubernetes-native Network Operator](https://wireapi.dev/architecture-overview.html) that automates the provisioning and lifecycle management of network devices. It extends the Kubernetes API with declarative, multi-vendor network automation, letting you manage physical network infrastructure with the same tools and workflows you use for your applications. Network devices and their configurations are represented as Kubernetes objects, bridging your cloud-native environment with your networking hardware.
 
-## How it fits in the stack
+## Getting Started
 
-Neutron (in the OpenStack layer) owns the logical network model - networks, subnets, ports, routers, security groups. OVN translates those logical resources into forwarding rules on each hypervisor node via the OVN Controller daemonset. VMs get virtual interfaces managed by OVS.
+Check out WireAPI's [getting started](https://wireapi.dev/overview/getting-started.html) guide and [Tutorials](https://wireapi.dev/tutorials/).
 
-See [OpenStack - Neutron](/openstack/neutron) for the Neutron API layer, and [Networking - OVN](/network/ovn) for the OVN data plane details.
+## Neutron Integration
+
+TBD
+
+## Load Balancing with Octavia
+
+TBD

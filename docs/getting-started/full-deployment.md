@@ -65,7 +65,7 @@ Follow the [Minimal Environment](/getting-started/minimal) guide first to unders
 
 ### Networking layer
 
-- [ ] OVN control plane deployed - see [Networking - OVN](/network/ovn)
+- [ ] OVN control plane deployed - see [OpenStack Network Integration](/network/openstack-integration)
 - [ ] OVN Controller daemonset running on all hypervisor nodes
 - [ ] Neutron API connected to OVN Northbound DB
 
