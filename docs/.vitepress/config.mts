@@ -1,6 +1,21 @@
 import { withMermaid } from "vitepress-plugin-mermaid";
 import { generateSidebar } from 'vitepress-sidebar';
 import { fileURLToPath, URL } from 'node:url'
+import { createOverlay } from './overlay'
+
+// The OpenStack section is the documentation of C5C3/cobaltcore, checked out into
+// docs/_upstream/cobaltcore by `npm run docs:sync` (or the CI workflow) and mounted
+// under /openstack/. See https://c5c3.github.io/cobaltcore/contributing/publishing-to-cobaltcore-dev.html
+const cobaltcore = createOverlay({
+  srcDir: fileURLToPath(new URL('..', import.meta.url)),
+  checkout: '_upstream/cobaltcore',
+  mount: 'openstack',
+  routes: Object.fromEntries(
+    ['keystone', 'horizon', 'glance', 'placement', 'barbican', 'ovn', 'neutron', 'cinder', 'nova']
+      .map(s => [`reference/${s}/index.md`, `${s}.md`]),
+  ),
+  groupTitles: { 'Getting Started': 'Quick Starts', 'Reference': 'Services' },
+})
 
 function storageSidebar() {
   const generated = generateSidebar([{
@@ -47,25 +62,17 @@ function networkSidebar() {
   };
 }
 
-function openstackSidebar() {
-  const generated = generateSidebar([{
-    documentRootPath: '/docs/',
-    scanStartPath: 'openstack',
-    resolvePath: '/openstack/',
-    capitalizeFirst: false,
-    useTitleFromFrontmatter: true,
-    useFolderLinkFromIndexFile: true,
-    useFolderTitleFromIndexFile: true,
-    sortMenusByFrontmatterOrder: true,
-  }]);
-  const items = generated['/openstack/'].items.filter((i: any) => i.link !== 'index.md');
+// The upstream sidebar, pruned to the published pages, already opens with the
+// Overview entry (/openstack/), so nothing is filtered out or prepended here.
+async function openstackSidebar() {
   return {
-    '/openstack/': {
-      base: '/openstack/',
-      items: [
-        { text: 'OpenStack', items: [{ text: 'Overview', link: 'index.md' }, ...items] },
-      ],
-    },
+    '/openstack/': [
+      ...(await cobaltcore.sidebar()),
+      {
+        text: 'Reference',
+        items: [{ text: 'Operator reference (c5c3.github.io)', link: cobaltcore.manifest.canonical + 'reference/keystone/' }],
+      },
+    ],
   };
 }
 
@@ -194,6 +201,11 @@ export default withMermaid({
   title: "CobaltCore",
   description: "Infrastructure management for cloud native and traditional workloads. Get your cloud running in weeks with Kubernetes-native orchestration and OpenStack-compatible API surface, fully open source.",
   base: "/",
+  srcExclude: cobaltcore.srcExclude,
+  rewrites: cobaltcore.rewrites,
+  // The OpenStack quick starts name port-forward URLs that never resolve during the build.
+  ignoreDeadLinks: [/^https?:\/\/localhost(:\d+)?/],
+  markdown: { config: (md) => cobaltcore.markdown(md) },
   head: [
     ['link', { rel: 'icon', href: 'https://raw.githubusercontent.com/cobaltcore-dev/.github/refs/heads/main/assets/Logo_Cobalt_Core_background_white.svg' }],
     ['link', { rel: 'canonical', href: 'https://cobaltcore.dev/' }],
@@ -252,7 +264,11 @@ export default withMermaid({
     ],
 
     editLink: {
-      pattern: 'https://github.com/cobaltcore-dev/docs/edit/main/docs/:path',
+      // VitePress serializes this function into the client bundle: it must not
+      // reference anything outside its own body.
+      pattern: ({ filePath }) => filePath.startsWith('_upstream/cobaltcore/')
+        ? `https://github.com/C5C3/cobaltcore/edit/main/${filePath.slice('_upstream/cobaltcore/'.length)}`
+        : `https://github.com/cobaltcore-dev/docs/edit/main/docs/${filePath}`,
       text: 'Edit this page on GitHub'
     },
 
@@ -311,7 +327,7 @@ export default withMermaid({
       ]),
       ...storageSidebar(),
       ...networkSidebar(),
-      ...openstackSidebar(),
+      ...(await openstackSidebar()),
       ...overviewSidebar(),
       ...operationsSidebar(),
       ...governanceSidebar(),
