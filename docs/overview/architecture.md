@@ -10,8 +10,9 @@ outline: deep
 ┌──────────────────────────────────────────────────────────┐
 │  Management       Aurora · Greenhouse · Cortex           │
 ├──────────────────────────────────────────────────────────┤
-│  OpenStack        Nova · Neutron · Cinder · Keystone     │
-│                   Glance                                  │
+│  OpenStack        Keystone · Horizon · Glance            │
+│                   Placement · Barbican · Nova            │
+│                   Neutron · Cinder · OVN                 │
 ├──────────────────────────────────────────────────────────┤
 │  Compute          KVM Hypervisor · HA Service · GPU      │
 │  Storage          Ceph · Rook · Arbiter · Chorus         │

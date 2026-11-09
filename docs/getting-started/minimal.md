@@ -15,7 +15,7 @@ This is not a production configuration - it has no high availability and no redu
 ```
 ┌─────────────────────────────────┐
 │  Control Plane Node             │
-│  Kubernetes · OpenStack (Helm)  │
+│  Kubernetes · OpenStack         │
 │  Ceph (single node)             │
 └──────────────┬──────────────────┘
                │
@@ -179,16 +179,11 @@ for the production three-node cluster configuration.
 
 ## Step 5: Deploy OpenStack
 
-OpenStack services are deployed via Helm. A minimal configuration enables Nova, Neutron, Cinder, Keystone, and Glance:
+CobaltCore runs OpenStack with Kubernetes operators. One `ControlPlane` resource describes the control plane, the c5c3-operator creates a resource per service from it, and a service operator reconciles each of them.
 
-```bash
-helm install openstack cobaltcore/openstack \
-  --namespace openstack \
-  --create-namespace \
-  --values minimal-values.yaml
-```
+[Quick Start (ControlPlane)](/openstack/quick-start-controlplane) takes such a resource on a kind cluster from `git clone` to an authenticated Keystone API call. [Quick Start (metal-stack)](/openstack/quick-start-metal-stack) runs the same resource on a Gardener cluster on metal-stack and turns every worker into a KVM hypervisor.
 
-See [OpenStack](/openstack/) for service-level configuration.
+See [OpenStack](/openstack/) for the services and their guides.
 
 ## Step 6: Verify
 

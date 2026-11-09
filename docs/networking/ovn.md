@@ -62,5 +62,6 @@ With traditional OVS agents, each hypervisor node runs its own Neutron agent tha
 ## See also
 
 - [OpenStack - Neutron](/openstack/neutron)
+- [OpenStack - OVN operator](/openstack/ovn)
 - [OVN architecture overview](https://www.ovn.org/en/architecture/)
 - [Red Hat OVN guide](https://docs.redhat.com/en/documentation/red_hat_openstack_platform/13/html/networking_with_open_virtual_network/open_virtual_network_ovn)

@@ -16,7 +16,8 @@ Follow the [Minimal Environment](/getting-started/minimal) guide first to unders
 ┌────────────────────────────────────────────────────────────────────┐
 │  Management Plane    Aurora · Greenhouse · Cortex                  │
 ├────────────────────────────────────────────────────────────────────┤
-│  OpenStack           Nova · Neutron · Cinder · Keystone · Glance   │
+│  OpenStack           Keystone · Horizon · Glance · Placement       │
+│                      Barbican · Nova · Neutron · Cinder · OVN      │
 │                      (HA, multi-replica, RabbitMQ cluster)         │
 ├────────────────────────────────────────────────────────────────────┤
 │  Observability       Prysm · Prometheus · Perses                   │
@@ -71,12 +72,13 @@ Follow the [Minimal Environment](/getting-started/minimal) guide first to unders
 
 ### OpenStack layer
 
-- [ ] All services deployed with HA configuration (multi-replica, clustered RabbitMQ/MariaDB)
+- [ ] Control plane deployed from a `ControlPlane` resource with the `Standard` sizing profile (three replicas of each component) - see [Quick Start (ControlPlane)](/openstack/quick-start-controlplane)
 - [ ] Keystone identity configured - see [OpenStack - Keystone](/openstack/keystone)
 - [ ] Glance image service configured - see [OpenStack - Glance](/openstack/glance)
 - [ ] Nova compute service verified (create test VM) - see [OpenStack - Nova](/openstack/nova)
 - [ ] Neutron networking verified (create test network and port) - see [OpenStack - Neutron](/openstack/neutron)
 - [ ] Cinder block storage verified (create test volume) - see [OpenStack - Cinder](/openstack/cinder)
+- [ ] Placement, Barbican and Horizon verified - see [OpenStack - Placement](/openstack/placement), [OpenStack - Barbican](/openstack/barbican) and [OpenStack - Horizon](/openstack/horizon)
 
 ### Observability layer
 
