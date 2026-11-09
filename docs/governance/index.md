@@ -50,7 +50,7 @@ Owns the observability stack — Prometheus, Perses, Prysm, and alerting rule co
 
 ## Code of Conduct
 
-All community spaces and contributions are governed by the [NeoNephos Code of Conduct](https://github.com/cobaltcore-dev/.github/blob/main/CODE_OF_CONDUCT.md), which is based on the Contributor Covenant v3.0. Violations can be reported to [ospo@sap.com](mailto:ospo@sap.com).
+All community spaces and contributions are governed by the [NeoNephos Code of Conduct](https://github.com/cobaltcore-dev/.github/blob/main/CODE_OF_CONDUCT.md), which is based on the Contributor Covenant v3.0. Violations can be reported per the instructions in the Code of Conduct.
 
 ## How to get involved
 
