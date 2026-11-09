@@ -27,13 +27,13 @@ graph LR
 
 IronCore must be configured with access to your BMC (IPMI/Redfish) interfaces. Once connected, it discovers servers, collects hardware capabilities (CPU, memory, NIC topology), and makes them available as Kubernetes resources.
 
-See [Platform - IronCore](/platform/ironcore) for configuration details.
+See [Platform - IronCore](/operations/platform/ironcore) for configuration details.
 
 ## Phase 2: Cluster provisioning
 
 Gardener creates a Kubernetes cluster using the machines made available by IronCore. You define a `Shoot` resource describing the cluster topology (node count, machine type, Kubernetes version), and Gardener reconciles it.
 
-See [Platform - Gardener](/platform/gardener) for Shoot configuration and common operations.
+See [Platform - Gardener](/operations/platform/gardener) for Shoot configuration and common operations.
 
 ## Phase 3: Component installation
 
