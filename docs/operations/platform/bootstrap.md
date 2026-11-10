@@ -42,7 +42,7 @@ Once the cluster is running, CobaltCore components are installed in order:
 1. Rook and Ceph (storage must be ready before OpenStack services that need volumes)
 2. OVN (networking must be ready before Nova and Neutron)
 3. Hypervisor Operator
-4. OpenStack (Nova, Neutron, Cinder, Keystone, Glance via Helm)
+4. OpenStack: the CobaltCore operators and a `ControlPlane` resource (see [OpenStack](/openstack/))
 5. Observability stack (Prysm, Prometheus, Perses)
 6. Management layer (Greenhouse, Aurora, Cortex)
 

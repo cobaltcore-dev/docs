@@ -3,3 +3,4 @@ docs/.vitepress/dist
 docs/.vitepress/cache
 bin
 build
+docs/_upstream/

@@ -8,7 +8,10 @@
     "mermaid": "^10"
   },
   "scripts": {
+    "docs:sync": "bash hack/sync-cobaltcore.sh",
+    "predocs:dev": "bash hack/sync-cobaltcore.sh",
     "docs:dev": "vitepress dev docs",
+    "predocs:build": "bash hack/sync-cobaltcore.sh",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",
     "docs:clean": "rm -rf docs/.vitepress/cache docs/.vitepress/dist",
