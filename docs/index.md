@@ -16,13 +16,13 @@ hero:
       link: /getting-started/
     - theme: alt
       text: Overview
-      link: /overview/
+      link: /about/
     - theme: alt
       text: Architecture
-      link: /overview/architecture
+      link: /about/architecture
     - theme: alt
       text: Showroom
-      link: /showroom/
+      link: /about/showroom/
 
 features:
   - title: Kubernetes-native operations

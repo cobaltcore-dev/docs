@@ -11,6 +11,6 @@ The Operations Manual covers day-two operations of CobaltCore, including lifecyc
 
 | Section | Description |
 |---|---|
-| [Platform](/platform/) | Bootstrap, Gardener, GardenLinux, and IronCore lifecycle |
+| [Platform](/operations/platform/) | Platform lifecycle management |
 | [Observability](/observability/) | Metrics, dashboards, and alerting across the full stack |
 | [Sustainability](/sustainability/) | Energy efficiency and resource optimization |

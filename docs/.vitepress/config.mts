@@ -2,119 +2,10 @@ import { withMermaid } from "vitepress-plugin-mermaid";
 import { generateSidebar } from 'vitepress-sidebar';
 import { fileURLToPath, URL } from 'node:url'
 
-function storageSidebar() {
+// Generate the raw items for a section, with index.md filtered out so it can be
+// re-added manually as a pinned "Overview" entry.
+function sectionItems(scanStartPath: string, resolvePath: string, extra: Record<string, any> = {}) {
   const generated = generateSidebar([{
-    documentRootPath: '/docs/',
-    scanStartPath: 'storage',
-    resolvePath: '/storage/',
-    capitalizeFirst: false,
-    useTitleFromFrontmatter: true,
-    useFolderLinkFromIndexFile: true,
-    useFolderTitleFromIndexFile: true,
-    sortMenusByFrontmatterOrder: true,
-    excludePattern: ['observability/**'],
-  }]);
-  const items = generated['/storage/'].items.filter((i: any) => i.link !== 'index.md');
-  return {
-    '/storage/': {
-      base: '/storage/',
-      items: [
-        { text: 'Storage', items: [{ text: 'Overview', link: 'index.md' }, ...items] },
-      ],
-    },
-  };
-}
-
-function networkSidebar() {
-  const generated = generateSidebar([{
-    documentRootPath: '/docs/',
-    scanStartPath: 'network',
-    resolvePath: '/network/',
-    capitalizeFirst: false,
-    useTitleFromFrontmatter: true,
-    useFolderLinkFromIndexFile: true,
-    useFolderTitleFromIndexFile: true,
-    sortMenusByFrontmatterOrder: true,
-  }]);
-  const items = generated['/network/'].items.filter((i: any) => i.link !== 'index.md');
-  return {
-    '/network/': {
-      base: '/network/',
-      items: [
-        { text: 'Network', items: [{ text: 'Overview', link: 'index.md' }, ...items] },
-      ],
-    },
-  };
-}
-
-function openstackSidebar() {
-  const generated = generateSidebar([{
-    documentRootPath: '/docs/',
-    scanStartPath: 'openstack',
-    resolvePath: '/openstack/',
-    capitalizeFirst: false,
-    useTitleFromFrontmatter: true,
-    useFolderLinkFromIndexFile: true,
-    useFolderTitleFromIndexFile: true,
-    sortMenusByFrontmatterOrder: true,
-  }]);
-  const items = generated['/openstack/'].items.filter((i: any) => i.link !== 'index.md');
-  return {
-    '/openstack/': {
-      base: '/openstack/',
-      items: [
-        { text: 'OpenStack', items: [{ text: 'Overview', link: 'index.md' }, ...items] },
-      ],
-    },
-  };
-}
-
-function overviewSidebar() {
-  const generated = generateSidebar([{
-    documentRootPath: '/docs/',
-    scanStartPath: 'overview',
-    resolvePath: '/overview/',
-    capitalizeFirst: false,
-    useTitleFromFrontmatter: true,
-    useFolderLinkFromIndexFile: true,
-    useFolderTitleFromIndexFile: true,
-    sortMenusByFrontmatterOrder: true,
-  }]);
-  const items = generated['/overview/'].items.filter((i: any) => i.link !== 'index.md');
-  const showroomEntry = { text: 'Showroom', link: 'showroom/', base: '/' };
-  const overviewItems = [
-    { text: 'About CobaltCore', items: [{ text: 'Overview', link: '/overview/' }, ...items.map((i: any) => ({ ...i, link: '/overview/' + i.link })), showroomEntry] },
-  ];
-  return {
-    '/overview/': { items: overviewItems },
-    '/showroom/': { items: overviewItems },
-  };
-}
-
-function observabilitySidebar() {
-  const generated = generateSidebar([{
-    documentRootPath: '/docs/',
-    scanStartPath: 'observability',
-    resolvePath: '/observability/',
-    capitalizeFirst: false,
-    useTitleFromFrontmatter: true,
-    useFolderLinkFromIndexFile: true,
-    useFolderTitleFromIndexFile: true,
-    sortMenusByFrontmatterOrder: true,
-  }]);
-  const items = generated['/observability/'].items.filter((i: any) => i.link !== 'index.md');
-  return {
-    '/observability/': {
-      base: '/observability/',
-      items: [
-        { text: 'Observability', items: [{ text: 'Overview', link: 'index.md' }, ...items] },
-      ],
-    },
-  };
-}
-
-function operationsSidebar() {
-  const genSection = (scanStartPath: string, resolvePath: string) => generateSidebar([{
     documentRootPath: '/docs/',
     scanStartPath,
     resolvePath,
@@ -123,14 +14,33 @@ function operationsSidebar() {
     useFolderLinkFromIndexFile: true,
     useFolderTitleFromIndexFile: true,
     sortMenusByFrontmatterOrder: true,
+    ...extra,
   }]);
+  return generated[resolvePath].items.filter((i: any) => i.link !== 'index.md');
+}
 
-  const platformItems = genSection('operations/platform', '/operations/platform/')['/operations/platform/'].items
-    .filter((i: any) => i.link !== 'index.md');
-  const observabilityItems = genSection('observability', '/observability/')['/observability/'].items
-    .filter((i: any) => i.link !== 'index.md');
-  const sustainabilityItems = genSection('sustainability', '/sustainability/')['/sustainability/'].items
-    .filter((i: any) => i.link !== 'index.md');
+// Universal sidebar pattern: a named section header matching the section name,
+// with a pinned "Overview" entry at the top followed by the generated items.
+// Every section uses this; the header text is the banner shown in the sidebar.
+function sectionSidebar(path: string, title: string, extra: Record<string, any> = {}) {
+  const resolvePath = `/${path}/`;
+  const items = sectionItems(path, resolvePath, extra);
+  return {
+    [resolvePath]: {
+      base: resolvePath,
+      items: [
+        { text: title, items: [{ text: 'Overview', link: 'index.md' }, ...items] },
+      ],
+    },
+  };
+}
+
+// Special case: the Operations Manual nests Platform, Observability and
+// Sustainability under a single shared header across four routes.
+function operationsSidebar() {
+  const platformItems = sectionItems('operations/platform', '/operations/platform/');
+  const observabilityItems = sectionItems('observability', '/observability/');
+  const sustainabilityItems = sectionItems('sustainability', '/sustainability/');
 
   const sharedItems = [
     {
@@ -141,7 +51,7 @@ function operationsSidebar() {
           text: 'Platform',
           collapsed: true,
           base: '/operations/platform/',
-          items: [{ text: 'Overview', link: '/platform/' }, ...platformItems],
+          items: [{ text: 'Overview', link: 'index.md' }, ...platformItems],
         },
         {
           text: 'Observability',
@@ -167,25 +77,84 @@ function operationsSidebar() {
   };
 }
 
-function governanceSidebar() {
-  const generated = generateSidebar([{
-    documentRootPath: '/docs/',
-    scanStartPath: 'governance',
-    resolvePath: '/governance/',
-    capitalizeFirst: false,
-    useTitleFromFrontmatter: true,
-    useFolderLinkFromIndexFile: true,
-    useFolderTitleFromIndexFile: true,
-    sortMenusByFrontmatterOrder: true,
-  }]);
-  const items = generated['/governance/'].items.filter((i: any) => i.link !== 'index.md');
-  return {
-    '/governance/': {
-      base: '/governance/',
+// Special case: the Documentation nav links to About and shares a single sidebar
+// across all seven documentation sections, nesting each (other than About) under
+// a collapsible group with its own Overview + child pages.
+function documentationSidebar() {
+  const gettingStartedItems = sectionItems('getting-started', '/getting-started/');
+  const controlPlaneItems = sectionItems('control-plane', '/control-plane/');
+  const bareMetalItems = sectionItems('bare-metal', '/bare-metal/');
+  const computeItems = sectionItems('compute', '/compute/');
+  const storageItems = sectionItems('storage', '/storage/', { excludePattern: ['observability/**'] });
+  const networkItems = sectionItems('network', '/network/');
+  const openstackItems = sectionItems('openstack', '/openstack/');
+  const aboutItems = sectionItems('about', '/about/');
+
+  const sharedItems = [
+    {
+      text: 'Documentation',
       items: [
-        { text: 'Governance', items: [{ text: 'Overview', link: 'index.md' }, ...items] },
+        {
+          text: 'About CobaltCore',
+          collapsed: true,
+          base: '/about/',
+          items: [{ text: 'Overview', link: 'index.md' }, ...aboutItems],
+        },
+        {
+          text: 'Getting Started',
+          collapsed: true,
+          base: '/getting-started/',
+          items: [{ text: 'Overview', link: 'index.md' }, ...gettingStartedItems],
+        },
+        {
+          text: 'Control Plane',
+          collapsed: true,
+          base: '/control-plane/',
+          items: [{ text: 'Overview', link: 'index.md' }, ...controlPlaneItems],
+        },
+        {
+          text: 'Network',
+          collapsed: true,
+          base: '/network/',
+          items: [{ text: 'Overview', link: 'index.md' }, ...networkItems],
+        },
+        {
+          text: 'Bare Metal Management',
+          collapsed: true,
+          base: '/bare-metal/',
+          items: [{ text: 'Overview', link: 'index.md' }, ...bareMetalItems],
+        },
+        {
+          text: 'Compute',
+          collapsed: true,
+          base: '/compute/',
+          items: [{ text: 'Overview', link: 'index.md' }, ...computeItems],
+        },
+        {
+          text: 'Storage',
+          collapsed: true,
+          base: '/storage/',
+          items: [{ text: 'Overview', link: 'index.md' }, ...storageItems],
+        },
+        {
+          text: 'OpenStack',
+          collapsed: true,
+          base: '/openstack/',
+          items: [{ text: 'Overview', link: 'index.md' }, ...openstackItems],
+        },
       ],
     },
+  ];
+
+  return {
+    '/about/': { items: sharedItems },
+    '/getting-started/': { items: sharedItems },
+    '/control-plane/': { items: sharedItems },
+    '/bare-metal/': { items: sharedItems },
+    '/compute/': { items: sharedItems },
+    '/storage/': { items: sharedItems },
+    '/network/': { items: sharedItems },
+    '/openstack/': { items: sharedItems },
   };
 }
 
@@ -227,24 +196,11 @@ export default withMermaid({
       { text: 'Home', link: '/' },
       {
         text: 'Documentation',
-        items: [
-          { text: 'About CobaltCore', link: '/overview/' },
-          { text: 'Getting Started', link: '/getting-started/' },
-          { text: 'Bare Metal Management', link: '/bare-metal/' },
-          { text: 'Compute', link: '/compute/' },
-          { text: 'Storage', link: '/storage/' },
-          { text: 'Network', link: '/network/' },
-          { text: 'OpenStack', link: '/openstack/' },
-        ],
+        link: '/about/',
       },
       {
         text: 'Operations Manual',
-        items: [
-          { text: 'Overview', link: '/operations/' },
-          { text: 'Platform', link: '/platform/' },
-          { text: 'Observability', link: '/observability/' },
-          { text: 'Sustainability', link: '/sustainability/' },
-        ],
+        link: '/operations/',
       },
       { text: 'Blog', link: '/blog/' },
       { text: 'Community', link: '/community/' },
@@ -267,54 +223,10 @@ export default withMermaid({
     },
 
     sidebar: {
-      ...generateSidebar([
-        {
-          documentRootPath: '/docs/',
-          scanStartPath: 'bare-metal',
-          resolvePath: '/bare-metal/',
-          capitalizeFirst: false,
-          useTitleFromFrontmatter: true,
-          useFolderLinkFromIndexFile: true,
-          useFolderTitleFromIndexFile: true,
-          sortMenusByFrontmatterOrder: true,
-        },
-        {
-          documentRootPath: '/docs/',
-          scanStartPath: 'getting-started',
-          resolvePath: '/getting-started/',
-          capitalizeFirst: false,
-          useTitleFromFrontmatter: true,
-          useFolderLinkFromIndexFile: true,
-          useFolderTitleFromIndexFile: true,
-          sortMenusByFrontmatterOrder: true,
-        },
-        {
-          documentRootPath: '/docs/',
-          scanStartPath: 'compute',
-          resolvePath: '/compute/',
-          capitalizeFirst: false,
-          useTitleFromFrontmatter: true,
-          useFolderLinkFromIndexFile: true,
-          useFolderTitleFromIndexFile: true,
-          sortMenusByFrontmatterOrder: true,
-        },
-        {
-          documentRootPath: '/docs/',
-          scanStartPath: 'community',
-          resolvePath: '/community/',
-          capitalizeFirst: false,
-          useTitleFromFrontmatter: true,
-          useFolderLinkFromIndexFile: true,
-          useFolderTitleFromIndexFile: true,
-          sortMenusByFrontmatterOrder: true,
-        },
-      ]),
-      ...storageSidebar(),
-      ...networkSidebar(),
-      ...openstackSidebar(),
-      ...overviewSidebar(),
+      ...sectionSidebar('community', 'Community'),
+      ...sectionSidebar('governance', 'Governance'),
+      ...documentationSidebar(),
       ...operationsSidebar(),
-      ...governanceSidebar(),
     },
 
     socialLinks: [
