@@ -53,4 +53,5 @@ Replication policies are configured per user or per bucket. Webhooks are support
 
 ## See also
 
+- [Swift-to-Ceph migration with Chorus](./chorus-migration.md)
 - [Storage - Ceph](./ceph.md)

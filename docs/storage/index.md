@@ -25,7 +25,7 @@ The storage stack is organized into three layers. See [Observability & Audit](/o
 | [Ceph](./ceph.md) | Foundation | Distributed storage engine - block (RBD), file (CephFS), object (RGW) |
 | [Rook](./rook.md) | Operations | Kubernetes operator for Ceph lifecycle management |
 | [Arbiter](./arbiter.md) | Operations | External Ceph monitors for quorum in stretched clusters |
-| [Chorus](./chorus.md) | Data Services | Zero-downtime object storage replication and migration |
+| [Chorus](./chorus.md) | Data Services | Object storage replication and [Swift-to-Ceph migration](./chorus-migration.md) |
 | [Liquid-Ceph](./liquid-ceph.md) | Data Services | Limes integration for RGW quota, capacity, and usage metering |
 
 ## Storage Interfaces
