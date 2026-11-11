@@ -1,6 +1,6 @@
 ---
 title: Showroom
-order: 1
+order: 3
 ---
 
 # Showroom

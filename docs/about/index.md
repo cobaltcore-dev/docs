@@ -8,6 +8,6 @@ order: 1
 ## How to navigate these docs
 
 - **[Getting Started](/getting-started/)** - start here if you want to deploy CobaltCore
-- **[Architecture](/overview/architecture)** - understand how the layers fit together
-- **[Showroom](/showroom/)** - live examples and demos of CobaltCore in action
+- **[Architecture](/about/architecture)** - understand how the layers fit together
+- **[Showroom](/about/showroom/)** - live examples and demos of CobaltCore in action
 - Layer sections (**Platform**, **Compute**, **OpenStack**, **Storage**, **Networking**, **Observability**, **Management**) - deep-dive reference for each part of the stack.

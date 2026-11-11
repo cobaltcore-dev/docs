@@ -2,7 +2,7 @@
   "devDependencies": {
     "vitepress": "^1.6.4",
     "vitepress-plugin-mermaid": "^2.0.17",
-    "vitepress-sidebar": "^1.40.0"
+    "vitepress-sidebar": "^1.41.0"
   },
   "overrides": {
     "mermaid": "^10"

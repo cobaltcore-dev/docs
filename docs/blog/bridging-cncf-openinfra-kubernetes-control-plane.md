@@ -45,4 +45,4 @@ CobaltCore is both a production implementation of Apeiro and a direct contributi
 
 ---
 
-*Want to run it yourself? See the [Getting Started guide](/getting-started/) or the [Architecture overview](/overview/architecture).*
+*Want to run it yourself? See the [Getting Started guide](/getting-started/) or the [Architecture overview](/about/architecture).*
