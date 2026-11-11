@@ -18,7 +18,7 @@ Each patch is also contributed to [upstream Ceph](https://github.com/ceph/ceph).
 flowchart LR
     Base[Ceph stable version] --> Fork[CobaltCore fork with selected patches]
     Fork --> Image[Downstream Ceph image]
-    Image --> Production[SCI production]
+    Image --> Production[CC production]
     Fork -. patches are also sent upstream .-> Upstream[Upstream Ceph]
 ```
 
